@@ -507,5 +507,123 @@ input[type="range"] {
       googleTranslateContainer.style.display = 'none';
     });
   </script>
+  <script>
+  const canvas = document.getElementById("drawingCanvas");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+  let drawing = false;
+  let strokes = [];
+  let currentStroke = [];
+
+  // Set canvas size responsive to container
+  function resizeCanvas() {
+    canvas.width = Math.min(window.innerWidth - 60, 600);
+    canvas.height = 400;
+    redraw();
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  // Drawing tools
+  const colorPicker = document.getElementById("colorPicker");
+  const brushSize = document.getElementById("brushSize");
+
+  function startDraw(e) {
+    drawing = true;
+    currentStroke = [];
+    draw(e);
+  }
+
+  function endDraw() {
+    drawing = false;
+    if (currentStroke.length > 0) {
+      strokes.push([...currentStroke]);
+    }
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+    ctx.strokeStyle = colorPicker.value;
+    ctx.lineWidth = brushSize.value;
+    ctx.lineCap = "round";
+
+    if (currentStroke.length === 0) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+    currentStroke.push({ x, y, color: colorPicker.value, size: brushSize.value });
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let stroke of strokes) {
+      ctx.beginPath();
+      for (let i = 0; i < stroke.length; i++) {
+        const p = stroke[i];
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = p.size;
+        ctx.lineCap = "round";
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function undoLast() {
+    strokes.pop();
+    redraw();
+  }
+
+  function clearCanvas() {
+    strokes = [];
+    redraw();
+  }
+
+  function saveImage() {
+    const img = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = img;
+    a.download = "drawing.png";
+    a.click();
+  }
+
+  function changeBackground(color) {
+    canvas.style.background = color;
+  }
+
+  function shareDrawing() {
+    const dataUrl = canvas.toDataURL("image/png");
+    if (navigator.share) {
+      fetch(dataUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File([blob], "drawing.png", { type: "image/png" });
+          navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
+        });
+    } else {
+      alert("Your browser doesn't support Web Share API.");
+    }
+  }
+
+  function generateAIImageFromDoodle() {
+    alert("AI generation from doodle is coming soon! 🚀");
+  }
+
+  // Event listeners
+  canvas.addEventListener("mousedown", startDraw);
+  canvas.addEventListener("mouseup", endDraw);
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("touchstart", startDraw);
+  canvas.addEventListener("touchend", endDraw);
+  canvas.addEventListener("touchmove", draw);
+</script>
 </body>
 </html>
