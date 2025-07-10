@@ -319,42 +319,25 @@
       <a href="fantasy.html">🧙 Fantasy</a>
     </div>
 <!-- 🎨 Drawing Board Section -->
-<div class="drawing-section fade-in">
-  <h2 style="text-align:center; color:#00ffcc; margin-top:60px;">🎨 Try Drawing Something</h2>
-  <p style="text-align:center; color:#aaa; margin-bottom:30px;">Sketch directly on the canvas — just for fun or inspiration!</p>
+<div class="drawing-section fade-in" style="margin-top: 60px;">
+  <h2 style="text-align:center; color:#00ffcc;">🎨 Create Your Own Art</h2>
+  <p style="text-align:center; color:#aaa;">Try drawing something right here! Fully responsive for desktop & mobile.</p>
 
-  <!-- 🎨 Controls -->
-  <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
-    <label style="color:#00ffcc;">Color:
-      <input type="color" id="drawColor" value="#00ffcc" style="margin-left:8px; border:none;">
-    </label>
-    <label style="color:#00ffcc;">Brush Size:
-      <input type="range" id="brushSize" min="1" max="20" value="3" style="margin-left:8px;">
-    </label>
-  </div>
-
-  <!-- Basic Drawing -->
-  <div class="drawing-board" style="margin-bottom: 40px;">
-    <h3 style="color:#00ffcc;">🖍️ Basic Drawing</h3>
-    <canvas id="basicCanvas" width="320" height="200" style="border:2px solid #00ffcc; background:#0d0d0d; border-radius:8px;"></canvas>
-    <div style="margin-top:10px;">
-      <button id="basicClear" class="draw-btn">Clear</button>
-      <button id="basicSave" class="draw-btn">Download</button>
+  <div style="max-width: 1000px; margin: 30px auto; background: #121212; border-radius: 12px; padding: 20px;">
+    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; align-items:center; margin-bottom:20px;">
+      <label style="color:#00ffcc;">Color: <input type="color" id="drawColor" value="#00ffcc" /></label>
+      <label style="color:#00ffcc;">Brush Size:
+        <input type="range" id="brushSize" min="1" max="30" value="4" />
+      </label>
+      <button class="draw-btn" onclick="undoDraw()">↩ Undo</button>
+      <button class="draw-btn" onclick="clearCanvas()">🗑 Clear</button>
+      <button class="draw-btn" onclick="downloadCanvas()">💾 Download</button>
     </div>
-  </div>
-
-  <!-- Pro Drawing -->
-  <div class="drawing-board">
-    <h3 style="color:#00ffcc;">✨ Pro Drawing</h3>
-    <canvas id="proCanvas" width="480" height="300" style="border:2px solid #00ffcc; background:#0d0d0d; border-radius:8px;"></canvas>
-    <div style="margin-top:10px;">
-      <button id="proClear" class="draw-btn">Clear</button>
-      <button id="proSave" class="draw-btn">Download</button>
-    </div>
+    <canvas id="drawingCanvas" width="800" height="500" style="width:100%; max-width:100%; border: 2px solid #00ffcc; border-radius: 10px; background: #000;"></canvas>
   </div>
 </div>
 
-<!-- 🎨 Styling -->
+<!-- Drawing CSS -->
 <style>
   .draw-btn {
     background-color: #00ffcc20;
@@ -363,7 +346,6 @@
     padding: 10px 16px;
     border-radius: 6px;
     font-weight: 600;
-    margin-right: 10px;
     cursor: pointer;
     transition: background 0.3s ease;
   }
@@ -371,71 +353,87 @@
     background-color: #00ffcc40;
     box-shadow: 0 0 8px #00ffcc80;
   }
+  @media (max-width: 768px) {
+    .drawing-section canvas {
+      height: 300px !important;
+    }
+  }
 </style>
 
-<!-- 🧠 Drawing Script -->
+<!-- Drawing JS -->
 <script>
-  function initDrawing(canvasId, clearBtnId, saveBtnId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext("2d");
-    let painting = false;
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  const colorPicker = document.getElementById('drawColor');
+  const sizeSlider = document.getElementById('brushSize');
 
-    function getMousePos(e) {
-      const rect = canvas.getBoundingClientRect();
-      return {
-        x: (e.clientX || e.touches?.[0].clientX) - rect.left,
-        y: (e.clientY || e.touches?.[0].clientY) - rect.top
-      };
-    }
+  let painting = false;
+  let history = [];
+  let step = -1;
 
-    function start(e) {
-      painting = true;
-      draw(e);
-    }
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mouseup', stop);
+  canvas.addEventListener('mouseout', stop);
+  canvas.addEventListener('mousemove', draw);
 
-    function end() {
-      painting = false;
-      ctx.beginPath();
-    }
+  canvas.addEventListener('touchstart', e => start(e.touches[0]));
+  canvas.addEventListener('touchend', stop);
+  canvas.addEventListener('touchmove', e => draw(e.touches[0]));
 
-    function draw(e) {
-      if (!painting) return;
-      e.preventDefault();
-      const pos = getMousePos(e);
-      ctx.lineWidth = document.getElementById("brushSize").value;
-      ctx.strokeStyle = document.getElementById("drawColor").value;
-      ctx.lineCap = "round";
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
-
-    // Event listeners
-    canvas.addEventListener("mousedown", start);
-    canvas.addEventListener("mouseup", end);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseleave", end);
-    canvas.addEventListener("touchstart", start);
-    canvas.addEventListener("touchend", end);
-    canvas.addEventListener("touchmove", draw);
-
-    document.getElementById(clearBtnId).addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-
-    document.getElementById(saveBtnId).addEventListener("click", () => {
-      const link = document.createElement("a");
-      link.download = canvasId + "_drawing.png";
-      link.href = canvas.toDataURL();
-      link.click();
-    });
+  function start(e) {
+    painting = true;
+    draw(e);
   }
 
-  window.addEventListener("load", () => {
-    initDrawing("basicCanvas", "basicClear", "basicSave");
-    initDrawing("proCanvas", "proClear", "proSave");
-  });
+  function stop() {
+    if (!painting) return;
+    painting = false;
+    ctx.beginPath();
+    history[++step] = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    history.length = step + 1;
+  }
+
+  function draw(e) {
+    if (!painting) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX || e.pageX) - rect.left;
+    const y = (e.clientY || e.pageY) - rect.top;
+
+    ctx.lineWidth = sizeSlider.value;
+    ctx.strokeStyle = colorPicker.value;
+    ctx.lineCap = 'round';
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    step = -1;
+    history = [];
+  }
+
+  function undoDraw() {
+    if (step > 0) {
+      step--;
+      ctx.putImageData(history[step], 0, 0);
+    } else {
+      clearCanvas();
+    }
+  }
+
+  function downloadCanvas() {
+    const link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+
+  window.onload = () => {
+    clearCanvas();
+  };
 </script>
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
