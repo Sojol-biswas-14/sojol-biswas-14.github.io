@@ -319,292 +319,46 @@
       <a href="fantasy.html">🧙 Fantasy</a>
     </div>
 <!-- 🎨 Drawing Board Section -->
-<div class="drawing-section fade-in" style="margin-top: 60px;">
-  <h2 style="text-align:center; color:#00ffcc;">🎨 Create Your Own Art</h2>
-  <p style="text-align:center; color:#aaa;">Try drawing something right here! Fully responsive for desktop & mobile.</p>
+<div class="drawing-section fade-in">
+  <h2 style="text-align:center; color:#00ffcc;">🖍️ Draw Something!</h2>
+  <p style="text-align:center;">Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
 
-  <div style="max-width: 1000px; margin: 30px auto; background: #121212; border-radius: 12px; padding: 20px;">
-    <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; align-items:center; margin-bottom:20px;">
-      <label style="color:#00ffcc;">Color: <input type="color" id="drawColor" value="#00ffcc" /></label>
-      <label style="color:#00ffcc;">Brush Size:
-        <input type="range" id="brushSize" min="1" max="30" value="4" />
-      </label>
-      <button class="draw-btn" onclick="undoDraw()">↩ Undo</button>
-      <button class="draw-btn" onclick="clearCanvas()">🗑 Clear</button>
-      <button class="draw-btn" onclick="downloadCanvas()">💾 Download</button>
+  <!-- Canvas container -->
+  <div class="canvas-toolbar">
+    <div class="toolbar-basic">
+      <button onclick="undo()">⤺ Undo</button>
+      <button onclick="redo()">⤻ Redo</button>
+      <button onclick="clearCanvas()">🧹 Clear</button>
+      <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+      <input type="range" id="brushSize" min="1" max="30" value="4" />
     </div>
-    <canvas id="drawingCanvas" width="800" height="500" style="width:100%; max-width:100%; border: 2px solid #00ffcc; border-radius: 10px; background: #000;"></canvas>
-  </div>
-</div>
 
-<!-- Drawing CSS -->
-<style>
-  .draw-btn {
-    background-color: #00ffcc20;
-    color: #00ffcc;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .draw-btn:hover {
-    background-color: #00ffcc40;
-    box-shadow: 0 0 8px #00ffcc80;
-  }
-  @media (max-width: 768px) {
-    .drawing-section canvas {
-      height: 300px !important;
-    }
-  }
-</style>
-
-<!-- Drawing JS -->
-<script>
-  const canvas = document.getElementById('drawingCanvas');
-  const ctx = canvas.getContext('2d');
-  const colorPicker = document.getElementById('drawColor');
-  const sizeSlider = document.getElementById('brushSize');
-
-  let painting = false;
-  let history = [];
-  let step = -1;
-
-  canvas.addEventListener('mousedown', start);
-  canvas.addEventListener('mouseup', stop);
-  canvas.addEventListener('mouseout', stop);
-  canvas.addEventListener('mousemove', draw);
-
-  canvas.addEventListener('touchstart', e => start(e.touches[0]));
-  canvas.addEventListener('touchend', stop);
-<!-- 🎨 Drawing Board Section with Advanced Tools -->
-<div class="drawing-section fade-in" style="margin-top: 60px;">
-  <h2 style="text-align:center; color:#00ffcc;">🎨 Create Your Own Art</h2>
-  <p style="text-align:center; color:#aaa;">Draw freely, use templates, save or share! Now smarter than ever.</p>
-
-  <div style="max-width: 1000px; margin: 30px auto; background: #121212; border-radius: 12px; padding: 20px;">
-    <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; align-items:center; margin-bottom:20px;">
-      <label style="color:#00ffcc;">Color: <input type="color" id="drawColor" value="#00ffcc" /></label>
-      <label style="color:#00ffcc;">Brush Size:
-        <input type="range" id="brushSize" min="1" max="30" value="4" />
-      </label>
-      <select id="templateSelector" style="padding: 6px 10px; border-radius: 6px; border: none;">
-        <option value="">-- Choose Background Template --</option>
-        <option value="blank">Blank</option>
+    <div class="toolbar-pro">
+      <button onclick="uploadImage()">🖼 Upload Background</button>
+      <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+        <option value="">🎨 Template</option>
+        <option value="dots">Dotted</option>
         <option value="grid">Grid</option>
-        <option value="dots">Dotted Paper</option>
-        <option value="sky">Sky Background</option>
-        <option value="ruled">Ruled Lines</option>
+        <option value="lines">Lined</option>
+        <option value="none">None</option>
       </select>
-      <button class="draw-btn" onclick="undoDraw()">↩ Undo</button>
-      <button class="draw-btn" onclick="clearCanvas()">🗑 Clear</button>
-      <button class="draw-btn" onclick="saveToLocal()">💾 Save</button>
-      <button class="draw-btn" onclick="downloadCanvas()">⬇ Download</button>
-      <button class="draw-btn" onclick="shareDrawing()">📤 Share</button>
-      <button class="draw-btn" onclick="aiGenerateFromDoodle()">🤖 AI Generate</button>
+      <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+      <button onclick="saveToLocal()">💾 Save</button>
+      <button onclick="shareDrawing()">📤 Share</button>
     </div>
-    <canvas id="drawingCanvas" width="800" height="500" style="width:100%; max-width:100%; border: 2px solid #00ffcc; border-radius: 10px; background: #000;"></canvas>
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="drawingCanvas" width="900" height="450"></canvas>
+  <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+
+  <!-- AI Generated Output -->
+  <div id="aiOutput" style="margin-top: 20px; display: none;">
+    <h3>🎨 AI Generated Image Preview</h3>
+    <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+    <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
   </div>
 </div>
-
-<style>
-  .draw-btn {
-    background-color: #00ffcc20;
-    color: #00ffcc;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .draw-btn:hover {
-    background-color: #00ffcc40;
-    box-shadow: 0 0 8px #00ffcc80;
-  }
-  @media (max-width: 768px) {
-    .drawing-section canvas {
-      height: 300px !important;
-    }
-  }
-</style>
-
-<script>
-  const canvas = document.getElementById('drawingCanvas');
-  const ctx = canvas.getContext('2d');
-  const colorPicker = document.getElementById('drawColor');
-  const sizeSlider = document.getElementById('brushSize');
-  const templateSelector = document.getElementById('templateSelector');
-
-  let painting = false;
-  let history = [];
-  let step = -1;
-
-  // Initialize background
-  function applyTemplate(template) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    switch (template) {
-      case "grid":
-        ctx.strokeStyle = "#333";
-        for (let x = 0; x < canvas.width; x += 25) {
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, canvas.height);
-        }
-        for (let y = 0; y < canvas.height; y += 25) {
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-        }
-        ctx.stroke();
-        break;
-      case "dots":
-        ctx.fillStyle = "#444";
-        for (let x = 10; x < canvas.width; x += 20) {
-          for (let y = 10; y < canvas.height; y += 20) {
-            ctx.beginPath();
-            ctx.arc(x, y, 1.2, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-        break;
-      case "sky":
-        const sky = new Image();
-        sky.src = "https://i.imgur.com/CnIBFmv.jpg"; // You can change the URL to your own hosted background
-        sky.onload = () => ctx.drawImage(sky, 0, 0, canvas.width, canvas.height);
-        break;
-      case "ruled":
-        ctx.strokeStyle = "#333";
-        for (let y = 30; y < canvas.height; y += 30) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-          ctx.stroke();
-        }
-        break;
-      default:
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        break;
-    }
-    saveStep();
-  }
-
-  templateSelector.addEventListener("change", () => {
-    applyTemplate(templateSelector.value);
-  });
-
-  function start(e) {
-    painting = true;
-    draw(e);
-  }
-
-  function stop() {
-    if (!painting) return;
-    painting = false;
-    ctx.beginPath();
-    saveStep();
-  }
-
-  function draw(e) {
-    if (!painting) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.clientX || e.pageX) - rect.left;
-    const y = (e.clientY || e.pageY) - rect.top;
-
-    ctx.lineWidth = sizeSlider.value;
-    ctx.strokeStyle = colorPicker.value;
-    ctx.lineCap = 'round';
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  }
-
-  function clearCanvas() {
-    applyTemplate(templateSelector.value);
-    step = -1;
-    history = [];
-  }
-
-  function saveStep() {
-    step++;
-    history[step] = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    history.length = step + 1;
-  }
-
-  function undoDraw() {
-    if (step > 0) {
-      step--;
-      ctx.putImageData(history[step], 0, 0);
-    } else {
-      clearCanvas();
-    }
-  }
-
-  function saveToLocal() {
-    localStorage.setItem("savedDrawing", canvas.toDataURL());
-    alert("Drawing saved locally!");
-  }
-
-  function loadSavedDrawing() {
-    const saved = localStorage.getItem("savedDrawing");
-    if (saved) {
-      const img = new Image();
-      img.src = saved;
-      img.onload = () => ctx.drawImage(img, 0, 0);
-    }
-  }
-
-  function downloadCanvas() {
-    const link = document.createElement('a');
-    link.download = 'drawing.png';
-    link.href = canvas.toDataURL();
-    link.click();
-  }
-
-  function shareDrawing() {
-    const dataUrl = canvas.toDataURL("image/png");
-    const blob = dataURLToBlob(dataUrl);
-    const file = new File([blob], "drawing.png", { type: "image/png" });
-
-    if (navigator.share) {
-      navigator.share({
-        title: "Check out my drawing!",
-        text: "Here's something I drew!",
-        files: [file]
-      }).catch(console.error);
-    } else {
-      alert("Sharing is not supported on this browser. Try downloading instead.");
-    }
-  }
-
-  function dataURLToBlob(dataurl) {
-    const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while (n--) u8arr[n] = bstr.charCodeAt(n);
-    return new Blob([u8arr], { type: mime });
-  }
-
-  function aiGenerateFromDoodle() {
-    alert("✨ AI Image Generation from Doodle will be available soon!\n(This is just a mock for now)");
-    // In future: Send base64 to your AI API endpoint and display results
-  }
-
-  canvas.addEventListener('mousedown', start);
-  canvas.addEventListener('mouseup', stop);
-  canvas.addEventListener('mouseout', stop);
-  canvas.addEventListener('mousemove', draw);
-
-  canvas.addEventListener('touchstart', e => start(e.touches[0]));
-  canvas.addEventListener('touchend', stop);
-  canvas.addEventListener('touchmove', e => draw(e.touches[0]));
-
-  window.onload = () => {
-    applyTemplate("blank");
-    loadSavedDrawing();
-  };
-</script>
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
