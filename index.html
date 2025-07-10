@@ -4,25 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sojol Biswas – Official personal website and AI image gallery" />
-  <meta name="keywords" content="Sojol Biswas,Sojol Biswas – Official Website & AI Gallery, AI Art, AI Image Gallery, Mymensingh, BD Artist, Free AI Images, Human AI Art, Animal AI Art, Robot Art, Anime AI, Fantasy Art, Nature, Tech Creator, Digital Artist, AI Creations, Bengali AI Artist, AI Portraits, AI Wallpapers" BD, Mymensingh , AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Nature, Anime, Fantasy, Mymensingh" />
-  <title> Sojol Biswas – Official Website & AI Gallery </title>
+  <meta name="keywords" content="Sojol Biswas, BD, Mymensingh , AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Nature, Anime, Fantasy, Mymensingh" />
   <meta name="author" content="Sojol Biswas" />
-  <!-- Canonical link (prevents duplicate SEO penalties) -->
-<link rel="canonical" href="https://sojol-biswas-14.github.io/" />
+  <title>Sojol Biswas – Official Website & AI Gallery</title>
 
-<!-- Open Graph for rich link previews (Facebook, WhatsApp) -->
-<meta property="og:title" content="Sojol Biswas – AI Art Gallery & Official Website" />
-<meta property="og:description" content="Explore unique AI-generated images and art created by Sojol Biswas. Free, inspiring, and royalty-free visuals in categories like Human, Nature, Fantasy, and more." />
-<meta property="og:image" content="https://sojol-biswas-14.github.io/images/PFD-140758.jpg" />
-<meta property="og:url" content="https://sojol-biswas-14.github.io/" />
-<meta property="og:type" content="website" />
-
-<!-- Twitter Card for social preview -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Sojol Biswas – AI Art & Official Page" />
-<meta name="twitter:description" content="Official site of Sojol Biswas – Featuring AI-generated artwork in multiple categories. Free to explore and use." />
-<meta name="twitter:image" content="https://sojol-biswas-14.github.io/images/PFD-140758.jpg" />
-  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Google Analytics -->
@@ -333,30 +318,125 @@
       <a href="nature.html">🌿 Nature</a>
       <a href="fantasy.html">🧙 Fantasy</a>
     </div>
-    <!-- Drawing Board Section -->
+<!-- 🎨 Drawing Board Section -->
 <div class="drawing-section fade-in">
-  <h2 style="text-align:center; color:#00ffcc;">🎨 Try Drawing Something!</h2>
+  <h2 style="text-align:center; color:#00ffcc; margin-top:60px;">🎨 Try Drawing Something</h2>
+  <p style="text-align:center; color:#aaa; margin-bottom:30px;">Sketch directly on the canvas — just for fun or inspiration!</p>
 
-  <!-- Basic Drawing Board -->
-  <div style="margin-top:30px;">
-    <h3 style="color:#00ffcc;">🖌️ Basic Drawing Board</h3>
-    <canvas id="basicCanvas" width="400" height="300" style="border:1px solid #00ffcc;"></canvas><br>
-    <button onclick="clearCanvas('basicCanvas')">Clear</button>
+  <!-- 🎨 Controls -->
+  <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+    <label style="color:#00ffcc;">Color:
+      <input type="color" id="drawColor" value="#00ffcc" style="margin-left:8px; border:none;">
+    </label>
+    <label style="color:#00ffcc;">Brush Size:
+      <input type="range" id="brushSize" min="1" max="20" value="3" style="margin-left:8px;">
+    </label>
   </div>
 
-  <!-- Pro Drawing Board -->
-  <div style="margin-top:50px;">
-    <h3 style="color:#00ffcc;">✨ Pro Drawing Board</h3>
-    <div>
-      <label>Brush Size:</label>
-      <input type="range" id="brushSize" min="1" max="30" value="5" />
-      <label>Color:</label>
-      <input type="color" id="brushColor" value="#00ffcc" />
+  <!-- Basic Drawing -->
+  <div class="drawing-board" style="margin-bottom: 40px;">
+    <h3 style="color:#00ffcc;">🖍️ Basic Drawing</h3>
+    <canvas id="basicCanvas" width="320" height="200" style="border:2px solid #00ffcc; background:#0d0d0d; border-radius:8px;"></canvas>
+    <div style="margin-top:10px;">
+      <button id="basicClear" class="draw-btn">Clear</button>
+      <button id="basicSave" class="draw-btn">Download</button>
     </div>
-    <canvas id="proCanvas" width="600" height="400" style="border:1px solid #00ffcc; margin-top:10px;"></canvas><br>
-    <button onclick="clearCanvas('proCanvas')">Clear</button>
+  </div>
+
+  <!-- Pro Drawing -->
+  <div class="drawing-board">
+    <h3 style="color:#00ffcc;">✨ Pro Drawing</h3>
+    <canvas id="proCanvas" width="480" height="300" style="border:2px solid #00ffcc; background:#0d0d0d; border-radius:8px;"></canvas>
+    <div style="margin-top:10px;">
+      <button id="proClear" class="draw-btn">Clear</button>
+      <button id="proSave" class="draw-btn">Download</button>
+    </div>
   </div>
 </div>
+
+<!-- 🎨 Styling -->
+<style>
+  .draw-btn {
+    background-color: #00ffcc20;
+    color: #00ffcc;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .draw-btn:hover {
+    background-color: #00ffcc40;
+    box-shadow: 0 0 8px #00ffcc80;
+  }
+</style>
+
+<!-- 🧠 Drawing Script -->
+<script>
+  function initDrawing(canvasId, clearBtnId, saveBtnId) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext("2d");
+    let painting = false;
+
+    function getMousePos(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX || e.touches?.[0].clientX) - rect.left,
+        y: (e.clientY || e.touches?.[0].clientY) - rect.top
+      };
+    }
+
+    function start(e) {
+      painting = true;
+      draw(e);
+    }
+
+    function end() {
+      painting = false;
+      ctx.beginPath();
+    }
+
+    function draw(e) {
+      if (!painting) return;
+      e.preventDefault();
+      const pos = getMousePos(e);
+      ctx.lineWidth = document.getElementById("brushSize").value;
+      ctx.strokeStyle = document.getElementById("drawColor").value;
+      ctx.lineCap = "round";
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    // Event listeners
+    canvas.addEventListener("mousedown", start);
+    canvas.addEventListener("mouseup", end);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseleave", end);
+    canvas.addEventListener("touchstart", start);
+    canvas.addEventListener("touchend", end);
+    canvas.addEventListener("touchmove", draw);
+
+    document.getElementById(clearBtnId).addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    document.getElementById(saveBtnId).addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.download = canvasId + "_drawing.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  }
+
+  window.addEventListener("load", () => {
+    initDrawing("basicCanvas", "basicClear", "basicSave");
+    initDrawing("proCanvas", "proClear", "proSave");
+  });
+</script>
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
@@ -439,51 +519,6 @@
     googleTranslateCloseBtn.addEventListener('click', () => {
       googleTranslateContainer.style.display = 'none';
     });
-  </script>
-  <script>
-function enableDrawing(canvasId, sizeInputId = null, colorInputId = null) {
-  const canvas = document.getElementById(canvasId);
-  const ctx = canvas.getContext("2d");
-  let painting = false;
-
-  const getBrushSize = () => sizeInputId ? document.getElementById(sizeInputId).value : 5;
-  const getBrushColor = () => colorInputId ? document.getElementById(colorInputId).value : "#00ffcc";
-
-  const start = (e) => {
-    painting = true;
-    draw(e);
-  };
-
-  const end = () => { painting = false; ctx.beginPath(); };
-
-  const draw = (e) => {
-    if (!painting) return;
-    const rect = canvas.getBoundingClientRect();
-    ctx.lineWidth = getBrushSize();
-    ctx.lineCap = "round";
-    ctx.strokeStyle = getBrushColor();
-    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-  };
-
-  canvas.addEventListener("mousedown", start);
-  canvas.addEventListener("mouseup", end);
-  canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("mouseleave", end);
-}
-
-function clearCanvas(canvasId) {
-  const canvas = document.getElementById(canvasId);
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  enableDrawing("basicCanvas");
-  enableDrawing("proCanvas", "brushSize", "brushColor");
-});
   </script>
 </body>
 </html>
