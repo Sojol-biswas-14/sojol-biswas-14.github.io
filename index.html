@@ -191,6 +191,71 @@
       opacity: 0;
       pointer-events: none;
     }
+    /* Drawing Canvas Pro */
+#draw-section {
+  margin-top: 60px;
+  background: #1a1a1a;
+  padding: 30px 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 10px #00ffcc55;
+}
+#draw-section h2 {
+  text-align: center;
+  color: #00ffcc;
+  margin-bottom: 20px;
+}
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#drawingCanvas {
+  border: 2px dashed #00ffcc88;
+  border-radius: 8px;
+  background: #0d0d0d;
+  cursor: crosshair;
+  touch-action: none;
+}
+.draw-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.draw-controls > * {
+  background: #00ffcc20;
+  color: #00ffcc;
+  border: 1px solid #00ffcc55;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.draw-controls > *:hover {
+  background: #00ffcc40;
+  box-shadow: 0 0 6px #00ffcc88;
+}
+input[type="color"],
+input[type="range"] {
+  padding: 0;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+}
+.draw-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #888;
+}
+@media (max-width: 768px) {
+  .draw-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
