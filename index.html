@@ -160,6 +160,102 @@
       transform: scale(1.05);
       box-shadow: 0 0 10px #00ffcc66;
     }
+    <div class="drawing-section fade-in" style="margin-top: 60px;">
+  <h2 style="text-align:center; color:#00ffcc;">🎨 Draw Something!</h2>
+  <p style="text-align:center; color:#aaa;">Unleash your creativity right on this page. Try the basic or pro board below.</p>
+
+  <!-- Basic Drawing Board -->
+  <div style="margin-top: 30px; background: #1a1a1a; padding: 20px; border-radius: 12px;">
+    <h3 style="color: #00ffcc;">🖌️ Basic Drawing Board</h3>
+    <canvas id="basicCanvas" width="500" height="300" style="border:1px solid #00ffcc; width:100%; max-width:500px;"></canvas><br>
+    <label style="color:#ccc;">Color:</label>
+    <input type="color" id="basicColor" value="#00ffcc">
+    <label style="color:#ccc;">Size:</label>
+    <input type="range" id="basicSize" min="1" max="20" value="3">
+    <button onclick="clearBasic()" style="margin-left: 10px; background:#00ffcc20; border:none; color:#00ffcc; padding:6px 12px; border-radius:6px; cursor:pointer;">Clear</button>
+  </div>
+
+  <!-- Pro Drawing Board -->
+  <div style="margin-top: 40px; background: #1a1a1a; padding: 20px; border-radius: 12px;">
+    <h3 style="color: #00ffcc;">🚀 Pro Drawing Board</h3>
+    <canvas id="proCanvas" width="600" height="350" style="border:1px solid #00ffcc; width:100%; max-width:600px;"></canvas><br>
+    <label style="color:#ccc;">Color:</label>
+    <input type="color" id="proColor" value="#00ffcc">
+    <label style="color:#ccc;">Size:</label>
+    <input type="range" id="proSize" min="1" max="30" value="4">
+    <label style="margin-left:10px; color:#ccc;"><input type="checkbox" id="eraseMode"> Erase</label>
+    <label style="margin-left:10px; color:#ccc;">Signature: <input type="text" id="signatureText" placeholder="Your name" style="padding:4px; border-radius:4px;"></label>
+    <br><br>
+    <button onclick="clearPro()" style="background:#00ffcc20; border:none; color:#00ffcc; padding:6px 12px; border-radius:6px; cursor:pointer;">Clear</button>
+    <button onclick="savePro()" style="margin-left:10px; background:#00ffcc40; border:none; color:#fff; padding:6px 12px; border-radius:6px; cursor:pointer;">Save as PNG</button>
+  </div>
+</div>
+
+<script>
+  // === Basic Drawing Board ===
+  const basicCanvas = document.getElementById('basicCanvas');
+  const bCtx = basicCanvas.getContext('2d');
+  let bDrawing = false;
+  basicCanvas.addEventListener('mousedown', () => bDrawing = true);
+  basicCanvas.addEventListener('mouseup', () => bDrawing = false);
+  basicCanvas.addEventListener('mousemove', drawBasic);
+
+  function drawBasic(e) {
+    if (!bDrawing) return;
+    bCtx.lineWidth = document.getElementById('basicSize').value;
+    bCtx.strokeStyle = document.getElementById('basicColor').value;
+    bCtx.lineCap = "round";
+    const rect = basicCanvas.getBoundingClientRect();
+    bCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    bCtx.stroke();
+    bCtx.beginPath();
+    bCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  }
+  function clearBasic() {
+    bCtx.clearRect(0, 0, basicCanvas.width, basicCanvas.height);
+  }
+
+  // === Pro Drawing Board ===
+  const proCanvas = document.getElementById('proCanvas');
+  const pCtx = proCanvas.getContext('2d');
+  let pDrawing = false;
+  proCanvas.addEventListener('mousedown', () => pDrawing = true);
+  proCanvas.addEventListener('mouseup', () => {
+    pDrawing = false;
+    pCtx.beginPath();
+  });
+  proCanvas.addEventListener('mousemove', drawPro);
+
+  function drawPro(e) {
+    if (!pDrawing) return;
+    const erase = document.getElementById('eraseMode').checked;
+    pCtx.lineWidth = document.getElementById('proSize').value;
+    pCtx.strokeStyle = erase ? "#1a1a1a" : document.getElementById('proColor').value;
+    pCtx.lineCap = "round";
+    const rect = proCanvas.getBoundingClientRect();
+    pCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    pCtx.stroke();
+    pCtx.beginPath();
+    pCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  }
+
+  function clearPro() {
+    pCtx.clearRect(0, 0, proCanvas.width, proCanvas.height);
+  }
+
+  function savePro() {
+    const sig = document.getElementById('signatureText').value;
+    if (sig) {
+      pCtx.font = "16px Inter";
+      pCtx.fillStyle = "#00ffcc";
+      pCtx.fillText(sig, proCanvas.width - 150, proCanvas.height - 10);
+    }
+    const link = document.createElement('a');
+    link.download = 'your_drawing.png';
+    link.href = proCanvas.toDataURL();
+    link.click();
+  }
+</script>
     footer {
       margin-top: 50px;
       padding-top: 20px;
