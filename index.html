@@ -461,36 +461,34 @@ input[type="range"] {
   <h2 style="text-align:center; color:#00ffcc;">🖍️ Draw Something!</h2>
   <p style="text-align:center;">Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
 
-  <!-- Canvas container -->
-<div class="canvas-toolbar">
-  <h3 style="color:#00ffcc;margin-bottom:10px;">🧰 Basic Tools</h3>
-  <div class="toolbar-basic">
-  <button onclick="undo()">⤺ Undo</button>
-  <button onclick="redo()">⤻ Redo</button>
-  <button onclick="clearCanvas()">🧹 Clear</button>
-  <button onclick="saveImage()">💾 Save</button>
-  <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
-  <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
-  <input type="range" id="brushSize" min="1" max="30" value="4" />
-  </div>
+  <!-- Canvas toolbar -->
+  <div class="canvas-toolbar">
+    <div class="toolbar-basic">
+      <button onclick="undo()">⤺ Undo</button>
+      <button onclick="redo()">⤻ Redo</button>
+      <button onclick="clearCanvas()">🧹 Clear</button>
+      <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+      <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+      <input type="range" id="brushSize" min="1" max="30" value="4" />
+    </div>
 
-  <h3 style="color:#00ffcc;margin:30px 0 10px;">🧪 Pro Tools</h3>
-  <div class="toolbar-pro">
-    <button onclick="uploadImage()">🖼 Upload BG</button>
-    <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
-      <option value="">🎨 Template</option>
-      <option value="dots">Dotted</option>
-      <option value="grid">Grid</option>
-      <option value="lines">Lined</option>
-      <option value="none">None</option>
-    </select>
-    <button onclick="generateAIImageFromDoodle()">✨ AI from Doodle</button>
-    <button onclick="shareDrawing()">📤 Share</button>
+    <div class="toolbar-pro">
+      <button onclick="uploadImage()">🖼 Upload Background</button>
+      <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+        <option value="">🎨 Template</option>
+        <option value="dots">Dotted</option>
+        <option value="grid">Grid</option>
+        <option value="lines">Lined</option>
+        <option value="none">None</option>
+      </select>
+      <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+      <button onclick="saveToLocal()">💾 Save</button>
+      <button onclick="shareDrawing()">📤 Share</button>
+    </div>
   </div>
-</div>
 
   <!-- Canvas -->
-  <canvas id="drawingCanvas"></canvas> <!-- no width/height attributes -->
+  <canvas id="drawingCanvas" width="900" height="450"></canvas>
   <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
 
   <!-- AI Generated Output -->
