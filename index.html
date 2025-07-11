@@ -410,6 +410,9 @@ input[type="range"] {
       <button onclick="generateFromDoodle()">🤖 AI Generate</button>
       <button onclick="saveToLocal()">💾 Save</button>
       <button onclick="shareDrawing()">📤 Share</button>
+    <button onclick="undoLast()">↩️ Undo</button>
+    <button onclick="clearCanvas()">🗑 Clear</button>
+    <button onclick="generateAIImageFromDoodle()">✨ AI from Doodle</button>
     </div>
   </div>
 
@@ -424,39 +427,7 @@ input[type="range"] {
     <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
   </div>
 </div>
-    <div class="drawing-board fade-in" id="drawing-board">
-  <h2 style="text-align: center; margin-top: 60px; color: #00ffcc;">🎨 Create Your Own Art</h2>
-  <p style="text-align: center; color: #aaa;">Try our Basic or Pro drawing board to express your creativity!</p>
-
-  <!-- Tool Options -->
-  <div class="drawing-controls">
-    <label>Color:
-      <input type="color" id="colorPicker" value="#00ffcc" />
-    </label>
-    <label>Brush Size:
-      <input type="range" id="brushSize" min="1" max="20" value="5" />
-    </label>
-    <button onclick="undoLast()">↩️ Undo</button>
-    <button onclick="clearCanvas()">🗑 Clear</button>
-    <button onclick="saveImage()">💾 Save</button>
-    <button onclick="shareDrawing()">📤 Share</button>
-    <button onclick="generateAIImageFromDoodle()">✨ AI from Doodle</button>
-  </div>
-
-  <!-- Canvas -->
-  <div class="canvas-wrapper">
-    <canvas id="drawingCanvas"></canvas>
-  </div>
-
-  <!-- Background Options -->
-  <div class="background-options">
-    <span>Background:</span>
-    <button onclick="changeBackground('#ffffff')">White</button>
-    <button onclick="changeBackground('#000000')">Black</button>
-    <button onclick="changeBackground('#f0f0f0')">Gray</button>
-    <button onclick="changeBackground('#1a1a1a')">Default</button>
-  </div>
-</div>
+    
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
