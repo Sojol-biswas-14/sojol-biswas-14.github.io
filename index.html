@@ -613,12 +613,12 @@ window.addEventListener("DOMContentLoaded", resizeCanvas);
   }
 
   function endDraw() {
-    drawing = false;
-    if (currentStroke.length > 0) {
-      strokes.push([...currentStroke]);
-    }
+  drawing = false;
+  if (currentStroke.length > 0) {
+    strokes.push([...currentStroke]);
+    localStorage.setItem("savedDrawing", JSON.stringify(strokes)); // 🔥 Save drawing
   }
-
+  }
   function draw(e) {
     if (!drawing) return;
     const rect = canvas.getBoundingClientRect();
@@ -699,6 +699,12 @@ function resizeCanvas() {
   function generateAIImageFromDoodle() {
     alert("AI generation from doodle is coming soon! 🚀");
   }
+    // Load saved drawing from localStorage
+const saved = localStorage.getItem("savedDrawing");
+if (saved) {
+  strokes = JSON.parse(saved);
+  redraw();
+}
 
   // Event listeners
   canvas.addEventListener("mousedown", startDraw);
