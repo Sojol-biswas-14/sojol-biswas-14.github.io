@@ -593,10 +593,11 @@ input[type="range"] {
 
   // Set canvas size responsive to container
   function resizeCanvas() {
-    canvas.width = Math.min(window.innerWidth - 60, 600);
-    canvas.height = 400;
-    redraw();
-  }
+  const container = document.querySelector(".drawing-section") || document.body;
+  canvas.width = Math.min(container.clientWidth - 40, 800);
+  canvas.height = 400;
+  redraw();
+}
   window.addEventListener("resize", resizeCanvas);
 window.addEventListener("DOMContentLoaded", resizeCanvas);
   resizeCanvas();
