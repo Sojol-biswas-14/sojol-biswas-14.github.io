@@ -191,7 +191,6 @@
       opacity: 0;
       pointer-events: none;
     }
-
     /* Drawing Canvas Pro */
 #draw-section {
   margin-top: 60px;
@@ -411,9 +410,6 @@ input[type="range"] {
       <button onclick="generateFromDoodle()">🤖 AI Generate</button>
       <button onclick="saveToLocal()">💾 Save</button>
       <button onclick="shareDrawing()">📤 Share</button>
-    <button onclick="undoLast()">↩️ Undo</button>
-    <button onclick="clearCanvas()">🗑 Clear</button>
-    <button onclick="generateAIImageFromDoodle()">✨ AI from Doodle</button>
     </div>
   </div>
 
@@ -428,7 +424,8 @@ input[type="range"] {
     <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
   </div>
 </div>
-    
+
+
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
@@ -462,18 +459,7 @@ input[type="range"] {
       }
       prevScroll = currentScroll;
     });
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-}, 
-window.onload = () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') document.body.classList.add('light-mode');
-} 
-    {  backBtn.classList.add('hidden');
-      } else {
-        backBtn.classList.remove('hidden');
-      };
+
     // Fade-in animations
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
