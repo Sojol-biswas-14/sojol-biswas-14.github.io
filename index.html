@@ -465,11 +465,13 @@ input[type="range"] {
 <div class="canvas-toolbar">
   <h3 style="color:#00ffcc;margin-bottom:10px;">🧰 Basic Tools</h3>
   <div class="toolbar-basic">
-    <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
-    <input type="range" id="brushSize" min="1" max="30" value="4" title="Brush size" />
-    <button onclick="undoLast()">↩️ Undo</button>
-    <button onclick="clearCanvas()">🧹 Clear</button>
-    <button onclick="saveImage()">💾 Save</button>
+  <button onclick="undo()">⤺ Undo</button>
+  <button onclick="redo()">⤻ Redo</button>
+  <button onclick="clearCanvas()">🧹 Clear</button>
+  <button onclick="saveImage()">💾 Save</button>
+  <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+  <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+  <input type="range" id="brushSize" min="1" max="30" value="4" />
   </div>
 
   <h3 style="color:#00ffcc;margin:30px 0 10px;">🧪 Pro Tools</h3>
@@ -677,7 +679,10 @@ function resizeCanvas() {
     a.download = "drawing.png";
     a.click();
   }
-
+function clearSavedDrawing() {
+  localStorage.removeItem("savedDrawing");
+  alert("Saved drawing cleared!");
+}
   function changeBackground(color) {
     canvas.style.background = color;
   }
