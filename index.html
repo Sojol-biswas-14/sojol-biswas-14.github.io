@@ -209,6 +209,30 @@
   flex-direction: column;
   align-items: center;
 }
+    .canvas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.canvas-toolbar button,
+.canvas-toolbar input,
+.canvas-toolbar select {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+    #drawingCanvas {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  border: 2px dashed #00ffcc88;
+  border-radius: 8px;
+  background: #0d0d0d;
+  cursor: crosshair;
+  touch-action: none;
+}
 #drawingCanvas {
   border: 2px dashed #00ffcc88;
   border-radius: 8px;
