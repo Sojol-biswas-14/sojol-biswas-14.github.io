@@ -599,19 +599,17 @@ input[type="range"] {
 
     // Fade-in animations
     document.addEventListener("DOMContentLoaded", function () {
-  // Fade-in animation logic
-  const fadeEls = document.querySelectorAll(".fade-in");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.1 });
-
-  fadeEls.forEach(el => observer.observe(el));
-
-  // Load saved drawing
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }
+    document.addEventListener("DOMContentLoaded", function () {
   loadDrawingFromLocalStorage(); // Auto-load drawing
-});
+});                                            , { threshold: 0.1 });
+      fadeEls.forEach(el => observer.observe(el));
+    });
 
     // Feedback modal logic
     const feedbackBtn = document.getElementById('feedbackBtn');
