@@ -230,23 +230,52 @@ body.light-mode .drawing-controls button {
   color: #00ffcc;
   margin-bottom: 20px;
 }
-.canvas-container {
+.canvas-toolbar {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 30px;
+  padding: 10px;
 }
-    .canvas-toolbar {
+
+.toolbar-basic,
+.toolbar-pro {
   display: flex;
   flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
 }
-.canvas-toolbar button,
-.canvas-toolbar input,
-.canvas-toolbar select {
-  padding: 8px 12px;
-  font-size: 14px;
+
+.toolbar-basic button,
+.toolbar-pro button,
+.toolbar-pro select {
+  background: #00ffcc20;
+  color: #00ffcc;
+  border: 1px solid #00ffcc55;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbar-basic button:hover,
+.toolbar-pro button:hover,
+.toolbar-pro select:hover {
+  background: #00ffcc40;
+  box-shadow: 0 0 6px #00ffcc88;
+}
+
+@media (max-width: 600px) {
+  .toolbar-basic,
+  .toolbar-pro {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #drawingCanvas {
+    width: 100% !important;
+    height: auto;
+  }
 }
     #drawingCanvas {
   width: 100%;
