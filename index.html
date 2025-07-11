@@ -38,10 +38,23 @@
       overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
-    body.light-mode {
-      background: #ffffff;
-      color: #111;
-    }
+    body.light-mode .drawing-section,
+body.light-mode .drawing-board {
+  background: #f5f5f5;
+  color: #111;
+}
+
+body.light-mode #drawingCanvas {
+  background: #fff;
+}
+
+body.light-mode .toolbar-basic button,
+body.light-mode .toolbar-pro button,
+body.light-mode .drawing-controls button {
+  background: #eee;
+  color: #111;
+  border: 1px solid #ccc;
+}
     .container {
       max-width: 960px;
       margin: auto;
