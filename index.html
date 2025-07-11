@@ -604,7 +604,10 @@ input[type="range"] {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add("visible");
         });
-      }, { threshold: 0.1 });
+      }
+    document.addEventListener("DOMContentLoaded", function () {
+  loadDrawingFromLocalStorage(); // Auto-load drawing
+});                                            , { threshold: 0.1 });
       fadeEls.forEach(el => observer.observe(el));
     });
 
@@ -773,6 +776,19 @@ function resizeCanvas() {
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
+      function loadDrawingFromLocalStorage() {
+  const saved = localStorage.getItem("myDrawingData");
+  if (!saved) return;
+  try {
+    const data = JSON.parse(saved);
+    strokes = data.strokes || [];
+    colorPicker.value = data.color || "#00ffcc";
+    brushSize.value = data.size || 5;
+    redraw();
+  } catch (e) {
+    console.error("Failed to load drawing:", e);
+  }
+}
 
 // Drawing tools
 const colorPicker = document.getElementById("colorPicker");
@@ -864,6 +880,14 @@ function saveToLocal() {
 function clearSavedDrawing() {
   localStorage.removeItem("drawingData");
   alert("Saved drawing cleared!");
+}
+      function saveDrawingToLocalStorage() {
+  const data = {
+    strokes: strokes,
+    color: colorPicker.value,
+    size: brushSize.value,
+  };
+  localStorage.setItem("myDrawingData", JSON.stringify(data));
 }
 
 // Restore on load
