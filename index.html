@@ -548,6 +548,7 @@ input[type="range"] {
     redraw();
   }
   window.addEventListener("resize", resizeCanvas);
+window.addEventListener("DOMContentLoaded", resizeCanvas);
   resizeCanvas();
 
   // Drawing tools
@@ -586,7 +587,12 @@ input[type="range"] {
     }
     currentStroke.push({ x, y, color: colorPicker.value, size: brushSize.value });
   }
-
+function resizeCanvas() {
+  const parent = canvas.parentElement;
+  canvas.width = parent.clientWidth;
+  canvas.height = parent.clientWidth * 0.5; // Keep 2:1 ratio
+  redraw();
+}
   function redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let stroke of strokes) {
