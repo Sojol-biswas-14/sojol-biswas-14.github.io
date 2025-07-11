@@ -693,29 +693,239 @@ function clearSavedDrawing() {
         .then(blob => {
           const file = new File([blob], "drawing.png", { type: "image/png" });
           navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
-        });
-    } else {
-      alert("Your browser doesn't support Web Share API.");
-    }
-  }
+<script>
+const canvas = document.getElementById("drawingCanvas");
+const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-  function generateAIImageFromDoodle() {
-    alert("AI generation from doodle is coming soon! 🚀");
-  }
-    // Load saved drawing from localStorage
-const saved = localStorage.getItem("savedDrawing");
-if (saved) {
-  strokes = JSON.parse(saved);
+let drawing = false;
+let strokes = [];
+let redoStack = [];
+let currentStroke = [];
+
+// Responsive canvas
+function resizeCanvas() {
+  canvas.width = Math.min(window.innerWidth - 60, 900);
+  canvas.height = 450;
   redraw();
 }
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
-  // Event listeners
-  canvas.addEventListener("mousedown", startDraw);
-  canvas.addEventListener("mouseup", endDraw);
-  canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("touchstart", startDraw);
-  canvas.addEventListener("touchend", endDraw);
-  canvas.addEventListener("touchmove", draw);
+// Drawing tools
+const colorPicker = document.getElementById("colorPicker");
+const brushSize = document.getElementById("brushSize");
+
+// Start drawing
+function startDraw(e) {
+  drawing = true;
+  currentStroke = [];
+  draw(e);
+}
+
+// Stop drawing
+function endDraw() {
+  drawing = false;
+  if (currentStroke.length > 0) {
+    strokes.push([...currentStroke]);
+    redoStack = []; // Clear redo stack
+    saveToLocal();  // Auto-save
+  }
+}
+
+// Draw event
+function draw(e) {
+  if (!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = brushSize.value;
+  ctx.lineCap = "round";
+
+  if (currentStroke.length === 0) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  } else {
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+  currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
+}
+
+// Redraw all strokes
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const stroke of strokes) {
+    ctx.beginPath();
+    for (let i = 0; i < stroke.length; i++) {
+      const p = stroke[i];
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = p.size;
+      ctx.lineCap = "round";
+      if (i === 0) ctx.moveTo(p.x, p.y);
+      else ctx.lineTo(p.x, p.y);
+    }
+    ctx.stroke();
+  }
+}
+
+// Undo / Redo
+function undo() {
+  if (strokes.length > 0) {
+    redoStack.push(strokes.pop());
+    redraw();
+    saveToLocal();
+  }
+}
+function redo() {
+  if (redoStack.length > 0) {
+    strokes.push(redoStack.pop());
+    redraw();
+    saveToLocal();
+  }
+}
+
+// Clear canvas
+function clearCanvas() {
+  strokes = [];
+  redoStack = [];
+  redraw();
+  saveToLocal();
+}
+
+// Save to file
+function saveToLocal() {
+  localStorage.setItem("drawingData", JSON.stringify(strokes));
+}
+function clearSavedDrawing() {
+  localStorage.removeItem("drawingData");
+  alert("Saved drawing cleared!");
+}
+
+// Restore on load
+window.addEventListener("load", () => {
+  const saved = localStorage.getItem("drawingData");
+  if (saved) {
+    try {
+      strokes = JSON.parse(saved);
+      redraw();
+    } catch (e) {
+      console.warn("Corrupted drawing data");
+    }
+  }
+});
+
+// Save as image
+function saveImage() {
+  const img = canvas.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = img;
+  a.download = "drawing.png";
+  a.click();
+}
+
+// Share drawing
+function shareDrawing() {
+  const dataUrl = canvas.toDataURL("image/png");
+  fetch(dataUrl)
+    .then(res => res.blob())
+    .then(blob => {
+      const file = new File([blob], "drawing.png", { type: "image/png" });
+      if (navigator.share) {
+        navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
+      } else {
+        alert("Your browser doesn't support Web Share API.");
+      }
+    });
+}
+
+// Template background
+function changeBackgroundTemplate(type) {
+  const bg = ctx.createPattern(document.createElement("canvas"), "repeat");
+  const bgColor = "#1a1a1a";
+
+  switch (type) {
+    case "dots":
+      drawTemplate((ctx) => {
+        ctx.fillStyle = "#00ffcc55";
+        for (let y = 0; y < 450; y += 20) {
+          for (let x = 0; x < canvas.width; x += 20) {
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+          }
+        }
+      });
+      break;
+    case "grid":
+      drawTemplate((ctx) => {
+        ctx.strokeStyle = "#00ffcc33";
+        for (let y = 0; y < 450; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+        for (let x = 0; x < canvas.width; x += 30) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, 450);
+          ctx.stroke();
+        }
+      });
+      break;
+    case "lines":
+      drawTemplate((ctx) => {
+        ctx.strokeStyle = "#00ffcc22";
+        for (let y = 0; y < 450; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+      });
+      break;
+    default:
+      redraw();
+  }
+}
+
+function drawTemplate(callback) {
+  redraw();
+  callback(ctx);
+}
+
+// Upload image background
+function uploadImage() {
+  document.getElementById("uploadInput").click();
+}
+document.getElementById("uploadInput").addEventListener("change", function () {
+  const file = this.files[0];
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// AI placeholder
+function generateFromDoodle() {
+  document.getElementById("aiOutput").style.display = "block";
+}
+
+// Event listeners
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("touchstart", startDraw);
+canvas.addEventListener("touchend", endDraw);
+canvas.addEventListener("touchmove", draw);
 </script>
 </body>
 </html>
