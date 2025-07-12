@@ -1,54 +1,156 @@
-<!-- avatar.html --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Your Avatar</title>
-  <link rel="stylesheet" href="styles.css" /> <!-- Uses your existing theme -->
+  <title>Create Your Avatar – Sojol Biswas</title>
+  <meta name="description" content="Create your own personalized avatar on Sojol Biswas' official site" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
+      margin: 0;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+      color: #fff;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background: #fff;
+      color: #111;
+    }
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1 {
       color: #00ffcc;
       text-align: center;
-      padding: 50px 20px;
-    }
-    h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
+      font-size: 30px;
+      margin-bottom: 12px;
     }
     p {
+      text-align: center;
       color: #aaa;
       margin-bottom: 40px;
     }
-    .avatar-choice {
+    .options {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 20px;
-      max-width: 400px;
-      margin: auto;
+      justify-content: center;
     }
-    .avatar-choice .btn {
+    .option-card {
+      background: #141414;
+      border: 2px solid #00ffcc40;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      width: 280px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .option-card:hover {
+      background: #00ffcc20;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ffcc60;
+    }
+    .option-card h2 {
+      margin: 0 0 12px;
+      color: #00ffcc;
+    }
+    .option-card p {
+      color: #ccc;
+      font-size: 15px;
+    }
+    .option-card a {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: #00ffcc;
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    .option-card a:hover {
+      background: #00ccaa;
+    }
+
+    .theme-toggle, .back-button {
+      position: fixed;
+      z-index: 999;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
       background: #00ffcc20;
       color: #00ffcc;
-      padding: 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 18px;
-      text-decoration: none;
-      border: 1px solid #00ffcc66;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
-    .avatar-choice .btn:hover {
-      background: #00ffcc40;
-      box-shadow: 0 0 10px #00ffcc88;
+    .theme-toggle {
+      top: 20px;
+      right: 20px;
+    }
+    .back-button {
+      top: 20px;
+      left: 20px;
+    }
+    .theme-toggle:hover,
+    .back-button:hover {
+      background-color: #00ffcc40;
+      box-shadow: 0 0 8px #00ffcc60;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid #333;
+    }
+
+    @media (max-width: 600px) {
+      .option-card {
+        width: 100%;
+      }
+      .theme-toggle, .back-button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>🎨 Create Your Own Avatar</h2>
-  <p>Choose a style to begin your avatar journey</p>  <div class="avatar-choice">
-    <a href="avatar-2d.html" class="btn">🧑‍🎨 2D Realistic Avatar</a>
-    <a href="avatar-3d.html" class="btn">🕹️ 3D Avatar (Ready Player Me)</a>
+  <button class="back-button" onclick="history.back()">⬅ Back</button>
+  <button class="theme-toggle" onclick="document.body.classList.toggle('light-mode')">🌓 Theme</button>
+
+  <div class="container">
+    <h1>🎭 Create Your Own Avatar</h1>
+    <p>Choose your preferred method to create a custom avatar</p>
+
+    <div class="options">
+      <div class="option-card">
+        <h2>2D Realistic Avatar</h2>
+        <p>Customize face, eyes, hair, colors, and style in high-quality 2D format. Download and share.</p>
+        <a href="avatar-2d.html">Try Now →</a>
+      </div>
+      <div class="option-card">
+        <h2>3D Cartoonish Avatar</h2>
+        <p>Use a fully interactive 3D editor to build your avatar like games & metaverse characters.</p>
+        <a href="avatar-3d.html">Start 3D →</a>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2025 Sojol Biswas – Avatar Generator | All rights reserved.
+    </footer>
   </div>
 </body>
 </html>
