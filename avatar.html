@@ -1,0 +1,54 @@
+<!-- avatar.html --><!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Your Avatar</title>
+  <link rel="stylesheet" href="styles.css" /> <!-- Uses your existing theme -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+      color: #00ffcc;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+    .avatar-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    .avatar-choice .btn {
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      text-decoration: none;
+      border: 1px solid #00ffcc66;
+      transition: 0.3s;
+    }
+    .avatar-choice .btn:hover {
+      background: #00ffcc40;
+      box-shadow: 0 0 10px #00ffcc88;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎨 Create Your Own Avatar</h2>
+  <p>Choose a style to begin your avatar journey</p>  <div class="avatar-choice">
+    <a href="avatar-2d.html" class="btn">🧑‍🎨 2D Realistic Avatar</a>
+    <a href="avatar-3d.html" class="btn">🕹️ 3D Avatar (Ready Player Me)</a>
+  </div>
+</body>
+</html>
