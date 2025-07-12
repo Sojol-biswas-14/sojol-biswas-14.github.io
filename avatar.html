@@ -1,22 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Your Avatar – Sojol Biswas</title>
-  <meta name="description" content="Create your own personalized avatar on Sojol Biswas' official site" />
+  <title>Create 2D Avatar – Sojol Biswas</title>
+  <meta name="description" content="Customize your 2D avatar with hair, eyes, face shape, and colors. Download or share your creation." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
-      color: #fff;
+      background: #111;
+      color: #eee;
       transition: background 0.3s, color 0.3s;
-    }
-    body.light-mode {
-      background: #fff;
-      color: #111;
     }
     .container {
       max-width: 960px;
@@ -26,60 +21,70 @@
     h1 {
       color: #00ffcc;
       text-align: center;
-      font-size: 30px;
-      margin-bottom: 12px;
     }
-    p {
-      text-align: center;
-      color: #aaa;
-      margin-bottom: 40px;
-    }
-    .options {
+    .editor {
       display: flex;
       flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .preview {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 4px solid #00ffcc88;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .preview img {
+      width: 100%;
+      height: auto;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    select, input[type="color"] {
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      background: #222;
+      color: #00ffcc;
+    }
+    .actions {
+      margin-top: 30px;
+      display: flex;
       gap: 20px;
       justify-content: center;
     }
-    .option-card {
-      background: #141414;
-      border: 2px solid #00ffcc40;
-      border-radius: 16px;
-      padding: 30px 20px;
-      text-align: center;
-      width: 280px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .option-card:hover {
-      background: #00ffcc20;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #00ffcc60;
-    }
-    .option-card h2 {
-      margin: 0 0 12px;
-      color: #00ffcc;
-    }
-    .option-card p {
-      color: #ccc;
-      font-size: 15px;
-    }
-    .option-card a {
-      display: block;
-      margin-top: 20px;
-      padding: 10px 16px;
+    .actions button {
       background: #00ffcc;
       color: #111;
-      text-decoration: none;
+      border: none;
+      padding: 12px 20px;
       font-weight: 600;
       border-radius: 6px;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
-    .option-card a:hover {
+    .actions button:hover {
       background: #00ccaa;
     }
-
     .theme-toggle, .back-button {
       position: fixed;
       z-index: 999;
@@ -101,12 +106,6 @@
       top: 20px;
       left: 20px;
     }
-    .theme-toggle:hover,
-    .back-button:hover {
-      background-color: #00ffcc40;
-      box-shadow: 0 0 8px #00ffcc60;
-    }
-
     footer {
       text-align: center;
       font-size: 14px;
@@ -115,42 +114,82 @@
       padding-top: 30px;
       border-top: 1px solid #333;
     }
-
-    @media (max-width: 600px) {
-      .option-card {
-        width: 100%;
-      }
-      .theme-toggle, .back-button {
-        font-size: 14px;
-        padding: 8px 12px;
-      }
-    }
   </style>
 </head>
 <body>
   <button class="back-button" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle" onclick="document.body.classList.toggle('light-mode')">🌓 Theme</button>
+  <button class="theme-toggle" onclick="document.body.classList.toggle('light-mode')">🌓 Theme</button>  <div class="container">
+    <h1>🎨 Create Your 2D Avatar</h1><div class="editor">
+  <div class="preview">
+    <img id="avatarPreview" src="images/avatar/default.png" alt="Avatar Preview" />
+  </div>
 
-  <div class="container">
-    <h1>🎭 Create Your Own Avatar</h1>
-    <p>Choose your preferred method to create a custom avatar</p>
-
-    <div class="options">
-      <div class="option-card">
-        <h2>2D Realistic Avatar</h2>
-        <p>Customize face, eyes, hair, colors, and style in high-quality 2D format. Download and share.</p>
-        <a href="avatar-2d.html">Try Now →</a>
-      </div>
-      <div class="option-card">
-        <h2>3D Cartoonish Avatar</h2>
-        <p>Use a fully interactive 3D editor to build your avatar like games & metaverse characters.</p>
-        <a href="avatar-3d.html">Start 3D →</a>
-      </div>
+  <div class="controls">
+    <div class="control-group">
+      <label for="faceShape">Face Shape</label>
+      <select id="faceShape">
+        <option value="oval">Oval</option>
+        <option value="round">Round</option>
+        <option value="square">Square</option>
+      </select>
     </div>
 
-    <footer>
-      &copy; 2025 Sojol Biswas – Avatar Generator | All rights reserved.
-    </footer>
+    <div class="control-group">
+      <label for="eyeType">Eye Style</label>
+      <select id="eyeType">
+        <option value="normal">Normal</option>
+        <option value="anime">Anime</option>
+        <option value="sharp">Sharp</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="hairStyle">Hair Style</label>
+      <select id="hairStyle">
+        <option value="short">Short</option>
+        <option value="long">Long</option>
+        <option value="spiky">Spiky</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="hairColor">Hair Color</label>
+      <input type="color" id="hairColor" value="#00ffcc" />
+    </div>
+
+    <div class="control-group">
+      <label for="bgColor">Background</label>
+      <input type="color" id="bgColor" value="#222222" />
+    </div>
+
+    <div class="actions">
+      <button onclick="downloadAvatar()">⬇ Download</button>
+      <button onclick="shareAvatar()">📤 Share</button>
+    </div>
   </div>
-</body>
+</div>
+
+<footer>
+  &copy; 2025 Sojol Biswas – 2D Avatar Generator
+</footer>
+
+  </div>  <script>
+    const avatarPreview = document.getElementById("avatarPreview");
+    const hairColor = document.getElementById("hairColor");
+    const bgColor = document.getElementById("bgColor");
+
+    hairColor.addEventListener("input", () => {
+      avatarPreview.style.filter = `hue-rotate(${Math.floor(Math.random() * 360)}deg)`;
+    });
+    bgColor.addEventListener("input", () => {
+      avatarPreview.parentElement.style.backgroundColor = bgColor.value;
+    });
+
+    function downloadAvatar() {
+      alert("Download feature will export this avatar image as PNG (coming soon)");
+    }
+    function shareAvatar() {
+      alert("This will let you share your avatar via Web Share API or link (demo)");
+    }
+  </script></body>
 </html>
