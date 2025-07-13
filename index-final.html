@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sojol Biswas – Official personal website and AI image gallery" />
+  <meta name="keywords" content="Sojol Biswas, BD, Mymensingh , AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Nature, Anime, Fantasy, Mymensingh" />
+  <meta name="author" content="Sojol Biswas" />
+  <title>Sojol Biswas – Official Website & AI Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TVNEJT1ERV');
+  </script>
+</head>
+<body>
+
+  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+  <div id="google_translate_container" style="position: fixed; top: 70px; right: 20px; z-index: 999; background: #1a1a1a; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;">
+    <div id="google_translate_element"></div>
+    <button id="googleTranslateCloseBtn" title="Close Translation" style="background: transparent; border: none; color: #00ffcc; font-size: 18px; cursor: pointer; line-height: 1;">×</button>
+  </div>
+
+  <div class="container fade-in">
+    <div class="profile">
+      <img src="PFD-140758.jpg" alt="Sojol Biswas" />
+      <div class="profile-info">
+        <h1>Sojol Biswas</h1>
+        <div class="tagline">"Tech explorer | Gamer | Sharing creativity with the world"</div>
+        <div class="bio">I'm Sojol Biswas from Mymensingh, Bangladesh. This is my official website featuring my AI-generated art and tools.</div>
+      </div>
+    </div>
+
+    <div class="gallery-intro fade-in">
+      <h2>🖼️ Explore AI Art Categories</h2>
+      <p>Select a category to explore Sojol's AI creations</p>
+    </div>
+
+    <div class="categories fade-in">
+      <a href="human.html">👤 Human</a>
+      <a href="animal.html">🐶 Animal</a>
+      <a href="robots.html">🤖 Robots</a>
+      <a href="house.html">🏠 House</a>
+      <a href="flower.html">🌸 Flower</a>
+      <a href="wallpaper.html">🖼 Wallpaper</a>
+      <a href="anime.html">🎬 Anime</a>
+      <a href="nature.html">🌿 Nature</a>
+      <a href="fantasy.html">🧙 Fantasy</a>
+    </div>
+
+    <div class="drawing-section fade-in" id="draw-section">
+      <h2>🎨 Draw Something!</h2>
+      <p>Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
+      <div class="canvas-toolbar">
+        <div class="toolbar-basic">
+          <button onclick="undo()">⤺ Undo</button>
+          <button onclick="redo()">⤻ Redo</button>
+          <button onclick="clearCanvas()">🧹 Clear</button>
+          <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+          <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+          <input type="range" id="brushSize" min="1" max="30" value="4" />
+        </div>
+        <div class="toolbar-pro">
+          <button onclick="uploadImage()">🖼 Upload Background</button>
+          <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+            <option value="">🎨 Template</option>
+            <option value="dots">Dotted</option>
+            <option value="grid">Grid</option>
+            <option value="lines">Lined</option>
+            <option value="none">None</option>
+          </select>
+          <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+          <button onclick="saveToLocal()">💾 Save</button>
+          <button onclick="shareDrawing()">📤 Share</button>
+        </div>
+      </div>
+      <canvas id="drawingCanvas" width="900" height="450"></canvas>
+      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+      <div id="aiOutput" style="margin-top: 20px; display: none;">
+        <h3>🎨 AI Generated Image Preview</h3>
+        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+        <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
+      </div>
+    </div>
+
+    <div class="avatar-section fade-in" style="margin-top:60px;">
+      <h2 style="text-align:center;">🧑 Create Your Avatar</h2>
+      <p style="text-align:center;">Customize face, hair, color, and more. Coming with realistic rendering soon!</p>
+      <div style="text-align:center; margin-top:20px;">
+        <a href="avatar.html" style="padding:12px 20px; background:#00ffcc20; color:#00ffcc; border:1px solid #00ffcc55; border-radius:6px; font-weight:bold; text-decoration:none;">🧠 Open Avatar Generator</a>
+      </div>
+    </div>
+
+    <footer class="fade-in" style="margin-top:60px;">
+      <p>&copy; 2025 Sojol Biswas | All rights reserved.</p>
+      <p>📧 <a href="mailto:sojolbiswas140@gmail.com">sojolbiswas140@gmail.com</a></p>
+      <div style="margin-top:10px;">
+        <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a> |
+        <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a> |
+        <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a> |
+        <a href="https://www.youtube.com/sojolbiswas14" target="_blank">📺 YouTube</a>
+      </div>
+    </footer>
+  </div>
+
+  <button id="feedbackBtn" title="Send Feedback">💬</button>
+  <div id="feedbackModal">
+    <div id="feedbackModalContent">
+      <span id="feedbackModalClose">&times;</span>
+      <h3>Send your feedback</h3>
+      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+      <button id="feedbackSendBtn">Send</button>
+    </div>
+  </div>
+
+  <script src="drawing.js"></script>
+  <script src="translate.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
