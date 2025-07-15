@@ -314,4 +314,235 @@
         <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
       </div>
     </div>
-    
+    <!-- 👤 Avatar Generator Section -->
+    <div class="avatar-section fade-in" id="avatar-generator">
+      <h2 style="text-align:center; color:#00ffcc;">🧑‍🎨 Create Your Avatar</h2>
+      <p style="text-align:center;">Generate your personalized avatar by customizing features like face, hair, eyes, color, and more.</p>
+
+      <div class="avatar-tools">
+        <label>Choose Face Shape:
+          <select id="faceShape">
+            <option value="round">Round</option>
+            <option value="oval">Oval</option>
+            <option value="square">Square</option>
+            <option value="heart">Heart</option>
+          </select>
+        </label>
+        <label>Hair Color:
+          <input type="color" id="hairColor" value="#000000" />
+        </label>
+        <label>Eye Color:
+          <input type="color" id="eyeColor" value="#0000FF" />
+        </label>
+        <label>Skin Tone:
+          <input type="color" id="skinTone" value="#F2C9B5" />
+        </label>
+        <label>Facial Hair:
+          <select id="facialHair">
+            <option value="none">None</option>
+            <option value="mustache">Mustache</option>
+            <option value="beard">Beard</option>
+            <option value="goatee">Goatee</option>
+          </select>
+        </label>
+        <button onclick="generateAvatar()">Generate Avatar</button>
+        <button onclick="saveAvatar()">Save Avatar</button>
+        <button onclick="shareAvatar()">Share Avatar</button>
+      </div>
+
+      <div id="avatarCanvasWrapper">
+        <canvas id="avatarCanvas" width="300" height="300"></canvas>
+      </div>
+
+      <div id="avatarPreview" style="display: none; margin-top: 20px;">
+        <h3>🖼 Avatar Preview</h3>
+        <img id="avatarImage" src="" alt="Your Avatar" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+      </div>
+    </div>
+    <!-- 🔚 Footer -->
+    <footer class="fade-in">
+      <p>&copy; 2025 Sojol Biswas | All rights reserved.</p>
+      <p>
+        <a href="#google_translate_element" style="color:#00ffcc;">🌍 Language</a> |
+        <a href="#contact" style="color:#00ffcc;">📧 Contact</a> |
+        <a href="#about-us" style="color:#00ffcc;">📖 About</a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Watermark Source Image (for AI art preview or gallery use) -->
+  <img src="images/logo.png" alt="Watermark" style="display:none;" id="watermarkSource" />
+
+  <!-- 💬 Feedback Button -->
+  <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+  <!-- 💬 Feedback Modal -->
+  <div id="feedbackModal">
+    <div id="feedbackModalContent">
+      <span id="feedbackModalClose">&times;</span>
+      <h3>Send your feedback</h3>
+      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+      <button id="feedbackSendBtn">Send</button>
+    </div>
+  </div>
+  <!-- 🌗 Theme toggle and scroll button behavior -->
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+
+    const backBtn = document.getElementById('backBtn');
+    let prevScroll = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > prevScroll) {
+        backBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+      }
+      prevScroll = currentScroll;
+    });
+
+    // 🔄 Fade-in animations on scroll
+    document.addEventListener("DOMContentLoaded", function () {
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      fadeEls.forEach(el => observer.observe(el));
+    });
+
+    // 💬 Feedback modal logic
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackModalClose = document.getElementById('feedbackModalClose');
+    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+    const feedbackText = document.getElementById('feedbackText');
+
+    feedbackBtn.addEventListener('click', () => {
+      feedbackModal.classList.add('active');
+      feedbackText.focus();
+    });
+    feedbackModalClose.addEventListener('click', () => {
+      feedbackModal.classList.remove('active');
+    });
+    feedbackModal.addEventListener('click', e => {
+      if (e.target === feedbackModal) {
+        feedbackModal.classList.remove('active');
+      }
+    });
+    feedbackSendBtn.addEventListener('click', () => {
+      const feedback = feedbackText.value.trim();
+      if (feedback.length === 0) {
+        alert('Please write some feedback before sending.');
+        return;
+      }
+      alert('Thanks for your feedback! (This is a demo, no actual sending)');
+      feedbackText.value = '';
+      feedbackModal.classList.remove('active');
+    });
+
+    // 🌍 Google Translate close button
+    const googleTranslateContainer = document.getElementById('google_translate_container');
+    const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+
+    googleTranslateCloseBtn.addEventListener('click', () => {
+      googleTranslateContainer.style.display = 'none';
+    });
+  </script>
+  <!-- 🎨 Drawing Canvas Full Logic -->
+  <script>
+    const canvas = document.getElementById("drawingCanvas");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+    let drawing = false;
+    let strokes = [];
+    let redoStack = [];
+    let currentStroke = [];
+
+    // 🔧 Responsive resize
+    function resizeCanvas() {
+      canvas.width = Math.min(window.innerWidth - 60, 900);
+      canvas.height = 450;
+      redraw();
+    }
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("DOMContentLoaded", () => {
+      resizeCanvas();
+      loadDrawingFromLocalStorage();
+    });
+
+    // 🎨 Brush tools
+    const colorPicker = document.getElementById("colorPicker");
+    const brushSize = document.getElementById("brushSize");
+
+    function startDraw(e) {
+      drawing = true;
+      currentStroke = [];
+      draw(e);
+    }
+
+    function endDraw() {
+      drawing = false;
+      if (currentStroke.length > 0) {
+        strokes.push([...currentStroke]);
+        redoStack = [];
+        saveToLocal();  // Save drawing
+      }
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+      ctx.strokeStyle = colorPicker.value;
+      ctx.lineWidth = brushSize.value;
+      ctx.lineCap = "round";
+
+      if (currentStroke.length === 0) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+      currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
+    }
+
+    // 🖌 Redraw all strokes
+    function redraw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const stroke of strokes) {
+        ctx.beginPath();
+        for (let i = 0; i < stroke.length; i++) {
+          const p = stroke[i];
+          ctx.strokeStyle = p.color;
+          ctx.lineWidth = p.size;
+          ctx.lineCap = "round";
+          if (i === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+      }
+    }
+
+    // 🔁 Undo / Redo
+    function undo() {
+      if (strokes.length > 0) {
+        redoStack.push(strokes.pop());
+        redraw();
+        saveToLocal();
+      }
+    }
+    function redo() {
+      if (redoStack.length > 0) {
+        strokes.push(redoStack.pop());
+        redraw();
+        saveToLocal();
+      }
+    }
