@@ -153,7 +153,60 @@
         right: 12px;
       }
     }
+/* Drawing Toolbars */
+.canvas-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 30px 0;
+  border: 2px dashed #00ffcc33;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #121212;
+}
 
+.toolbar-basic,
+.toolbar-pro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.toolbar-basic button,
+.toolbar-pro button,
+.toolbar-pro select {
+  background: #00ffcc20;
+  color: #00ffcc;
+  border: 1px solid #00ffcc55;
+  padding: 10px 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+.toolbar-basic button:hover,
+.toolbar-pro button:hover,
+.toolbar-pro select:hover {
+  background: #00ffcc40;
+  box-shadow: 0 0 6px #00ffcc99;
+}
+
+.toolbar-pro select {
+  background-color: #141414;
+  color: #00ffcc;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .toolbar-basic,
+  .toolbar-pro {
+    flex-direction: column;
+    align-items: center;
+  }
+}
     .profile {
       display: flex;
       flex-wrap: wrap;
