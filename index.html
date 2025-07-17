@@ -441,76 +441,82 @@ body.light-mode .draw-btn {
   <div id="aiOutput" style="text-align:center; display:none; margin-top: 30px;">
     <p>Your AI-generated artwork will appear here. (Demo Placeholder)</p>
   </div>
+<body>
+  <!-- Theme and Back buttons -->
+  <button class="back-button" onclick="history.back()">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+  <!-- Google Translate -->
+  <div id="google_translate_container" class="translate-box">
+    <div id="google_translate_element"></div>
+    <button id="googleTranslateCloseBtn" title="Close">×</button>
+  </div>
+
+  <!-- Page Container -->
+  <div class="container">
+    
+    <!-- Profile / Hero Section -->
+    <section class="profile fade-in">
+      <img src="PFD-140758.jpg" alt="Sojol Biswas" />
+      <div>
+        <h1>Sojol Biswas</h1>
+        <p class="tagline">"Tech explorer | Gamer | Sharing creativity with the world"</p>
+        <p class="short-bio">I’m from Mymensingh, Bangladesh. I share AI art and digital creativity through this personal site.</p>
+      </div>
     </section>
 
-      <!-- Drawing Canvas -->
-      <canvas id="drawingCanvas" width="900" height="450"></canvas>
-      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
-
-      <!-- AI Generated Output -->
-      <div id="aiOutput" style="margin-top: 20px; display: none;">
-        <h3>🎨 AI Generated Image Preview</h3>
-        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
-        <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
+    <!-- Category Gallery -->
+    <section class="categories fade-in">
+      <h2>🖼️ AI Art Categories</h2>
+      <div class="links">
+        <a href="human.html">👤 Human</a>
+        <a href="animal.html">🐶 Animal</a>
+        <a href="robots.html">🤖 Robots</a>
+        <a href="house.html">🏠 House</a>
+        <a href="flower.html">🌸 Flower</a>
+        <a href="wallpaper.html">🖼 Wallpaper</a>
+        <a href="anime.html">🎬 Anime</a>
+        <a href="nature.html">🌿 Nature</a>
+        <a href="fantasy.html">🧙 Fantasy</a>
       </div>
-    </div>
-    <!-- 👤 Avatar Generator Section -->
-    <div class="avatar-section fade-in" id="avatar-generator">
-      <section class="avatar-generator fade-in">
-      <h2 style="text-align:center; color:#00ffcc;">🧑‍🎨 Create Your Avatar</h2>
-      <p style="text-align:center;">Generate your personalized avatar by customizing features like face, hair, eyes, color, and more.</p>
+    </section>
 
-      <div class="avatar-tools">
-        <label>Choose Face Shape:
-          <select id="faceShape">
-            <option value="round">Round</option>
-            <option value="oval">Oval</option>
-            <option value="square">Square</option>
-            <option value="heart">Heart</option>
-          </select>
-        </label>
-        <label>Hair Color:
-          <input type="color" id="hairColor" value="#000000" />
-        </label>
-        <label>Eye Color:
-          <input type="color" id="eyeColor" value="#0000FF" />
-        </label>
-        <label>Skin Tone:
-          <input type="color" id="skinTone" value="#F2C9B5" />
-        </label>
-        <label>Facial Hair:
-          <select id="facialHair">
-            <option value="none">None</option>
-            <option value="mustache">Mustache</option>
-            <option value="beard">Beard</option>
-            <option value="goatee">Goatee</option>
-          </select>
-        </label>
-        <button onclick="generateAvatar()">Generate Avatar</button>
-        <button onclick="saveAvatar()">Save Avatar</button>
-        <button onclick="shareAvatar()">Share Avatar</button>
+    <!-- Drawing Board -->
+    <section class="drawing-section fade-in">
+      <h2>🖍️ Draw Something</h2>
+      <canvas id="drawingCanvas" width="800" height="400"></canvas>
+      <div class="draw-controls">
+        <input type="color" id="colorPicker" value="#00ffcc">
+        <input type="range" id="brushSize" min="1" max="20" value="4">
+        <button onclick="undo()">Undo</button>
+        <button onclick="redo()">Redo</button>
+        <button onclick="clearCanvas()">Clear</button>
+        <button onclick="saveImage()">Save</button>
       </div>
+    </section>
 
-      <div id="avatarCanvasWrapper">
-        <canvas id="avatarCanvas" width="300" height="300"></canvas>
-      </div>
+    <!-- Avatar Generator -->
+    <section class="avatar-section fade-in">
+      <h2>Create Your Avatar</h2>
+      <p>Customize your avatar using features like face, hair, eyes, color, and more.</p>
+      <a href="avatar.html" class="avatar-btn">🎨 Start Avatar Maker</a>
+    </section>
 
-      <div id="avatarPreview" style="display: none; margin-top: 20px;">
-        <h3>🖼 Avatar Preview</h3>
-        <img id="avatarImage" src="" alt="Your Avatar" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
-      </div>
-    </div>
-    <!-- 🔚 Footer -->
+    <!-- About + Footer -->
     <footer class="fade-in">
-      <footer class="fade-in">
-      <p>&copy; 2025 Sojol Biswas | All rights reserved.</p>
-      <p>
-        <a href="#google_translate_element" style="color:#00ffcc;">🌍 Language</a> |
-        <a href="#contact" style="color:#00ffcc;">📧 Contact</a> |
-        <a href="#about-us" style="color:#00ffcc;">📖 About</a>
-      </p>
+      <p><strong>Contact:</strong> <a href="mailto:sojolbiswas140@gmail.com">sojolbiswas140@gmail.com</a></p>
+      <div class="footer-links">
+        <a href="https://facebook.com/sojolboss007" target="_blank">Facebook</a>
+        <a href="https://instagram.com/sojol_biswas14" target="_blank">Instagram</a>
+        <a href="https://twitter.com/sojolbiswas14" target="_blank">Twitter</a>
+        <a href="https://youtube.com/sojolbiswas14" target="_blank">YouTube</a>
+        <a href="about.html">About</a>
+      </div>
+      <p>&copy; 2025 Sojol Biswas – All rights reserved.</p>
     </footer>
-  </div>
+
+  </div> <!-- .container -->
+  </body>
 
   <!-- Watermark Source Image (for AI art preview or gallery use) -->
   <img src="images/logo.png" alt="Watermark" style="display:none;" id="watermarkSource" />
