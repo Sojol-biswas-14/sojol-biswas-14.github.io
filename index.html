@@ -153,6 +153,26 @@
         right: 12px;
       }
     }
+    .draw-btn {
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.draw-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+body.light-mode .draw-btn {
+  background: #eee;
+  color: #000;
+  border: 1px solid #aaa;
+}
 /* Drawing Toolbars */
 .canvas-toolbar {
   display: flex;
@@ -384,38 +404,44 @@
       <a href="fantasy.html">🧙 Fantasy</a>
     </div>
     <!-- 🎨 Drawing Board Section -->
-    <div class="drawing-section fade-in" id="drawing-board">
-      <div class="drawing-section fade-in">
-      <h2 style="text-align:center; color:#00ffcc;">🖍️ Draw Something!</h2>
-      <p style="text-align:center;">Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
+    <section class="drawing-section fade-in" id="drawing-section" style="margin-top: 60px; padding: 40px 20px; background: #111; border-radius: 16px; box-shadow: 0 0 20px rgba(255,255,255,0.05);">
+  <h2 style="text-align:center; font-size: 24px; margin-bottom: 20px;">✏️ Draw Something</h2>
+  <p style="text-align:center; margin-bottom: 30px;">Unleash your creativity and sketch freely. Choose basic or pro tools.</p>
 
-      <!-- Canvas toolbar -->
-      <div class="canvas-toolbar">
-        <!-- Basic Toolbar -->
-        <div class="toolbar-basic">
-          <button onclick="undo()">⤺ Undo</button>
-          <button onclick="redo()">⤻ Redo</button>
-          <button onclick="clearCanvas()">🧹 Clear</button>
-          <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
-          <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
-          <input type="range" id="brushSize" min="1" max="30" value="4" />
-        </div>
+  <canvas id="drawingCanvas" style="width: 100%; max-width: 100%; background: #fff; border-radius: 8px; border: 1px solid #333; display: block; margin: 0 auto 30px;"></canvas>
 
-        <!-- Pro Toolbar -->
-        <div class="toolbar-pro">
-          <button onclick="uploadImage()">🖼 Upload Background</button>
-          <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
-            <option value="">🎨 Template</option>
-            <option value="dots">Dotted</option>
-            <option value="grid">Grid</option>
-            <option value="lines">Lined</option>
-            <option value="none">None</option>
-          </select>
-          <button onclick="generateFromDoodle()">🤖 AI Generate</button>
-          <button onclick="saveToLocal()">💾 Save</button>
-          <button onclick="shareDrawing()">📤 Share</button>
-        </div>
-      </div>
+  <div class="drawing-controls" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+    <button onclick="undo()" class="draw-btn">↶ Undo</button>
+    <button onclick="redo()" class="draw-btn">↷ Redo</button>
+    <button onclick="clearCanvas()" class="draw-btn">🧹 Clear</button>
+    <button onclick="clearSavedDrawing()" class="draw-btn">🗑️ Clear Memory</button>
+  </div>
+
+  <div style="text-align:center; margin: 20px 0;">
+    <label for="colorPicker">Brush Color:</label>
+    <input type="color" id="colorPicker" value="#000000" style="margin-left:10px;">
+    <label for="brushSize" style="margin-left:20px;">Brush Size:</label>
+    <input type="range" id="brushSize" min="1" max="20" value="5" style="vertical-align: middle;">
+  </div>
+
+  <div class="drawing-controls" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+    <input type="file" id="uploadInput" style="display:none;" accept="image/*">
+    <button onclick="uploadImage()" class="draw-btn">🖼️ Upload Background</button>
+    <select onchange="changeBackgroundTemplate(this.value)" class="draw-btn">
+      <option value="">🎨 Template</option>
+      <option value="dots">Dots</option>
+      <option value="grid">Grid</option>
+      <option value="lines">Lines</option>
+    </select>
+    <button onclick="generateFromDoodle()" class="draw-btn">🤖 AI Generate</button>
+    <button onclick="saveImage()" class="draw-btn">💾 Save</button>
+    <button onclick="shareDrawing()" class="draw-btn">📤 Share</button>
+  </div>
+
+  <div id="aiOutput" style="text-align:center; display:none; margin-top: 30px;">
+    <p>Your AI-generated artwork will appear here. (Demo Placeholder)</p>
+  </div>
+    </section>
 
       <!-- Drawing Canvas -->
       <canvas id="drawingCanvas" width="900" height="450"></canvas>
