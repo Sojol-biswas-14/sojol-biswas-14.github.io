@@ -472,4 +472,449 @@
     transition: all 0.4s ease;
   }
 </style>
- 
+ <!-- 🖍️ Drawing Canvas Logic -->
+<script>
+const canvas = document.getElementById("drawingCanvas");
+const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+let drawing = false;
+let strokes = [];
+let redoStack = [];
+let currentStroke = [];
+
+// Responsive canvas
+function resizeCanvas() {
+  const parent = canvas.parentElement;
+  canvas.width = parent.clientWidth - 40;
+  canvas.height = 400;
+  redraw();
+}
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("DOMContentLoaded", resizeCanvas);
+
+// Load saved drawing from localStorage
+function loadDrawingFromLocalStorage() {
+  const saved = localStorage.getItem("drawingData");
+  if (!saved) return;
+  try {
+    strokes = JSON.parse(saved);
+    redraw();
+  } catch (e) {
+    console.warn("Invalid drawing data");
+  }
+}
+window.addEventListener("load", loadDrawingFromLocalStorage);
+
+// Drawing tools
+const colorPicker = document.getElementById("colorPicker");
+const brushSize = document.getElementById("brushSize");
+
+function startDraw(e) {
+  drawing = true;
+  currentStroke = [];
+  draw(e);
+}
+
+function endDraw() {
+  drawing = false;
+  if (currentStroke.length > 0) {
+    strokes.push([...currentStroke]);
+    redoStack = [];
+    saveToLocal();
+  }
+}
+
+function draw(e) {
+  if (!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+  ctx.strokeStyle = colorPicker.value;
+  ctx.lineWidth = brushSize.value;
+  ctx.lineCap = "round";
+
+  if (currentStroke.length === 0) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  } else {
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+  currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
+}
+
+// Redraw strokes
+function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const stroke of strokes) {
+    ctx.beginPath();
+    for (let i = 0; i < stroke.length; i++) {
+      const p = stroke[i];
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = p.size;
+      ctx.lineCap = "round";
+      if (i === 0) ctx.moveTo(p.x, p.y);
+      else ctx.lineTo(p.x, p.y);
+    }
+    ctx.stroke();
+  }
+}
+
+// Drawing actions
+function undo() {
+  if (strokes.length > 0) {
+    redoStack.push(strokes.pop());
+    redraw();
+    saveToLocal();
+  }
+}
+function redo() {
+  if (redoStack.length > 0) {
+    strokes.push(redoStack.pop());
+    redraw();
+    saveToLocal();
+  }
+}
+function clearCanvas() {
+  strokes = [];
+  redoStack = [];
+  redraw();
+  saveToLocal();
+}
+function clearSavedDrawing() {
+  localStorage.removeItem("drawingData");
+  alert("Saved drawing cleared!");
+}
+function saveToLocal() {
+  localStorage.setItem("drawingData", JSON.stringify(strokes));
+}
+function saveImage() {
+  const img = canvas.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = img;
+  a.download = "drawing.png";
+  a.click();
+}
+function shareDrawing() {
+  const dataUrl = canvas.toDataURL("image/png");
+  fetch(dataUrl)
+    .then(res => res.blob())
+    .then(blob => {
+      const file = new File([blob], "drawing.png", { type: "image/png" });
+      if (navigator.share) {
+        navigator.share({
+          files: [file],
+          title: "My Drawing",
+          text: "Check out my sketch!"
+        });
+      } else {
+        alert("Sharing not supported on this browser.");
+      }
+    });
+}
+</script>
+// Background Templates
+function changeBackgroundTemplate(type) {
+  redraw(); // Clear current view first
+  switch (type) {
+    case "dots":
+      drawTemplate((ctx) => {
+        ctx.fillStyle = "#00ffcc44";
+        for (let y = 0; y < canvas.height; y += 20) {
+          for (let x = 0; x < canvas.width; x += 20) {
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+          }
+        }
+      });
+      break;
+
+    case "grid":
+      drawTemplate((ctx) => {
+        ctx.strokeStyle = "#00ffcc22";
+        for (let x = 0; x <= canvas.width; x += 30) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        for (let y = 0; y <= canvas.height; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+      });
+      break;
+
+    case "lines":
+      drawTemplate((ctx) => {
+        ctx.strokeStyle = "#00ffcc22";
+        for (let y = 0; y <= canvas.height; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+      });
+      break;
+
+    case "none":
+    default:
+      redraw(); // reset to normal canvas
+  }
+}
+
+function drawTemplate(callback) {
+  redraw(); // Reset drawing layer first
+  callback(ctx); // Run template draw callback
+}
+
+// Upload Background Image
+function uploadImage() {
+  document.getElementById("uploadInput").click();
+}
+document.getElementById("uploadInput").addEventListener("change", function () {
+  const file = this.files[0];
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+// Fake AI Doodle Preview (demo only)
+function generateFromDoodle() {
+  const output = document.getElementById("aiOutput");
+  output.style.display = "block";
+  const preview = document.getElementById("aiGeneratedImage");
+  preview.src = "https://via.placeholder.com/600x400?text=AI+Art+Preview";
+}
+  // THEME TOGGLE: Light / Dark
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+});
+
+// BACK BUTTON HIDE ON SCROLL DOWN
+let prevScroll = window.scrollY;
+const backBtn = document.getElementById('backBtn');
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > prevScroll) {
+    backBtn.classList.add('hidden');
+  } else {
+    backBtn.classList.remove('hidden');
+  }
+  prevScroll = currentScroll;
+});
+
+// GOOGLE TRANSLATE CLOSE
+const googleTranslateContainer = document.getElementById('google_translate_container');
+const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+googleTranslateCloseBtn.addEventListener('click', () => {
+  googleTranslateContainer.style.display = 'none';
+});
+
+// FEEDBACK MODAL
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackModal = document.getElementById('feedbackModal');
+const feedbackModalClose = document.getElementById('feedbackModalClose');
+const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+const feedbackText = document.getElementById('feedbackText');
+
+feedbackBtn.addEventListener('click', () => {
+  feedbackModal.classList.add('active');
+  feedbackText.focus();
+});
+feedbackModalClose.addEventListener('click', () => {
+  feedbackModal.classList.remove('active');
+});
+feedbackModal.addEventListener('click', e => {
+  if (e.target === feedbackModal) {
+    feedbackModal.classList.remove('active');
+  }
+});
+feedbackSendBtn.addEventListener('click', () => {
+  const feedback = feedbackText.value.trim();
+  if (!feedback) {
+    alert('Please enter feedback.');
+    return;
+  }
+  alert('Thanks for your feedback! (Demo only)');
+  feedbackText.value = '';
+  feedbackModal.classList.remove('active');
+});
+
+// FADE-IN ANIMATION
+document.addEventListener("DOMContentLoaded", function () {
+  const fadeEls = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+});
+    // THEME TOGGLE: Light / Dark
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+});
+
+// BACK BUTTON HIDE ON SCROLL DOWN
+let prevScroll = window.scrollY;
+const backBtn = document.getElementById('backBtn');
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > prevScroll) {
+    backBtn.classList.add('hidden');
+  } else {
+    backBtn.classList.remove('hidden');
+  }
+  prevScroll = currentScroll;
+});
+
+// GOOGLE TRANSLATE CLOSE
+const googleTranslateContainer = document.getElementById('google_translate_container');
+const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+googleTranslateCloseBtn.addEventListener('click', () => {
+  googleTranslateContainer.style.display = 'none';
+});
+
+// FEEDBACK MODAL
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackModal = document.getElementById('feedbackModal');
+const feedbackModalClose = document.getElementById('feedbackModalClose');
+const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+const feedbackText = document.getElementById('feedbackText');
+
+feedbackBtn.addEventListener('click', () => {
+  feedbackModal.classList.add('active');
+  feedbackText.focus();
+});
+feedbackModalClose.addEventListener('click', () => {
+  feedbackModal.classList.remove('active');
+});
+feedbackModal.addEventListener('click', e => {
+  if (e.target === feedbackModal) {
+    feedbackModal.classList.remove('active');
+  }
+});
+feedbackSendBtn.addEventListener('click', () => {
+  const feedback = feedbackText.value.trim();
+  if (!feedback) {
+    alert('Please enter feedback.');
+    return;
+  }
+  alert('Thanks for your feedback! (Demo only)');
+  feedbackText.value = '';
+  feedbackModal.classList.remove('active');
+});
+
+// FADE-IN ANIMATION
+document.addEventListener("DOMContentLoaded", function () {
+  const fadeEls = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+});      
+          <script>
+// Avatar Data
+const avatarConfig = {
+  skin: "#f1c27d",
+  hair: "#2c1b18",
+  eye: "#000000",
+  hairStyle: "short",
+  eyeStyle: "normal",
+};
+
+// Build avatar SVG
+function renderAvatar() {
+  const skin = avatarConfig.skin;
+  const hair = avatarConfig.hair;
+  const eye = avatarConfig.eye;
+  const hairStyle = avatarConfig.hairStyle;
+  const eyeStyle = avatarConfig.eyeStyle;
+
+  const svg = `
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="80" fill="${skin}" />
+    ${hairStyle === "short" ? `<path d="M40 60 Q100 10 160 60" fill="${hair}" />` : ''}
+    ${hairStyle === "long" ? `<path d="M30 50 Q100 0 170 50 Q160 140 40 140 Z" fill="${hair}" />` : ''}
+    ${eyeStyle === "normal" ? `
+      <circle cx="70" cy="100" r="10" fill="${eye}" />
+      <circle cx="130" cy="100" r="10" fill="${eye}" />
+    ` : ''}
+    ${eyeStyle === "cute" ? `
+      <ellipse cx="70" cy="100" rx="8" ry="12" fill="${eye}" />
+      <ellipse cx="130" cy="100" rx="8" ry="12" fill="${eye}" />
+    ` : ''}
+  </svg>`;
+
+  document.getElementById("avatarPreview").innerHTML = svg;
+}
+
+// Input listeners
+document.querySelectorAll("#avatarControls input, #avatarControls select").forEach(input => {
+  input.addEventListener("input", e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    avatarConfig[name] = value;
+    renderAvatar();
+  });
+});
+
+// Download avatar
+function downloadAvatar() {
+  const svgData = document.getElementById("avatarPreview").innerHTML;
+  const blob = new Blob([svgData], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my_avatar.svg";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Share avatar (Web Share API)
+function shareAvatar() {
+  const svgData = document.getElementById("avatarPreview").innerHTML;
+  const blob = new Blob([svgData], { type: "image/svg+xml" });
+  const file = new File([blob], "my_avatar.svg", { type: "image/svg+xml" });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({
+      files: [file],
+      title: "My Avatar",
+      text: "Check out the avatar I made!",
+    }).catch(err => console.log('Share failed:', err));
+  } else {
+    alert("Sharing not supported on this device.");
+  }
+}
+
+// On load
+window.addEventListener("DOMContentLoaded", renderAvatar);
+          </script>
+          
