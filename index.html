@@ -32,17 +32,32 @@
       padding: 1rem;
     }
     .theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: #00ffcc;
-      color: #000;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      z-index: 999;
-    }
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #00ffcc20;
+  color: #00ffcc;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #00ffcc55;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  background-color: #00ffcc40;
+  box-shadow: 0 0 6px #00ffcc66;
+}
+@media (max-width: 600px) {
+  .theme-toggle {
+    font-size: 12px;
+    padding: 6px 10px;
+    top: 15px;
+    right: 12px;
+  }
+}
     .profile {
       display: flex;
       flex-direction: column;
