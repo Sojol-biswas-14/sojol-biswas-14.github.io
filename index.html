@@ -253,14 +253,17 @@
   </div>
 
   <!-- 🔗 Footer Section -->
-  <footer class="fade-in" style="margin-top: 80px; text-align: center; padding: 20px; color: #888;">
-    <div style="margin-bottom: 10px;">
-      <a href="mailto:sojolbiswas140@gmail.com" style="color:#00ffcc; margin: 0 8px;">📧 Email</a>
-      <a href="https://www.facebook.com/sojolboss007" target="_blank" style="color:#00ffcc; margin: 0 8px;">📘 Facebook</a>
-      <a href="https://www.instagram.com/sojol_biswas14" target="_blank" style="color:#00ffcc; margin: 0 8px;">📸 Instagram</a>
-      <a href="https://twitter.com/sojolbiswas14" target="_blank" style="color:#00ffcc; margin: 0 8px;">🐦 Twitter</a>
-      <a href="#about" style="color:#00ffcc; margin: 0 8px;">📖 About</a>
-    </div>
+  <footer>
+  <div class="footer-links">
+    <a href="#about">About Me</a> |
+    <a href="mailto:sojolbiswas140@gmail.com">Contact</a> |
+    <a href="https://www.facebook.com/sojolboss007" target="_blank">Facebook</a> |
+    <a href="https://www.instagram.com/sojol_biswas14" target="_blank">Instagram</a> |
+    <a href="https://twitter.com/sojolbiswas14" target="_blank">Twitter</a> |
+    <a href="javascript:void(0)" onclick="toggleTranslate()">🌐 Language</a>
+  </div>
+  <div id="google_translate_element" style="display: none; margin-top: 10px;">
+  </div>
     &copy; 2025 Sojol Biswas – All rights reserved.
   </footer>
 
@@ -982,7 +985,16 @@ googleTranslateCloseBtn.addEventListener("click", () => {
   googleTranslateContainer.style.display = "none";
 });
 </script>
-.
+<script type="text/javascript">
+  function toggleTranslate() {
+    const el = document.getElementById('google_translate_element');
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!-- Final Footer -->
 <footer style="text-align: center; padding: 30px; font-size: 14px; color: #888;">
   &copy; 2025 Sojol Biswas – All rights reserved.<br>
