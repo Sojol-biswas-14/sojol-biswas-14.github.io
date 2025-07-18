@@ -917,4 +917,79 @@ function shareAvatar() {
 // On load
 window.addEventListener("DOMContentLoaded", renderAvatar);
           </script>
+          <script>
+// Avatar Configuration
+const avatarConfig = {
+  skin: "#f1c27d",
+  hair: "#2c1b18",
+  eye: "#000000",
+  hairStyle: "short",
+  eyeStyle: "normal",
+};
+
+// Render the Avatar SVG
+function renderAvatar() {
+  const { skin, hair, eye, hairStyle, eyeStyle } = avatarConfig;
+
+  const svg = `
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" fill="${skin}" />
+      ${hairStyle === "short" ? `<path d="M40 60 Q100 10 160 60" fill="${hair}" />` : ''}
+      ${hairStyle === "long" ? `<path d="M30 50 Q100 0 170 50 Q160 140 40 140 Z" fill="${hair}" />` : ''}
+      ${eyeStyle === "normal" ? `
+        <circle cx="70" cy="100" r="10" fill="${eye}" />
+        <circle cx="130" cy="100" r="10" fill="${eye}" />
+      ` : ''}
+      ${eyeStyle === "cute" ? `
+        <ellipse cx="70" cy="100" rx="8" ry="12" fill="${eye}" />
+        <ellipse cx="130" cy="100" rx="8" ry="12" fill="${eye}" />
+      ` : ''}
+    </svg>
+  `;
+
+  document.getElementById("avatarPreview").innerHTML = svg;
+}
+
+// Handle changes from inputs
+document.querySelectorAll("#avatarControls input, #avatarControls select").forEach(el => {
+  el.addEventListener("input", (e) => {
+    avatarConfig[e.target.name] = e.target.value;
+    renderAvatar();
+  });
+});
+
+// Download SVG avatar
+function downloadAvatar() {
+  const svg = document.getElementById("avatarPreview").innerHTML;
+  const blob = new Blob([svg], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my_avatar.svg";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// Share avatar (Web Share API)
+function shareAvatar() {
+  const svg = document.getElementById("avatarPreview").innerHTML;
+  const blob = new Blob([svg], { type: "image/svg+xml" });
+  const file = new File([blob], "avatar.svg", { type: "image/svg+xml" });
+
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({
+      files: [file],
+      title: "My Avatar",
+      text: "Here’s the avatar I created!",
+    }).catch(err => alert("Sharing failed: " + err));
+  } else {
+    alert("Web Share not supported on your device.");
+  }
+}
+
+// Initialize on page load
+window.addEventListener("DOMContentLoaded", renderAvatar);
+          </script>
           
