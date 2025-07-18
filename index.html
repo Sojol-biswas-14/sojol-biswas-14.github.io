@@ -921,4 +921,79 @@ function shareAvatar() {
 // Initialize on page load
 window.addEventListener("DOMContentLoaded", renderAvatar);
           </script>
-          
+ <!-- Feedback Modal Logic -->
+<script>
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackModal = document.getElementById('feedbackModal');
+const feedbackModalClose = document.getElementById('feedbackModalClose');
+const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+const feedbackText = document.getElementById('feedbackText');
+
+feedbackBtn.addEventListener('click', () => {
+  feedbackModal.classList.add('active');
+  feedbackText.focus();
+});
+feedbackModalClose.addEventListener('click', () => {
+  feedbackModal.classList.remove('active');
+});
+feedbackModal.addEventListener('click', e => {
+  if (e.target === feedbackModal) {
+    feedbackModal.classList.remove('active');
+  }
+});
+feedbackSendBtn.addEventListener('click', () => {
+  const feedback = feedbackText.value.trim();
+  if (!feedback) {
+    alert("Please enter your feedback before sending.");
+    return;
+  }
+  alert("Thanks for your feedback! (Demo only)");
+  feedbackText.value = "";
+  feedbackModal.classList.remove('active');
+});
+</script>
+
+<!-- Scroll + Theme -->
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("light-mode");
+}
+
+let prevScroll = window.scrollY;
+const backBtn = document.getElementById('backBtn');
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  backBtn.classList.toggle('hidden', currentScroll > prevScroll);
+  prevScroll = currentScroll;
+});
+
+// Animate on scroll
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeEls = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => observer.observe(el));
+});
+</script>
+
+<!-- Google Translate Close -->
+<script>
+const googleTranslateContainer = document.getElementById("google_translate_container");
+const googleTranslateCloseBtn = document.getElementById("googleTranslateCloseBtn");
+
+googleTranslateCloseBtn.addEventListener("click", () => {
+  googleTranslateContainer.style.display = "none";
+});
+</script>
+.
+<!-- Final Footer -->
+<footer style="text-align: center; padding: 30px; font-size: 14px; color: #888;">
+  &copy; 2025 Sojol Biswas – All rights reserved.<br>
+  Designed with ❤️ using HTML, CSS, and JavaScript
+</footer>
+</body>  
+</html>         
