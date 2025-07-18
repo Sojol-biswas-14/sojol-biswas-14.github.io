@@ -768,78 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, { threshold: 0.1 });
   fadeEls.forEach(el => observer.observe(el));
 });
-    // THEME TOGGLE: Light / Dark
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-}
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light-mode');
-  }
-});
-
-// BACK BUTTON HIDE ON SCROLL DOWN
-let prevScroll = window.scrollY;
-const backBtn = document.getElementById('backBtn');
-window.addEventListener('scroll', () => {
-  const currentScroll = window.scrollY;
-  if (currentScroll > prevScroll) {
-    backBtn.classList.add('hidden');
-  } else {
-    backBtn.classList.remove('hidden');
-  }
-  prevScroll = currentScroll;
-});
-
-// GOOGLE TRANSLATE CLOSE
-const googleTranslateContainer = document.getElementById('google_translate_container');
-const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
-googleTranslateCloseBtn.addEventListener('click', () => {
-  googleTranslateContainer.style.display = 'none';
-});
-
-// FEEDBACK MODAL
-const feedbackBtn = document.getElementById('feedbackBtn');
-const feedbackModal = document.getElementById('feedbackModal');
-const feedbackModalClose = document.getElementById('feedbackModalClose');
-const feedbackSendBtn = document.getElementById('feedbackSendBtn');
-const feedbackText = document.getElementById('feedbackText');
-
-feedbackBtn.addEventListener('click', () => {
-  feedbackModal.classList.add('active');
-  feedbackText.focus();
-});
-feedbackModalClose.addEventListener('click', () => {
-  feedbackModal.classList.remove('active');
-});
-feedbackModal.addEventListener('click', e => {
-  if (e.target === feedbackModal) {
-    feedbackModal.classList.remove('active');
-  }
-});
-feedbackSendBtn.addEventListener('click', () => {
-  const feedback = feedbackText.value.trim();
-  if (!feedback) {
-    alert('Please enter feedback.');
-    return;
-  }
-  alert('Thanks for your feedback! (Demo only)');
-  feedbackText.value = '';
-  feedbackModal.classList.remove('active');
-});
-
-// FADE-IN ANIMATION
-document.addEventListener("DOMContentLoaded", function () {
-  const fadeEls = document.querySelectorAll(".fade-in");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.1 });
-  fadeEls.forEach(el => observer.observe(el));
-});      
-          <script>
+ <script>
 // Avatar Data
 const avatarConfig = {
   skin: "#f1c27d",
