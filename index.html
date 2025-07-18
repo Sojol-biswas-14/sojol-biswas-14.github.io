@@ -261,11 +261,20 @@
   <footer>
   <div class="footer-links">
     <a href="#about">About Me</a> |
+    
     <a href="mailto:sojolbiswas140@gmail.com">Contact</a> |
+    
     <a href="https://www.facebook.com/sojolboss007" target="_blank">Facebook</a> |
+    
     <a href="https://www.instagram.com/sojol_biswas14" target="_blank">Instagram</a> |
+    
     <a href="https://twitter.com/sojolbiswas14" target="_blank">Twitter</a> |
-    <a href="javascript:void(0)" onclick="toggleTranslate()">🌐 Language</a>
+   
+    <a href="#" onclick="document.getElementById('google_translate_element').style.display='block'">🌐 Language</a>
+
+<div id="google_translate_element" style="display:none; position:fixed; top:70px; right:20px; z-index:9999; background:#1a1a1a; padding:10px; border-radius:8px;">
+  <!-- Google Translate will inject here -->
+</div>
   </div>
   <div id="google_translate_element" style="display: none; margin-top: 10px;">
   </div>
@@ -372,14 +381,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, { threshold: 0.1 });
   fadeEls.forEach(el => observer.observe(el));
 });
-
-// 🌐 Translate close
-const translateCloseBtn = document.getElementById("googleTranslateCloseBtn");
-if (translateCloseBtn) {
-  translateCloseBtn.addEventListener('click', () => {
-    const container = document.getElementById("google_translate_container");
-    if (container) container.style.display = 'none';
-  });
 }
 
 // 🎨 Drawing logic
@@ -603,15 +604,12 @@ if (canvas) {
   background-color: #00ffcc40;
   box-shadow: 0 0 6px #00ffcc66;
 }
-
-@media (max-width: 600px) {
-  .theme-toggle {
-    font-size: 13px;
-    padding: 6px 10px;
-    top: 10px;
-    right: 10px;
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
   }
-}
 
   /* Back Button */
   .back-button {
@@ -993,25 +991,12 @@ document.addEventListener("DOMContentLoaded", () => {
   fadeEls.forEach(el => observer.observe(el));
 });
 </script>
-
-<!-- Google Translate Close -->
-<script>
-const googleTranslateContainer = document.getElementById("google_translate_container");
-const googleTranslateCloseBtn = document.getElementById("googleTranslateCloseBtn");
-
-googleTranslateCloseBtn.addEventListener("click", () => {
-  googleTranslateContainer.style.display = "none";
-});
-</script>
 <script type="text/javascript">
-  function toggleTranslate() {
-    const el = document.getElementById('google_translate_element');
-    el.style.display = el.style.display === 'none' ? 'block' : 'none';
-  }
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
   }
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!-- Final Footer -->
 <footer style="text-align: center; padding: 30px; font-size: 14px; color: #888;">
