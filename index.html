@@ -376,16 +376,128 @@
     </section>
 
     <!-- Avatar Generator -->
-    <section class="avatar-section fade-in" id="avatar-builder" style="margin-top:60px;">
-      <h2 style="text-align:center; color:#00ffcc;">🧑 Create Your Avatar</h2>
-      <p style="text-align:center;">Customize your avatar by choosing features like hair, eyes, and more.</p>
+<!-- 🧑‍🎨 Avatar Builder Section -->
+<section id="avatar-section" class="fade-in" style="margin-top: 60px; padding: 40px 20px; background: #121212; border-radius: 14px; box-shadow: 0 0 10px #00ffcc55;">
+  <h2 style="text-align: center; color: #00ffcc;">🧑‍🎨 Create Your Own Avatar</h2>
+  <p style="text-align: center; color: #ccc;">Customize your character with different face, hair, and color options.</p>
 
-      <iframe src="avatar.html" style="width:100%; height:600px; border:none; border-radius:12px; box-shadow: 0 0 15px #00ffcc55;"></iframe>
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: flex-start; margin-top: 30px;">
+    <!-- Avatar Preview -->
+    <div style="background: #1a1a1a; border-radius: 12px; padding: 20px; box-shadow: 0 0 6px #00ffcc99;">
+      <canvas id="avatarCanvas" width="200" height="200" style="background: #000; border-radius: 8px;"></canvas>
+      <div style="text-align: center; margin-top: 10px;">
+        <button onclick="downloadAvatar()" style="background: #00ffcc20; border: 1px solid #00ffcc55; padding: 8px 14px; color: #00ffcc; font-weight: bold; border-radius: 6px; cursor: pointer;">📥 Download</button>
+      </div>
+    </div>
 
-      <p style="text-align:center; font-size:14px; color:#999; margin-top:10px;">
-        Avatar customization is a demo and will be improved soon.
-      </p>
-    </section>
+    <!-- Avatar Controls -->
+    <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 10px;">
+      <label style="color: #aaa;">Face Color:
+        <input type="color" id="faceColor" value="#ffcc99" />
+      </label>
+
+      <label style="color: #aaa;">Eye Style:
+        <select id="eyeStyle">
+          <option value="dot">Dot</option>
+          <option value="oval">Oval</option>
+          <option value="round">Round</option>
+        </select>
+      </label>
+
+      <label style="color: #aaa;">Hair Style:
+        <select id="hairStyle">
+          <option value="short">Short</option>
+          <option value="long">Long</option>
+          <option value="spike">Spiky</option>
+        </select>
+      </label>
+
+      <label style="color: #aaa;">Hair Color:
+        <input type="color" id="hairColor" value="#333333" />
+      </label>
+    </div>
+  </div>
+</section>
+
+<script>
+  const avatarCanvas = document.getElementById('avatarCanvas');
+  const avatarCtx = avatarCanvas.getContext('2d');
+
+  const faceColor = document.getElementById('faceColor');
+  const eyeStyle = document.getElementById('eyeStyle');
+  const hairStyle = document.getElementById('hairStyle');
+  const hairColor = document.getElementById('hairColor');
+
+  function drawAvatar() {
+    avatarCtx.clearRect(0, 0, 200, 200);
+
+    // Face
+    avatarCtx.fillStyle = faceColor.value;
+    avatarCtx.beginPath();
+    avatarCtx.arc(100, 100, 60, 0, Math.PI * 2);
+    avatarCtx.fill();
+
+    // Eyes
+    avatarCtx.fillStyle = "#000";
+    switch (eyeStyle.value) {
+      case "dot":
+        avatarCtx.beginPath();
+        avatarCtx.arc(80, 90, 5, 0, Math.PI * 2);
+        avatarCtx.arc(120, 90, 5, 0, Math.PI * 2);
+        avatarCtx.fill();
+        break;
+      case "oval":
+        avatarCtx.beginPath();
+        avatarCtx.ellipse(80, 90, 6, 10, 0, 0, 2 * Math.PI);
+        avatarCtx.ellipse(120, 90, 6, 10, 0, 0, 2 * Math.PI);
+        avatarCtx.fill();
+        break;
+      case "round":
+        avatarCtx.beginPath();
+        avatarCtx.arc(80, 90, 10, 0, Math.PI * 2);
+        avatarCtx.arc(120, 90, 10, 0, Math.PI * 2);
+        avatarCtx.fill();
+        break;
+    }
+
+    // Hair
+    avatarCtx.fillStyle = hairColor.value;
+    switch (hairStyle.value) {
+      case "short":
+        avatarCtx.fillRect(60, 40, 80, 20);
+        break;
+      case "long":
+        avatarCtx.fillRect(50, 40, 100, 30);
+        avatarCtx.fillRect(50, 70, 20, 40);
+        avatarCtx.fillRect(130, 70, 20, 40);
+        break;
+      case "spike":
+        avatarCtx.beginPath();
+        avatarCtx.moveTo(60, 60);
+        avatarCtx.lineTo(80, 30);
+        avatarCtx.lineTo(100, 60);
+        avatarCtx.lineTo(120, 30);
+        avatarCtx.lineTo(140, 60);
+        avatarCtx.closePath();
+        avatarCtx.fill();
+        break;
+    }
+  }
+
+  function downloadAvatar() {
+    const dataUrl = avatarCanvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = "my-avatar.png";
+    a.click();
+  }
+
+  [faceColor, eyeStyle, hairStyle, hairColor].forEach(input => {
+    input.addEventListener("change", drawAvatar);
+  });
+
+  drawAvatar(); // Initial render
+</script>
 <!-- About Me (Long Bio Section) -->
     <section class="about-me fade-in" id="about-section" style="margin-top:80px; padding-top:40px; border-top:1px solid #333;">
       <h2 style="text-align:center; color:#00ffcc;">📜 About Me</h2>
@@ -470,4 +582,252 @@
   googleTranslateCloseBtn.addEventListener('click', () => {
     googleTranslateContainer.style.display = 'none';
   });
+</script>
+<script>
+  // 🎨 Drawing Canvas Setup
+  const canvas = document.getElementById("drawingCanvas");
+  const ctx = canvas.getContext("2d", { willReadFrequently: true });
+  let drawing = false;
+  let strokes = [];
+  let redoStack = [];
+  let currentStroke = [];
+
+  function resizeCanvas() {
+    const parent = canvas.parentElement;
+    canvas.width = parent.clientWidth;
+    canvas.height = parent.clientWidth * 0.5;
+    redraw();
+  }
+  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("DOMContentLoaded", () => {
+    resizeCanvas();
+    loadDrawingFromLocal();
+  });
+
+  // Color and brush
+  const colorPicker = document.getElementById("colorPicker");
+  const brushSize = document.getElementById("brushSize");
+
+  function startDraw(e) {
+    drawing = true;
+    currentStroke = [];
+    draw(e);
+  }
+
+  function endDraw() {
+    drawing = false;
+    if (currentStroke.length > 0) {
+      strokes.push([...currentStroke]);
+      redoStack = [];
+      saveToLocal();
+    }
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+    ctx.strokeStyle = colorPicker.value;
+    ctx.lineWidth = brushSize.value;
+    ctx.lineCap = "round";
+
+    if (currentStroke.length === 0) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+
+    currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const stroke of strokes) {
+      ctx.beginPath();
+      for (let i = 0; i < stroke.length; i++) {
+        const p = stroke[i];
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = p.size;
+        ctx.lineCap = "round";
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function undo() {
+    if (strokes.length > 0) {
+      redoStack.push(strokes.pop());
+      redraw();
+      saveToLocal();
+    }
+  }
+
+  function redo() {
+    if (redoStack.length > 0) {
+      strokes.push(redoStack.pop());
+      redraw();
+      saveToLocal();
+    }
+  }
+
+  function clearCanvas() {
+    strokes = [];
+    redoStack = [];
+    redraw();
+    saveToLocal();
+  }
+
+  function saveToLocal() {
+    localStorage.setItem("drawingData", JSON.stringify(strokes));
+  }
+
+  function loadDrawingFromLocal() {
+    const saved = localStorage.getItem("drawingData");
+    if (saved) {
+      try {
+        strokes = JSON.parse(saved);
+        redraw();
+      } catch (e) {
+        console.warn("Corrupt drawing data");
+      }
+    }
+  }
+
+  function clearSavedDrawing() {
+    localStorage.removeItem("drawingData");
+    alert("Drawing memory cleared!");
+  }
+
+  function saveImage() {
+    const img = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = img;
+    a.download = "drawing.png";
+    a.click();
+  }
+
+  function shareDrawing() {
+    const dataUrl = canvas.toDataURL("image/png");
+    fetch(dataUrl)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], "drawing.png", { type: "image/png" });
+        if (navigator.share) {
+          navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
+        } else {
+          alert("Web Share API not supported.");
+        }
+      });
+  }
+
+  function uploadImage() {
+    document.getElementById("uploadInput").click();
+  }
+
+  document.getElementById("uploadInput").addEventListener("change", function () {
+    const file = this.files[0];
+    const reader = new FileReader();
+    const img = new Image();
+
+    reader.onload = function (e) {
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Templates
+  function changeBackgroundTemplate(type) {
+    redraw();
+    switch (type) {
+      case "dots":
+        for (let y = 0; y < canvas.height; y += 20) {
+          for (let x = 0; x < canvas.width; x += 20) {
+            ctx.beginPath();
+            ctx.arc(x, y, 1.5, 0, 2 * Math.PI);
+            ctx.fillStyle = "#00ffcc55";
+            ctx.fill();
+          }
+        }
+        break;
+      case "grid":
+        ctx.strokeStyle = "#00ffcc33";
+        for (let y = 0; y < canvas.height; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+        for (let x = 0; x < canvas.width; x += 30) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        break;
+      case "lines":
+        ctx.strokeStyle = "#00ffcc22";
+        for (let y = 0; y < canvas.height; y += 30) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+        break;
+    }
+  }
+
+  // 🤖 Placeholder AI image from doodle
+  function generateFromDoodle() {
+    document.getElementById("aiOutput").style.display = "block";
+  }
+
+  // 📝 Feedback Modal Logic
+  const feedbackBtn = document.getElementById('feedbackBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackModalClose = document.getElementById('feedbackModalClose');
+  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackText = document.getElementById('feedbackText');
+
+  feedbackBtn.addEventListener('click', () => {
+    feedbackModal.classList.add('active');
+    feedbackText.focus();
+  });
+
+  feedbackModalClose.addEventListener('click', () => {
+    feedbackModal.classList.remove('active');
+  });
+
+  feedbackModal.addEventListener('click', e => {
+    if (e.target === feedbackModal) {
+      feedbackModal.classList.remove('active');
+    }
+  });
+
+  feedbackSendBtn.addEventListener('click', () => {
+    const feedback = feedbackText.value.trim();
+    if (!feedback) {
+      alert('Please write some feedback.');
+      return;
+    }
+    alert('Thanks for your feedback!');
+    feedbackText.value = '';
+    feedbackModal.classList.remove('active');
+  });
+
+  // Drawing event bindings
+  canvas.addEventListener("mousedown", startDraw);
+  canvas.addEventListener("mouseup", endDraw);
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("touchstart", startDraw);
+  canvas.addEventListener("touchend", endDraw);
+  canvas.addEventListener("touchmove", draw);
 </script>
