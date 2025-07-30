@@ -386,3 +386,88 @@
         Avatar customization is a demo and will be improved soon.
       </p>
     </section>
+<!-- About Me (Long Bio Section) -->
+    <section class="about-me fade-in" id="about-section" style="margin-top:80px; padding-top:40px; border-top:1px solid #333;">
+      <h2 style="text-align:center; color:#00ffcc;">📜 About Me</h2>
+      <p style="max-width:800px; margin:20px auto; line-height:1.8; color:#bbb; text-align:justify;">
+        Hello! I'm <strong>Sojol Biswas</strong>, a passionate tech explorer and AI art enthusiast from Mymensingh, Bangladesh. 
+        I created this website to freely share AI-generated artworks across categories like Human, Animal, Fantasy, Nature, and more. 
+        My vision is to make digital creativity open, inspiring, and accessible for everyone. This platform is not only a gallery of 
+        my AI creations but also a space for others to explore, draw, or even build their own avatars! Let's inspire through imagination!
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-in" style="margin-top:60px; padding:20px 10px; text-align:center; border-top:1px solid #333; color:#888;">
+      &copy; 2025 Sojol Biswas | All rights reserved.<br />
+      <a href="mailto:sojolbiswas140@gmail.com" style="color:#00ffcc;">📧 Email</a> |
+      <a href="https://facebook.com/sojolboss007" target="_blank" style="color:#00ffcc;">Facebook</a> |
+      <a href="https://instagram.com/sojol_biswas14" target="_blank" style="color:#00ffcc;">Instagram</a> |
+      <a href="https://twitter.com/sojolbiswas14" target="_blank" style="color:#00ffcc;">Twitter</a> |
+      <a href="#google_translate_element" style="color:#00ffcc;">🌐 Language</a>
+    </footer>
+
+    <!-- Watermark image (for later JS use) -->
+    <img src="images/logo.png" alt="Watermark" style="display:none;" id="watermarkSource" />
+
+    <!-- Feedback Button -->
+    <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal">
+      <div id="feedbackModalContent">
+        <span id="feedbackModalClose">&times;</span>
+        <h3>Send your feedback</h3>
+        <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+        <button id="feedbackSendBtn">Send</button>
+      </div>
+    </div>
+    <!-- SCRIPTS -->
+<script>
+  // 🌓 Theme Toggle (dark/light mode)
+  function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem("theme", document.body.classList.contains('light-mode') ? "light" : "dark");
+  }
+
+  // Apply stored theme on load
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-mode");
+    }
+  });
+
+  // ⬅ Back button auto-hide on scroll down
+  let prevScroll = window.scrollY;
+  const backBtn = document.getElementById('backBtn');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > prevScroll) {
+      backBtn.classList.add('hidden');
+    } else {
+      backBtn.classList.remove('hidden');
+    }
+    prevScroll = currentScroll;
+  });
+
+  // 👁️‍🗨️ Fade-in sections on scroll
+  document.addEventListener("DOMContentLoaded", function () {
+    const fadeEls = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+  });
+
+  // 🌐 Google Translate close button
+  const googleTranslateContainer = document.getElementById('google_translate_container');
+  const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+  googleTranslateCloseBtn.addEventListener('click', () => {
+    googleTranslateContainer.style.display = 'none';
+  });
+</script>
