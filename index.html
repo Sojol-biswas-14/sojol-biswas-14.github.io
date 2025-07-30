@@ -4,31 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sojol Biswas – Official personal website and AI image gallery" />
-  <meta name="keywords" content="Sojol Biswas, BD, Mymensingh, AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Nature, Anime, Fantasy, Digital Art, AI Creations" />
+  <meta name="keywords" content="Sojol Biswas, AI Art, BD Artist, Gallery, Drawing, Avatar, Fantasy, Human, Anime, Mymensingh, Bangladesh" />
   <meta name="author" content="Sojol Biswas" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://sojol-biswas-14.github.io/" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Sojol Biswas – AI Art Gallery & Official Website" />
-  <meta property="og:description" content="Explore unique AI-generated artwork by Sojol Biswas, featuring human, nature, fantasy, and more." />
-  <meta property="og:image" content="https://sojol-biswas-14.github.io/images/logo.png" />
-  <meta property="og:url" content="https://sojol-biswas-14.github.io/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Sojol Biswas – AI Art & Official Page" />
-  <meta name="twitter:description" content="Official site of Sojol Biswas – Featuring AI-generated artwork in multiple categories. Free to explore and use." />
-  <meta name="twitter:image" content="https://sojol-biswas-14.github.io/images/logo.png" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="images/logo.png" type="image/png" />
-
-  <title>Sojol Biswas – Official Website & AI Gallery</title>
+  <title>Sojol Biswas – AI Art & Official Website</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Theme Icon -->
+  <link rel="icon" href="images/logo.png" type="image/png" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
@@ -47,189 +31,64 @@
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+  <!-- Base Styles -->
   <style>
-    /* === RESET & BASE === */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
-      color: #fff;
-      overflow-x: hidden;
+      background: #0d0d0d;
+      color: #ffffff;
+      scroll-behavior: smooth;
       transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
     }
 
     body.light-mode {
-      background: #fff;
+      background: #ffffff;
       color: #111;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    h1, h2, h3, h4 {
-      font-weight: 600;
+    h1, h2, h3 {
+      margin-bottom: 10px;
+      color: #00ffc2;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 960px;
       margin: auto;
-      padding: 20px;
+      padding: 30px 20px;
     }
 
-    /* Smooth fade-in animations */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: all 0.8s ease;
     }
 
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
-/* === PROFILE / HEADER === */
-    .profile {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      background: #1f1f1f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.15);
-      margin-top: 40px;
-      gap: 30px;
-    }
 
-    .profile img {
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 3px solid #00ffcc;
-    }
-
-    .profile-info {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .profile-info h1 {
-      font-size: 28px;
-      color: #00ffcc;
-    }
-
-    .tagline {
-      font-style: italic;
-      color: #aaa;
-      margin-top: 6px;
-      margin-bottom: 12px;
-    }
-
-    .bio {
-      color: #ccc;
-      line-height: 1.6;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .links a {
-      display: inline-block;
-      margin: 6px 8px 6px 0;
-      padding: 10px 16px;
-      background-color: #00ffcc20;
-      color: #00ffcc;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .links a:hover {
-      background-color: #00ffcc40;
-      transform: translateY(-2px);
-      box-shadow: 0 0 10px #00ffcc80;
-    }
-
-    /* === CATEGORY GRID === */
-    .gallery-intro {
-      text-align: center;
-      margin-top: 60px;
-    }
-
-    .gallery-intro h2 {
-      font-size: 26px;
-      color: #00ffcc;
-      margin-bottom: 10px;
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .categories a {
-      padding: 18px;
-      background-color: #141414;
-      border: 2px solid #00ffcc20;
-      border-radius: 12px;
-      text-align: center;
-      color: #00ffcc;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .categories a::after {
-      content: "";
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      width: 28px;
-      height: 28px;
-      background: url('images/logo.png') no-repeat center/contain;
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    .categories a:hover {
-      background-color: #00ffcc20;
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #00ffcc66;
-    }
-
-    /* === TOGGLES & BUTTONS === */
-    .theme-toggle,
-    .back-button {
+    .theme-toggle {
       position: fixed;
-      padding: 10px 14px;
-      border-radius: 6px;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      background-color: #00ffcc20;
+      color: #00ffcc;
       border: none;
+      border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
       z-index: 999;
       transition: all 0.3s ease;
-    }
-
-    .theme-toggle {
-      top: 20px;
-      right: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
     }
 
     .theme-toggle:hover {
@@ -237,11 +96,28 @@
       box-shadow: 0 0 8px #00ffcc66;
     }
 
+    @media (max-width: 600px) {
+      .theme-toggle {
+        font-size: 14px;
+        padding: 6px 10px;
+        top: 14px;
+        right: 14px;
+      }
+    }
+
     .back-button {
+      position: fixed;
       top: 20px;
       left: 20px;
       background: #00ffcc20;
       color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
     }
 
     .back-button:hover {
@@ -253,600 +129,42 @@
       opacity: 0;
       pointer-events: none;
     }
-
-    footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-    }
-
-    @media (max-width: 768px) {
-      .profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .theme-toggle, .back-button {
-        font-size: 14px;
-        padding: 8px 12px;
-      }
-
-      .profile img {
-        width: 120px;
-        height: 120px;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Theme & Back Button -->
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <!-- Theme & Back Buttons -->
   <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
 
-  <!-- Google Translate Dropdown -->
-  <div id="google_translate_container" style="position: fixed; top: 70px; right: 20px; z-index: 999;">
+  <!-- Google Translate Button as "🌐 Language" -->
+  <div id="google_translate_container" style="position: fixed; top: 70px; right: 20px; z-index: 999; background: #1a1a1a; border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; gap: 6px;">
+    <span style="color:#00ffcc; font-size: 14px;">🌐 Language</span>
     <div id="google_translate_element"></div>
+    <button id="googleTranslateCloseBtn" title="Close" style="background: transparent; border: none; color: #00ffcc; font-size: 18px; cursor: pointer;">×</button>
   </div>
 
-  <!-- Page Wrapper -->
+  <!-- Main Container -->
   <div class="container fade-in">
-    
     <!-- Profile Section -->
-    <div class="profile">
-      <img src="PFD-140758.jpg" alt="Sojol Biswas" />
-      <div class="profile-info">
+    <div class="profile" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:30px; background:#1f1f1f; padding:20px; border-radius:14px; box-shadow:0 0 15px rgba(0,255,204,0.1);">
+      <img src="PFD-140758.jpg" alt="Sojol Biswas" style="width:150px; height:150px; object-fit:cover; border-radius:12px; border:3px solid #00ffcc;">
+      <div class="profile-info" style="flex:1; min-width:260px;">
         <h1>Sojol Biswas</h1>
-        <div class="tagline">"Tech explorer | Gamer | Sharing creativity with the world"</div>
-        <div class="bio">
-          I'm Sojol Biswas from Mymensingh, Bangladesh. This is my official site showcasing AI-generated art, tools, and creativity. Explore, share, and create!
-        </div>
-        <div class="links">
-          <a href="mailto:sojolbiswas140@gmail.com">📧 Email</a>
-          <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
-          <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
-          <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
-          <a href="https://www.youtube.com/sojolbiswas14" target="_blank">📺 YouTube</a>
-          <a href="#about">📄 About Me</a>
-          <a href="#google_translate_element">🌐 Language</a>
-        </div>
+        <p style="font-style: italic; color: #aaa;">"Tech explorer | AI Artist | Gamer"</p>
+        <p style="line-height:1.6; color:#ccc;">
+          Hey, I’m Sojol from Mymensingh, Bangladesh. Welcome to my official website where I share AI-generated artwork and digital creations. Scroll down to explore categories, draw your own art, or create an avatar!
+        </p>
       </div>
     </div>
 
-    <!-- Gallery Categories -->
-    <div class="gallery-intro fade-in">
-      <h2>🖼️ Explore AI Art Categories</h2>
-      <p>Select a category to explore Sojol's AI creations</p>
-    </div>
-
-    <div class="categories fade-in">
-      <a href="human.html">👤 Human</a>
-      <a href="animal.html">🐶 Animal</a>
-      <a href="robots.html">🤖 Robots</a>
-      <a href="house.html">🏠 House</a>
-      <a href="flower.html">🌸 Flower</a>
-      <a href="wallpaper.html">🖼 Wallpaper</a>
-      <a href="anime.html">🎬 Anime</a>
-      <a href="nature.html">🌿 Nature</a>
-      <a href="fantasy.html">🧙 Fantasy</a>
-    </div>
-    <!-- Drawing Board -->
-    <section class="drawing-section fade-in" id="drawing-board">
-      <h2 style="text-align:center; color:#00ffcc;">🖍️ Draw Something!</h2>
-      <p style="text-align:center;">Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
-
-      <!-- Toolbar -->
-      <div class="canvas-toolbar">
-        <div class="toolbar-basic">
-          <button onclick="undo()">⤺ Undo</button>
-          <button onclick="redo()">⤻ Redo</button>
-          <button onclick="clearCanvas()">🧹 Clear</button>
-          <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
-          <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
-          <input type="range" id="brushSize" min="1" max="30" value="4" />
-        </div>
-        <div class="toolbar-pro">
-          <button onclick="uploadImage()">🖼 Upload Background</button>
-          <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
-            <option value="">🎨 Template</option>
-            <option value="dots">Dotted</option>
-            <option value="grid">Grid</option>
-            <option value="lines">Lined</option>
-            <option value="none">None</option>
-          </select>
-          <button onclick="generateFromDoodle()">🤖 AI Generate</button>
-          <button onclick="saveImage()">💾 Save</button>
-          <button onclick="shareDrawing()">📤 Share</button>
-        </div>
-      </div>
-
-      <!-- Canvas -->
-      <canvas id="drawingCanvas" width="900" height="450"></canvas>
-      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
-
-      <!-- AI Generated Output -->
-      <div id="aiOutput" style="margin-top: 20px; display: none;">
-        <h3>🎨 AI Generated Image Preview</h3>
-        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
-        <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
+    <!-- Preview: AI Art Showcase -->
+    <section class="fade-in" style="margin-top:60px;">
+      <h2 style="text-align:center;">🌟 Featured AI Art Preview</h2>
+      <p style="text-align:center; color:#aaa;">A glimpse of popular creations</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; margin-top:20px;">
+        <img src="images/wallpaper/1751359959278.jpg" alt="Preview 1" style="width:100%; border-radius:10px; box-shadow:0 0 10px #00ffcce0;">
+        <img src="images/wallpaper/1751359865953.jpg" alt="Preview 2" style="width:100%; border-radius:10px; box-shadow:0 0 10px #00ffcce0;">
+        <img src="images/human/final_painting_with_watermark.jpg" alt="Preview 3" style="width:100%; border-radius:10px; box-shadow:0 0 10px #00ffcce0;">
       </div>
     </section>
-
-    <!-- Avatar Generator -->
-<!-- 🧑‍🎨 Avatar Builder Section -->
-<section id="avatar-section" class="fade-in" style="margin-top: 60px; padding: 40px 20px; background: #121212; border-radius: 14px; box-shadow: 0 0 10px #00ffcc55;">
-  <h2 style="text-align: center; color: #00ffcc;">🧑‍🎨 Create Your Own Avatar</h2>
-  <p style="text-align: center; color: #ccc;">Customize your character with different face, hair, and color options.</p>
-
-  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: flex-start; margin-top: 30px;">
-    <!-- Avatar Preview -->
-    <div style="background: #1a1a1a; border-radius: 12px; padding: 20px; box-shadow: 0 0 6px #00ffcc99;">
-      <canvas id="avatarCanvas" width="200" height="200" style="background: #000; border-radius: 8px;"></canvas>
-      <div style="text-align: center; margin-top: 10px;">
-        <button onclick="downloadAvatar()" style="background: #00ffcc20; border: 1px solid #00ffcc55; padding: 8px 14px; color: #00ffcc; font-weight: bold; border-radius: 6px; cursor: pointer;">📥 Download</button>
-      </div>
-    </div>
-
-    <!-- Avatar Controls -->
-    <div style="flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 10px;">
-      <label style="color: #aaa;">Face Color:
-        <input type="color" id="faceColor" value="#ffcc99" />
-      </label>
-
-      <label style="color: #aaa;">Eye Style:
-        <select id="eyeStyle">
-          <option value="dot">Dot</option>
-          <option value="oval">Oval</option>
-          <option value="round">Round</option>
-        </select>
-      </label>
-
-      <label style="color: #aaa;">Hair Style:
-        <select id="hairStyle">
-          <option value="short">Short</option>
-          <option value="long">Long</option>
-          <option value="spike">Spiky</option>
-        </select>
-      </label>
-
-      <label style="color: #aaa;">Hair Color:
-        <input type="color" id="hairColor" value="#333333" />
-      </label>
-    </div>
-  </div>
-</section>
-
-<script>
-  const avatarCanvas = document.getElementById('avatarCanvas');
-  const avatarCtx = avatarCanvas.getContext('2d');
-
-  const faceColor = document.getElementById('faceColor');
-  const eyeStyle = document.getElementById('eyeStyle');
-  const hairStyle = document.getElementById('hairStyle');
-  const hairColor = document.getElementById('hairColor');
-
-  function drawAvatar() {
-    avatarCtx.clearRect(0, 0, 200, 200);
-
-    // Face
-    avatarCtx.fillStyle = faceColor.value;
-    avatarCtx.beginPath();
-    avatarCtx.arc(100, 100, 60, 0, Math.PI * 2);
-    avatarCtx.fill();
-
-    // Eyes
-    avatarCtx.fillStyle = "#000";
-    switch (eyeStyle.value) {
-      case "dot":
-        avatarCtx.beginPath();
-        avatarCtx.arc(80, 90, 5, 0, Math.PI * 2);
-        avatarCtx.arc(120, 90, 5, 0, Math.PI * 2);
-        avatarCtx.fill();
-        break;
-      case "oval":
-        avatarCtx.beginPath();
-        avatarCtx.ellipse(80, 90, 6, 10, 0, 0, 2 * Math.PI);
-        avatarCtx.ellipse(120, 90, 6, 10, 0, 0, 2 * Math.PI);
-        avatarCtx.fill();
-        break;
-      case "round":
-        avatarCtx.beginPath();
-        avatarCtx.arc(80, 90, 10, 0, Math.PI * 2);
-        avatarCtx.arc(120, 90, 10, 0, Math.PI * 2);
-        avatarCtx.fill();
-        break;
-    }
-
-    // Hair
-    avatarCtx.fillStyle = hairColor.value;
-    switch (hairStyle.value) {
-      case "short":
-        avatarCtx.fillRect(60, 40, 80, 20);
-        break;
-      case "long":
-        avatarCtx.fillRect(50, 40, 100, 30);
-        avatarCtx.fillRect(50, 70, 20, 40);
-        avatarCtx.fillRect(130, 70, 20, 40);
-        break;
-      case "spike":
-        avatarCtx.beginPath();
-        avatarCtx.moveTo(60, 60);
-        avatarCtx.lineTo(80, 30);
-        avatarCtx.lineTo(100, 60);
-        avatarCtx.lineTo(120, 30);
-        avatarCtx.lineTo(140, 60);
-        avatarCtx.closePath();
-        avatarCtx.fill();
-        break;
-    }
-  }
-
-  function downloadAvatar() {
-    const dataUrl = avatarCanvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = "my-avatar.png";
-    a.click();
-  }
-
-  [faceColor, eyeStyle, hairStyle, hairColor].forEach(input => {
-    input.addEventListener("change", drawAvatar);
-  });
-
-  drawAvatar(); // Initial render
-</script>
-<!-- 🧾 About Section -->
-<section id="about-section" class="fade-in" style="margin-top: 60px; padding: 40px 20px; background: #121212; border-radius: 14px; box-shadow: 0 0 10px #00ffcc55;">
-  <h2 style="text-align: center; color: #00ffcc;">📄 About Sojol Biswas</h2>
-  <p style="max-width: 800px; margin: 20px auto; line-height: 1.8; color: #ccc;">
-    I'm Sojol Biswas from Mymensingh, Bangladesh – a passionate creator blending technology with art. This website features my AI-generated artworks, tools for custom drawings and avatars, and a community-focused space for expression. Every image is designed to be freely accessible and open to creative reuse. I believe technology and creativity can be combined to inspire, educate, and empower others across the world.
-  </p>
-</section>
-
-<!-- 🌐 Footer -->
-<footer class="fade-in" style="margin-top: 60px; padding: 30px 20px; background: #0d0d0d; border-top: 1px solid #333; text-align: center; font-size: 15px; color: #888;">
-  <div style="margin-bottom: 10px;">
-    <a href="#about-section" style="margin: 0 10px; color: #00ffcc; text-decoration: none;">About</a>
-    <a href="#" onclick="toggleTranslate()" style="margin: 0 10px; color: #00ffcc; text-decoration: none;">Language 🌐</a>
-  </div>
-  <div style="margin-bottom: 10px;">
-    <a href="mailto:sojolbiswas140@gmail.com" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📧 Email</a>
-    <a href="https://facebook.com/sojolboss007" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📘 Facebook</a>
-    <a href="https://instagram.com/sojol_biswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📸 Instagram</a>
-    <a href="https://twitter.com/sojolbiswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">🐦 Twitter</a>
-    <a href="https://youtube.com/sojolbiswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📺 YouTube</a>
-  </div>
-  <div style="margin-top: 10px; font-size: 14px;">
-    &copy; 2025 Sojol Biswas — All Rights Reserved.
-  </div>
-</footer>
-
-<!-- Google Translate Container (Initially Hidden) -->
-<div id="google_translate_container" style="display: none; position: fixed; bottom: 90px; right: 20px; background: #1a1a1a; border-radius: 10px; padding: 10px; z-index: 9999;">
-  <div id="google_translate_element"></div>
-</div>
-
-<script>
-  // Toggle Google Translate box
-  function toggleTranslate() {
-    const el = document.getElementById("google_translate_container");
-    el.style.display = el.style.display === "none" ? "block" : "none";
-  }
-</script>
-    <!-- Watermark image (for later JS use) -->
-    <img src="images/logo.png" alt="Watermark" style="display:none;" id="watermarkSource" />
-
-    <!-- Feedback Button -->
-    <button id="feedbackBtn" title="Send Feedback">💬</button>
-
-    <!-- Feedback Modal -->
-    <div id="feedbackModal">
-      <div id="feedbackModalContent">
-        <span id="feedbackModalClose">&times;</span>
-        <h3>Send your feedback</h3>
-        <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
-        <button id="feedbackSendBtn">Send</button>
-      </div>
-    </div>
-    <!-- SCRIPTS -->
-<script>
-  // 🌓 Theme Toggle (dark/light mode)
-  function toggleTheme() {
-    document.body.classList.toggle('light-mode');
-    localStorage.setItem("theme", document.body.classList.contains('light-mode') ? "light" : "dark");
-  }
-
-  // Apply stored theme on load
-  window.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      document.body.classList.add("light-mode");
-    }
-  });
-
-  // ⬅ Back button auto-hide on scroll down
-  let prevScroll = window.scrollY;
-  const backBtn = document.getElementById('backBtn');
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > prevScroll) {
-      backBtn.classList.add('hidden');
-    } else {
-      backBtn.classList.remove('hidden');
-    }
-    prevScroll = currentScroll;
-  });
-
-  // 👁️‍🗨️ Fade-in sections on scroll
-  document.addEventListener("DOMContentLoaded", function () {
-    const fadeEls = document.querySelectorAll(".fade-in");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => observer.observe(el));
-  });
-
-  // 🌐 Google Translate close button
-  const googleTranslateContainer = document.getElementById('google_translate_container');
-  const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
-  googleTranslateCloseBtn.addEventListener('click', () => {
-    googleTranslateContainer.style.display = 'none';
-  });
-</script>
-<script>
-  // 🎨 Drawing Canvas Setup
-  const canvas = document.getElementById("drawingCanvas");
-  const ctx = canvas.getContext("2d", { willReadFrequently: true });
-  let drawing = false;
-  let strokes = [];
-  let redoStack = [];
-  let currentStroke = [];
-
-  function resizeCanvas() {
-    const parent = canvas.parentElement;
-    canvas.width = parent.clientWidth;
-    canvas.height = parent.clientWidth * 0.5;
-    redraw();
-  }
-  window.addEventListener("resize", resizeCanvas);
-  window.addEventListener("DOMContentLoaded", () => {
-    resizeCanvas();
-    loadDrawingFromLocal();
-  });
-
-  // Color and brush
-  const colorPicker = document.getElementById("colorPicker");
-  const brushSize = document.getElementById("brushSize");
-
-  function startDraw(e) {
-    drawing = true;
-    currentStroke = [];
-    draw(e);
-  }
-
-  function endDraw() {
-    drawing = false;
-    if (currentStroke.length > 0) {
-      strokes.push([...currentStroke]);
-      redoStack = [];
-      saveToLocal();
-    }
-  }
-
-  function draw(e) {
-    if (!drawing) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-    ctx.strokeStyle = colorPicker.value;
-    ctx.lineWidth = brushSize.value;
-    ctx.lineCap = "round";
-
-    if (currentStroke.length === 0) {
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-      ctx.stroke();
-    }
-
-    currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
-  }
-
-  function redraw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const stroke of strokes) {
-      ctx.beginPath();
-      for (let i = 0; i < stroke.length; i++) {
-        const p = stroke[i];
-        ctx.strokeStyle = p.color;
-        ctx.lineWidth = p.size;
-        ctx.lineCap = "round";
-        if (i === 0) ctx.moveTo(p.x, p.y);
-        else ctx.lineTo(p.x, p.y);
-      }
-      ctx.stroke();
-    }
-  }
-
-  function undo() {
-    if (strokes.length > 0) {
-      redoStack.push(strokes.pop());
-      redraw();
-      saveToLocal();
-    }
-  }
-
-  function redo() {
-    if (redoStack.length > 0) {
-      strokes.push(redoStack.pop());
-      redraw();
-      saveToLocal();
-    }
-  }
-
-  function clearCanvas() {
-    strokes = [];
-    redoStack = [];
-    redraw();
-    saveToLocal();
-  }
-
-  function saveToLocal() {
-    localStorage.setItem("drawingData", JSON.stringify(strokes));
-  }
-
-  function loadDrawingFromLocal() {
-    const saved = localStorage.getItem("drawingData");
-    if (saved) {
-      try {
-        strokes = JSON.parse(saved);
-        redraw();
-      } catch (e) {
-        console.warn("Corrupt drawing data");
-      }
-    }
-  }
-
-  function clearSavedDrawing() {
-    localStorage.removeItem("drawingData");
-    alert("Drawing memory cleared!");
-  }
-
-  function saveImage() {
-    const img = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = img;
-    a.download = "drawing.png";
-    a.click();
-  }
-
-  function shareDrawing() {
-    const dataUrl = canvas.toDataURL("image/png");
-    fetch(dataUrl)
-      .then(res => res.blob())
-      .then(blob => {
-        const file = new File([blob], "drawing.png", { type: "image/png" });
-        if (navigator.share) {
-          navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
-        } else {
-          alert("Web Share API not supported.");
-        }
-      });
-  }
-
-  function uploadImage() {
-    document.getElementById("uploadInput").click();
-  }
-
-  document.getElementById("uploadInput").addEventListener("change", function () {
-    const file = this.files[0];
-    const reader = new FileReader();
-    const img = new Image();
-
-    reader.onload = function (e) {
-      img.onload = function () {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // Templates
-  function changeBackgroundTemplate(type) {
-    redraw();
-    switch (type) {
-      case "dots":
-        for (let y = 0; y < canvas.height; y += 20) {
-          for (let x = 0; x < canvas.width; x += 20) {
-            ctx.beginPath();
-            ctx.arc(x, y, 1.5, 0, 2 * Math.PI);
-            ctx.fillStyle = "#00ffcc55";
-            ctx.fill();
-          }
-        }
-        break;
-      case "grid":
-        ctx.strokeStyle = "#00ffcc33";
-        for (let y = 0; y < canvas.height; y += 30) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-          ctx.stroke();
-        }
-        for (let x = 0; x < canvas.width; x += 30) {
-          ctx.beginPath();
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, canvas.height);
-          ctx.stroke();
-        }
-        break;
-      case "lines":
-        ctx.strokeStyle = "#00ffcc22";
-        for (let y = 0; y < canvas.height; y += 30) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-          ctx.stroke();
-        }
-        break;
-    }
-  }
-
-  // 🤖 Placeholder AI image from doodle
-  function generateFromDoodle() {
-    document.getElementById("aiOutput").style.display = "block";
-  }
-
-  // 📝 Feedback Modal Logic
-  const feedbackBtn = document.getElementById('feedbackBtn');
-  const feedbackModal = document.getElementById('feedbackModal');
-  const feedbackModalClose = document.getElementById('feedbackModalClose');
-  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
-  const feedbackText = document.getElementById('feedbackText');
-
-  feedbackBtn.addEventListener('click', () => {
-    feedbackModal.classList.add('active');
-    feedbackText.focus();
-  });
-
-  feedbackModalClose.addEventListener('click', () => {
-    feedbackModal.classList.remove('active');
-  });
-
-  feedbackModal.addEventListener('click', e => {
-    if (e.target === feedbackModal) {
-      feedbackModal.classList.remove('active');
-    }
-  });
-
-  feedbackSendBtn.addEventListener('click', () => {
-    const feedback = feedbackText.value.trim();
-    if (!feedback) {
-      alert('Please write some feedback.');
-      return;
-    }
-    alert('Thanks for your feedback!');
-    feedbackText.value = '';
-    feedbackModal.classList.remove('active');
-  });
-
-  // Drawing event bindings
-  canvas.addEventListener("mousedown", startDraw);
-  canvas.addEventListener("mouseup", endDraw);
-  canvas.addEventListener("mousemove", draw);
-  canvas.addEventListener("touchstart", startDraw);
-  canvas.addEventListener("touchend", endDraw);
-  canvas.addEventListener("touchmove", draw);
-</script>
-</body>
-</html>
+    
