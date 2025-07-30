@@ -282,3 +282,107 @@
     }
   </style>
 </head>
+<body>
+  <!-- Theme & Back Button -->
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+
+  <!-- Google Translate Dropdown -->
+  <div id="google_translate_container" style="position: fixed; top: 70px; right: 20px; z-index: 999;">
+    <div id="google_translate_element"></div>
+  </div>
+
+  <!-- Page Wrapper -->
+  <div class="container fade-in">
+    
+    <!-- Profile Section -->
+    <div class="profile">
+      <img src="PFD-140758.jpg" alt="Sojol Biswas" />
+      <div class="profile-info">
+        <h1>Sojol Biswas</h1>
+        <div class="tagline">"Tech explorer | Gamer | Sharing creativity with the world"</div>
+        <div class="bio">
+          I'm Sojol Biswas from Mymensingh, Bangladesh. This is my official site showcasing AI-generated art, tools, and creativity. Explore, share, and create!
+        </div>
+        <div class="links">
+          <a href="mailto:sojolbiswas140@gmail.com">📧 Email</a>
+          <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
+          <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
+          <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
+          <a href="https://www.youtube.com/sojolbiswas14" target="_blank">📺 YouTube</a>
+          <a href="#about">📄 About Me</a>
+          <a href="#google_translate_element">🌐 Language</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Categories -->
+    <div class="gallery-intro fade-in">
+      <h2>🖼️ Explore AI Art Categories</h2>
+      <p>Select a category to explore Sojol's AI creations</p>
+    </div>
+
+    <div class="categories fade-in">
+      <a href="human.html">👤 Human</a>
+      <a href="animal.html">🐶 Animal</a>
+      <a href="robots.html">🤖 Robots</a>
+      <a href="house.html">🏠 House</a>
+      <a href="flower.html">🌸 Flower</a>
+      <a href="wallpaper.html">🖼 Wallpaper</a>
+      <a href="anime.html">🎬 Anime</a>
+      <a href="nature.html">🌿 Nature</a>
+      <a href="fantasy.html">🧙 Fantasy</a>
+    </div>
+    <!-- Drawing Board -->
+    <section class="drawing-section fade-in" id="drawing-board">
+      <h2 style="text-align:center; color:#00ffcc;">🖍️ Draw Something!</h2>
+      <p style="text-align:center;">Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
+
+      <!-- Toolbar -->
+      <div class="canvas-toolbar">
+        <div class="toolbar-basic">
+          <button onclick="undo()">⤺ Undo</button>
+          <button onclick="redo()">⤻ Redo</button>
+          <button onclick="clearCanvas()">🧹 Clear</button>
+          <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+          <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+          <input type="range" id="brushSize" min="1" max="30" value="4" />
+        </div>
+        <div class="toolbar-pro">
+          <button onclick="uploadImage()">🖼 Upload Background</button>
+          <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+            <option value="">🎨 Template</option>
+            <option value="dots">Dotted</option>
+            <option value="grid">Grid</option>
+            <option value="lines">Lined</option>
+            <option value="none">None</option>
+          </select>
+          <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+          <button onclick="saveImage()">💾 Save</button>
+          <button onclick="shareDrawing()">📤 Share</button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <canvas id="drawingCanvas" width="900" height="450"></canvas>
+      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+
+      <!-- AI Generated Output -->
+      <div id="aiOutput" style="margin-top: 20px; display: none;">
+        <h3>🎨 AI Generated Image Preview</h3>
+        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+        <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
+      </div>
+    </section>
+
+    <!-- Avatar Generator -->
+    <section class="avatar-section fade-in" id="avatar-builder" style="margin-top:60px;">
+      <h2 style="text-align:center; color:#00ffcc;">🧑 Create Your Avatar</h2>
+      <p style="text-align:center;">Customize your avatar by choosing features like hair, eyes, and more.</p>
+
+      <iframe src="avatar.html" style="width:100%; height:600px; border:none; border-radius:12px; box-shadow: 0 0 15px #00ffcc55;"></iframe>
+
+      <p style="text-align:center; font-size:14px; color:#999; margin-top:10px;">
+        Avatar customization is a demo and will be improved soon.
+      </p>
+    </section>
