@@ -498,27 +498,44 @@
 
   drawAvatar(); // Initial render
 </script>
-<!-- About Me (Long Bio Section) -->
-    <section class="about-me fade-in" id="about-section" style="margin-top:80px; padding-top:40px; border-top:1px solid #333;">
-      <h2 style="text-align:center; color:#00ffcc;">📜 About Me</h2>
-      <p style="max-width:800px; margin:20px auto; line-height:1.8; color:#bbb; text-align:justify;">
-        Hello! I'm <strong>Sojol Biswas</strong>, a passionate tech explorer and AI art enthusiast from Mymensingh, Bangladesh. 
-        I created this website to freely share AI-generated artworks across categories like Human, Animal, Fantasy, Nature, and more. 
-        My vision is to make digital creativity open, inspiring, and accessible for everyone. This platform is not only a gallery of 
-        my AI creations but also a space for others to explore, draw, or even build their own avatars! Let's inspire through imagination!
-      </p>
-    </section>
+<!-- 🧾 About Section -->
+<section id="about-section" class="fade-in" style="margin-top: 60px; padding: 40px 20px; background: #121212; border-radius: 14px; box-shadow: 0 0 10px #00ffcc55;">
+  <h2 style="text-align: center; color: #00ffcc;">📄 About Sojol Biswas</h2>
+  <p style="max-width: 800px; margin: 20px auto; line-height: 1.8; color: #ccc;">
+    I'm Sojol Biswas from Mymensingh, Bangladesh – a passionate creator blending technology with art. This website features my AI-generated artworks, tools for custom drawings and avatars, and a community-focused space for expression. Every image is designed to be freely accessible and open to creative reuse. I believe technology and creativity can be combined to inspire, educate, and empower others across the world.
+  </p>
+</section>
 
-    <!-- Footer -->
-    <footer class="fade-in" style="margin-top:60px; padding:20px 10px; text-align:center; border-top:1px solid #333; color:#888;">
-      &copy; 2025 Sojol Biswas | All rights reserved.<br />
-      <a href="mailto:sojolbiswas140@gmail.com" style="color:#00ffcc;">📧 Email</a> |
-      <a href="https://facebook.com/sojolboss007" target="_blank" style="color:#00ffcc;">Facebook</a> |
-      <a href="https://instagram.com/sojol_biswas14" target="_blank" style="color:#00ffcc;">Instagram</a> |
-      <a href="https://twitter.com/sojolbiswas14" target="_blank" style="color:#00ffcc;">Twitter</a> |
-      <a href="#google_translate_element" style="color:#00ffcc;">🌐 Language</a>
-    </footer>
+<!-- 🌐 Footer -->
+<footer class="fade-in" style="margin-top: 60px; padding: 30px 20px; background: #0d0d0d; border-top: 1px solid #333; text-align: center; font-size: 15px; color: #888;">
+  <div style="margin-bottom: 10px;">
+    <a href="#about-section" style="margin: 0 10px; color: #00ffcc; text-decoration: none;">About</a>
+    <a href="#" onclick="toggleTranslate()" style="margin: 0 10px; color: #00ffcc; text-decoration: none;">Language 🌐</a>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <a href="mailto:sojolbiswas140@gmail.com" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📧 Email</a>
+    <a href="https://facebook.com/sojolboss007" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📘 Facebook</a>
+    <a href="https://instagram.com/sojol_biswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📸 Instagram</a>
+    <a href="https://twitter.com/sojolbiswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">🐦 Twitter</a>
+    <a href="https://youtube.com/sojolbiswas14" target="_blank" style="color: #00ffcc; text-decoration: none; margin: 0 10px;">📺 YouTube</a>
+  </div>
+  <div style="margin-top: 10px; font-size: 14px;">
+    &copy; 2025 Sojol Biswas — All Rights Reserved.
+  </div>
+</footer>
 
+<!-- Google Translate Container (Initially Hidden) -->
+<div id="google_translate_container" style="display: none; position: fixed; bottom: 90px; right: 20px; background: #1a1a1a; border-radius: 10px; padding: 10px; z-index: 9999;">
+  <div id="google_translate_element"></div>
+</div>
+
+<script>
+  // Toggle Google Translate box
+  function toggleTranslate() {
+    const el = document.getElementById("google_translate_container");
+    el.style.display = el.style.display === "none" ? "block" : "none";
+  }
+</script>
     <!-- Watermark image (for later JS use) -->
     <img src="images/logo.png" alt="Watermark" style="display:none;" id="watermarkSource" />
 
