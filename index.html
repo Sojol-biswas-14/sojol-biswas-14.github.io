@@ -257,3 +257,235 @@
         <button id="feedbackSendBtn">Send</button>
       </div>
     </div>
+<script>
+  // Theme toggle (dark/light)
+  function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+    localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+  }
+
+  // Load theme from localStorage
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-mode");
+    }
+  });
+
+  // Back button hide/show on scroll
+  let prevScroll = window.scrollY;
+  const backBtn = document.getElementById("backBtn");
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > prevScroll) {
+      backBtn.classList.add("hidden");
+    } else {
+      backBtn.classList.remove("hidden");
+    }
+    prevScroll = currentScroll;
+  });
+
+  // Scroll fade-in animation
+  document.addEventListener("DOMContentLoaded", () => {
+    const fadeEls = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
+  });
+
+  // Feedback modal logic
+  const feedbackBtn = document.getElementById('feedbackBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackModalClose = document.getElementById('feedbackModalClose');
+  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackText = document.getElementById('feedbackText');
+
+  feedbackBtn.addEventListener('click', () => {
+    feedbackModal.classList.add('active');
+    feedbackText.focus();
+  });
+
+  feedbackModalClose.addEventListener('click', () => {
+    feedbackModal.classList.remove('active');
+  });
+
+  feedbackModal.addEventListener('click', e => {
+    if (e.target === feedbackModal) {
+      feedbackModal.classList.remove('active');
+    }
+  });
+
+  feedbackSendBtn.addEventListener('click', () => {
+    const feedback = feedbackText.value.trim();
+    if (feedback.length === 0) {
+      alert('Please write some feedback before sending.');
+      return;
+    }
+    alert('Thanks for your feedback! (Demo only)');
+    feedbackText.value = '';
+    feedbackModal.classList.remove('active');
+  });
+</script>
+<script>
+  const canvas = document.getElementById("drawingCanvas");
+  const ctx = canvas?.getContext("2d", { willReadFrequently: true });
+
+  let drawing = false;
+  let strokes = [];
+  let redoStack = [];
+  let currentStroke = [];
+
+  function resizeCanvas() {
+    const wrapper = canvas.parentElement;
+    canvas.width = wrapper.clientWidth;
+    canvas.height = wrapper.clientWidth * 0.5;
+    redraw();
+  }
+  if (canvas) {
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("DOMContentLoaded", () => {
+      loadDrawing();
+      resizeCanvas();
+    });
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("touchstart", startDraw);
+    canvas.addEventListener("mouseup", endDraw);
+    canvas.addEventListener("touchend", endDraw);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("touchmove", draw);
+  }
+
+  function startDraw(e) {
+    drawing = true;
+    currentStroke = [];
+    draw(e);
+  }
+
+  function endDraw() {
+    drawing = false;
+    if (currentStroke.length > 0) {
+      strokes.push([...currentStroke]);
+      redoStack = [];
+      saveDrawing();
+    }
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+    ctx.strokeStyle = document.getElementById("colorPicker").value;
+    ctx.lineWidth = document.getElementById("brushSize").value;
+    ctx.lineCap = "round";
+
+    if (currentStroke.length === 0) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+
+    currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const stroke of strokes) {
+      ctx.beginPath();
+      for (let i = 0; i < stroke.length; i++) {
+        const p = stroke[i];
+        ctx.strokeStyle = p.color;
+        ctx.lineWidth = p.size;
+        ctx.lineCap = "round";
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function undo() {
+    if (strokes.length > 0) {
+      redoStack.push(strokes.pop());
+      redraw();
+      saveDrawing();
+    }
+  }
+
+  function redo() {
+    if (redoStack.length > 0) {
+      strokes.push(redoStack.pop());
+      redraw();
+      saveDrawing();
+    }
+  }
+
+  function clearCanvas() {
+    strokes = [];
+    redoStack = [];
+    redraw();
+    saveDrawing();
+  }
+
+  function saveDrawing() {
+    localStorage.setItem("drawingData", JSON.stringify(strokes));
+  }
+
+  function loadDrawing() {
+    const saved = localStorage.getItem("drawingData");
+    if (saved) {
+      try {
+        strokes = JSON.parse(saved);
+        redraw();
+      } catch (e) {
+        console.warn("Failed to load saved drawing.");
+      }
+    }
+  }
+
+  function saveImage() {
+    const img = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = img;
+    a.download = "my-drawing.png";
+    a.click();
+  }
+
+  function shareDrawing() {
+    const dataUrl = canvas.toDataURL("image/png");
+    fetch(dataUrl)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], "drawing.png", { type: "image/png" });
+        if (navigator.share) {
+          navigator.share({
+            files: [file],
+            title: "My Drawing",
+            text: "Check out what I made!"
+          });
+        } else {
+          alert("Your browser does not support sharing.");
+        }
+      });
+  }
+
+  function generateFromDoodle() {
+    document.getElementById("aiOutput").style.display = "block";
+  }
+
+  function clearSavedDrawing() {
+    localStorage.removeItem("drawingData");
+    strokes = [];
+    redoStack = [];
+    redraw();
+    alert("Drawing memory cleared.");
+  }
+</script>
