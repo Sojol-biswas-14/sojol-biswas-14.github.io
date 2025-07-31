@@ -191,3 +191,69 @@
       <p style="color: #aaa;">Use head, eyes, color, and more to build a realistic avatar</p>
       <a href="avatar.html" style="display: inline-block; margin-top: 10px; background: #00ffcc20; color: #00ffcc; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: 0.3s ease;">🚀 Launch Avatar Builder</a>
     </section>
+<!-- Drawing Board Section -->
+    <section class="drawing-section fade-in" style="margin-top: 60px;">
+      <h2 style="text-align:center; color:#00ffcc;">🎨 Draw Something!</h2>
+      <p style="text-align:center; color:#aaa;">Create with your imagination. Save, Share, or Generate AI art.</p>
+
+      <!-- Toolbar -->
+      <div class="canvas-toolbar">
+        <div class="toolbar-basic">
+          <button onclick="undo()">⤺ Undo</button>
+          <button onclick="redo()">⤻ Redo</button>
+          <button onclick="clearCanvas()">🧹 Clear</button>
+          <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+          <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+          <input type="range" id="brushSize" min="1" max="30" value="5" />
+        </div>
+
+        <div class="toolbar-pro">
+          <button onclick="uploadImage()">🖼 Upload Background</button>
+          <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+            <option value="">🎨 Template</option>
+            <option value="dots">Dotted</option>
+            <option value="grid">Grid</option>
+            <option value="lines">Lined</option>
+            <option value="none">None</option>
+          </select>
+          <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+          <button onclick="saveImage()">💾 Save</button>
+          <button onclick="shareDrawing()">📤 Share</button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <canvas id="drawingCanvas" width="900" height="450"></canvas>
+      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+
+      <!-- AI Output Placeholder -->
+      <div id="aiOutput" style="margin-top: 20px; display: none;">
+        <h3 style="color:#00ffcc;">✨ AI Generated Preview</h3>
+        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+        <p style="color:#aaa; font-size:14px;">(Coming soon) Real AI output will appear here</p>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="fade-in" style="margin-top: 60px; padding: 20px 0; text-align: center; color: #888; font-size: 14px; border-top: 1px solid #333;">
+      &copy; 2025 Sojol Biswas | All rights reserved.
+      <br>
+      <span style="font-size: 13px;">🌐 <a href="#" onclick="document.getElementById('google_translate_element').scrollIntoView()" style="color: #00ffcc;">Language</a></span>
+      |
+      <a href="about.html" style="color: #00ffcc;">About Me</a>
+    </footer>
+
+    <!-- Hidden Watermark Image (Optional Use for Exports) -->
+    <img src="images/logo.png" id="watermarkSource" alt="Watermark" style="display: none;" />
+
+    <!-- Feedback Button -->
+    <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal">
+      <div id="feedbackModalContent">
+        <span id="feedbackModalClose">&times;</span>
+        <h3>Send your feedback</h3>
+        <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+        <button id="feedbackSendBtn">Send</button>
+      </div>
+    </div>
