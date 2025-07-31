@@ -489,3 +489,143 @@
     alert("Drawing memory cleared.");
   }
 </script>
+<script>
+  const headOptions = [
+    "🧔", "👩", "👩‍🎤", "👨‍🚀", "🧙‍♂️", "🧟", "👽", "🤖", "🐱", "🐵"
+  ];
+
+  let currentHeadIndex = 0;
+
+  const headPreview = document.getElementById("headPreview");
+  const headSelector = document.getElementById("headSelector");
+  const avatarDownloadBtn = document.getElementById("avatarDownloadBtn");
+
+  function updateHeadPreview() {
+    headPreview.textContent = headOptions[currentHeadIndex];
+  }
+
+  function prevHead() {
+    currentHeadIndex = (currentHeadIndex - 1 + headOptions.length) % headOptions.length;
+    updateHeadPreview();
+  }
+
+  function nextHead() {
+    currentHeadIndex = (currentHeadIndex + 1) % headOptions.length;
+    updateHeadPreview();
+  }
+
+  function downloadAvatar() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 200;
+    canvas.height = 200;
+    const ctx = canvas.getContext("2d");
+
+    // Optional background
+    ctx.fillStyle = "#f0f0f0";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw emoji
+    ctx.font = "120px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#000";
+    ctx.fillText(headOptions[currentHeadIndex], canvas.width / 2, canvas.height / 2);
+
+    // Download
+    const link = document.createElement("a");
+    link.download = "my-avatar.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+
+  // Attach events
+  if (headSelector && headPreview) {
+    document.getElementById("prevHead").addEventListener("click", prevHead);
+    document.getElementById("nextHead").addEventListener("click", nextHead);
+    avatarDownloadBtn.addEventListener("click", downloadAvatar);
+    updateHeadPreview();
+  }
+</script>
+<script>
+  // Theme toggle
+  function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem("theme", document.body.classList.contains('light-mode') ? "light" : "dark");
+  }
+
+  // Load theme from storage
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.body.classList.add('light-mode');
+    }
+  });
+
+  // Back button hide on scroll
+  let prevScroll = window.scrollY;
+  const backBtn = document.getElementById('backBtn');
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    backBtn.classList.toggle('hidden', currentScroll > prevScroll);
+    prevScroll = currentScroll;
+  });
+
+  // Feedback Modal
+  const feedbackBtn = document.getElementById('feedbackBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackModalClose = document.getElementById('feedbackModalClose');
+  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackText = document.getElementById('feedbackText');
+
+  feedbackBtn?.addEventListener('click', () => {
+    feedbackModal.classList.add('active');
+    feedbackText.focus();
+  });
+
+  feedbackModalClose?.addEventListener('click', () => {
+    feedbackModal.classList.remove('active');
+  });
+
+  feedbackModal?.addEventListener('click', e => {
+    if (e.target === feedbackModal) {
+      feedbackModal.classList.remove('active');
+    }
+  });
+
+  feedbackSendBtn?.addEventListener('click', () => {
+    const feedback = feedbackText.value.trim();
+    if (!feedback) return alert('Please write some feedback.');
+    alert('Thanks for your feedback! (Demo only)');
+    feedbackText.value = '';
+    feedbackModal.classList.remove('active');
+  });
+
+  // Google Translate close button
+  const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+  const googleTranslateContainer = document.getElementById('google_translate_container');
+  googleTranslateCloseBtn?.addEventListener('click', () => {
+    googleTranslateContainer.style.display = 'none';
+  });
+</script>
+<!-- Google Translate -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Google Analytics (Optional) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TVNEJT1ERV');
+</script>
+
+</body>
+</html>
