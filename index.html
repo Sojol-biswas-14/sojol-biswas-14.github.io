@@ -104,7 +104,28 @@
         right: 14px;
       }
     }
-
+.categories a:hover,
+.avatar-launch-btn:hover,
+.canvas-toolbar button:hover {
+  background: #00ffcc33;
+  transform: translateY(-2px);
+  box-shadow: 0 0 8px #00ffcc99;
+  transition: 0.3s ease;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+  .canvas {
+  display: block;
+  margin: 0 auto;
+  touch-action: none;
+}
     .back-button {
       position: fixed;
       top: 20px;
