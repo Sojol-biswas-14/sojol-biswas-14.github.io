@@ -222,8 +222,9 @@
         </div>
       </div>
 
-      <!-- Canvas -->
-      <canvas id="drawingCanvas" width="900" height="450"></canvas>
+      <div class="drawing-wrapper" style="background:#1a1a1a; border-radius:12px; padding:20px; margin-top:20px;">
+  <canvas id="drawingCanvas" width="900" height="450" style="width:100%; border-radius:10px; border:2px dashed #00ffcc88;"></canvas>
+      </div>
       <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
 
       <!-- AI Output Placeholder -->
@@ -616,8 +617,6 @@
     }, 'google_translate_element');
   }
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <!-- Google Analytics (Optional) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
 <script>
