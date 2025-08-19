@@ -231,3 +231,111 @@
       startAutoSlide();
     });
   </script>
+<!-- 🎭 Avatar Builder Section -->
+<section id="avatar" class="py-16 bg-gray-800 text-white text-center">
+  <h2 class="text-3xl font-bold mb-6">🎭 Create Your Own Avatar</h2>
+  <p class="mb-8">Customize your avatar with head, hair, eyes, and background options. Download or share your creation!</p>
+
+  <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+    <!-- Preview -->
+    <div class="avatar-preview relative w-48 h-48 bg-gray-900 border-4 border-teal-400 rounded-xl flex items-center justify-center">
+      <img id="avatar-head" src="images/avatar/heads/head1.png" alt="Head" class="absolute w-32">
+      <img id="avatar-hair" src="images/avatar/hairs/hair1.png" alt="Hair" class="absolute w-32">
+      <img id="avatar-eyes" src="images/avatar/eyes/eyes1.png" alt="Eyes" class="absolute w-32">
+      <img id="avatar-bg" src="images/avatar/backgrounds/bg1.png" alt="Background" class="absolute w-48 h-48 rounded-xl">
+    </div>
+
+    <!-- Controls -->
+    <div class="avatar-controls space-y-4 text-left">
+      <div>
+        <label class="block font-semibold">Head</label>
+        <select id="head-select" class="p-2 rounded bg-gray-700">
+          <option value="head1.png">Head 1</option>
+          <option value="head2.png">Head 2</option>
+          <option value="head3.png">Head 3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Hair</label>
+        <select id="hair-select" class="p-2 rounded bg-gray-700">
+          <option value="hair1.png">Hair 1</option>
+          <option value="hair2.png">Hair 2</option>
+          <option value="hair3.png">Hair 3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Eyes</label>
+        <select id="eyes-select" class="p-2 rounded bg-gray-700">
+          <option value="eyes1.png">Eyes 1</option>
+          <option value="eyes2.png">Eyes 2</option>
+          <option value="eyes3.png">Eyes 3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Background</label>
+        <select id="bg-select" class="p-2 rounded bg-gray-700">
+          <option value="bg1.png">Background 1</option>
+          <option value="bg2.png">Background 2</option>
+          <option value="bg3.png">Background 3</option>
+        </select>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-4 mt-6">
+        <button onclick="downloadAvatar()" class="px-4 py-2 bg-teal-500 rounded hover:bg-teal-600">💾 Download</button>
+        <button onclick="shareAvatar()" class="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600">📤 Share</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+// 🎭 Avatar Builder Logic
+const avatarHead = document.getElementById("avatar-head");
+const avatarHair = document.getElementById("avatar-hair");
+const avatarEyes = document.getElementById("avatar-eyes");
+const avatarBg   = document.getElementById("avatar-bg");
+
+// Dropdown selects
+document.getElementById("head-select").addEventListener("change", e => {
+  avatarHead.src = "images/avatar/heads/" + e.target.value;
+});
+document.getElementById("hair-select").addEventListener("change", e => {
+  avatarHair.src = "images/avatar/hairs/" + e.target.value;
+});
+document.getElementById("eyes-select").addEventListener("change", e => {
+  avatarEyes.src = "images/avatar/eyes/" + e.target.value;
+});
+document.getElementById("bg-select").addEventListener("change", e => {
+  avatarBg.src = "images/avatar/backgrounds/" + e.target.value;
+});
+
+// Download avatar as PNG
+function downloadAvatar() {
+  html2canvas(document.querySelector(".avatar-preview")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "my-avatar.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}
+
+// Share avatar
+function shareAvatar() {
+  html2canvas(document.querySelector(".avatar-preview")).then(canvas => {
+    canvas.toBlob(blob => {
+      const file = new File([blob], "my-avatar.png", { type: "image/png" });
+      if (navigator.share) {
+        navigator.share({ files: [file], title: "My Avatar", text: "Check out my new avatar!" });
+      } else {
+        alert("Your browser does not support Web Share API.");
+      }
+    });
+  });
+}
+</script>
+
+<!-- html2canvas library for screenshot download/share -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
