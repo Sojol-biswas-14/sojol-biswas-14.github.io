@@ -50,6 +50,43 @@
       from {opacity: 0;}
       to {opacity: 1;}
     }
+    /* Popular Image Slider */
+.popular-images {
+  margin: 50px auto;
+  text-align: center;
+  max-width: 1000px;
+  padding: 20px;
+}
+.popular-images .section-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #00ffcc;
+}
+.image-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.slider-track {
+  display: flex;
+  gap: 15px;
+  animation: scrollSlider 25s linear infinite;
+}
+.slider-track img {
+  width: 250px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+.slider-track img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+@keyframes scrollSlider {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
   </style>
 </head>
 <body class="light-mode">
@@ -230,7 +267,21 @@
       createDots();
       startAutoSlide();
     });
-  </script>
+</script>
+  <!-- 🎨 Popular AI Images Section -->
+<section class="popular-images fade-in">
+  <h2 class="section-title">Popular AI Art</h2>
+  <div class="image-slider" id="imageSlider">
+    <div class="slider-track">
+      <img src="images/gallery/img1.jpg" alt="AI Art 1">
+      <img src="images/gallery/img2.jpg" alt="AI Art 2">
+      <img src="images/gallery/img3.jpg" alt="AI Art 3">
+      <img src="images/gallery/img4.jpg" alt="AI Art 4">
+      <img src="images/gallery/img5.jpg" alt="AI Art 5">
+      <img src="images/gallery/img6.jpg" alt="AI Art 6">
+    </div>
+  </div>
+</section>
 <!-- 🎭 Avatar Builder Section -->
 <section id="avatar" class="py-16 bg-gray-800 text-white text-center">
   <h2 class="text-3xl font-bold mb-6">🎭 Create Your Own Avatar</h2>
