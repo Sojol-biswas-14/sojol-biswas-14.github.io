@@ -717,3 +717,16 @@ slider.addEventListener("mouseout", () => {
   slider.style.animationPlayState = "running";
 });
 </script>
+<script>
+  // Google Translate close button logic
+  document.addEventListener("DOMContentLoaded", function () {
+    const googleTranslateContainer = document.getElementById('google_translate_container');
+    const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+
+    if (googleTranslateCloseBtn) {
+      googleTranslateCloseBtn.addEventListener('click', function () {
+        googleTranslateContainer.style.display = 'none';
+      });
+    }
+  });
+</script>
