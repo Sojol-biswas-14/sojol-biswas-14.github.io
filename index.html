@@ -53,3 +53,62 @@
   </style>
 </head>
 <body class="light-mode">
+<!-- Navbar -->
+  <header class="fixed w-full z-50 navbar bg-transparent text-white">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <img src="images/logo.png" alt="Logo" class="w-10 h-10 rounded-full">
+        <span class="font-bold text-xl">Sojol Biswas</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex space-x-8 font-medium">
+        <a href="#home" class="hover:text-blue-400 transition">Home</a>
+        <a href="#gallery" class="hover:text-blue-400 transition">Gallery</a>
+        <a href="#avatar" class="hover:text-blue-400 transition">Avatar</a>
+        <a href="#draw" class="hover:text-blue-400 transition">Drawing</a>
+        <a href="#about" class="hover:text-blue-400 transition">About</a>
+        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center space-x-4">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-110 transition">
+          <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-toggle" class="md:hidden text-2xl">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-900 text-white p-4 space-y-3">
+      <a href="#home" class="block">Home</a>
+      <a href="#gallery" class="block">Gallery</a>
+      <a href="#avatar" class="block">Avatar</a>
+      <a href="#draw" class="block">Drawing</a>
+      <a href="#about" class="block">About</a>
+      <a href="#contact" class="block">Contact</a>
+    </div>
+  </header>
+  <!-- Hero Section -->
+  <section id="home" class="relative flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white">
+    <div class="text-center space-y-6 px-4">
+      <h1 class="text-5xl md:text-7xl font-extrabold animate__animated animate__fadeInDown">
+        Welcome to My AI Art World 🎨
+      </h1>
+      <p class="text-lg md:text-2xl max-w-2xl mx-auto animate__animated animate__fadeInUp">
+        Explore stunning AI-generated artworks, customize avatars, and even draw on the board. 
+        A colorful, minimalist space built just for creativity.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mt-6 animate__animated animate__fadeInUp animate__delay-1s">
+        <a href="#gallery" class="px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition">View Gallery</a>
+        <a href="#avatar" class="px-6 py-3 bg-black text-white rounded-full font-semibold border border-white hover:bg-gray-900 transition">Build Avatar</a>
+      </div>
+    </div>
+  </section>
