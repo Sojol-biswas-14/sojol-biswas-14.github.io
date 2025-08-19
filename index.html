@@ -87,6 +87,52 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+    .drawing-section {
+  margin: 60px auto;
+  text-align: center;
+  max-width: 1000px;
+}
+
+.drawing-wrapper {
+  margin-top: 20px;
+}
+
+.canvas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.canvas-toolbar button,
+.canvas-toolbar input,
+.canvas-toolbar select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.canvas-box {
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+canvas {
+  background: #1a1a1a;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
   </style>
 </head>
 <body class="light-mode">
@@ -390,7 +436,54 @@ function shareAvatar() {
 
 <!-- html2canvas library for screenshot download/share -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- 🎨 Drawing Board Section -->
+<section class="drawing-section fade-in">
+  <h2>🖍️ Draw Something!</h2>
+  <p>Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
 
+  <div class="drawing-wrapper">
+    <!-- Canvas toolbar -->
+    <div class="canvas-toolbar">
+      <div class="toolbar-basic">
+        <button onclick="undo()">⤺ Undo</button>
+        <button onclick="redo()">⤻ Redo</button>
+        <button onclick="clearCanvas()">🧹 Clear</button>
+        <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
+        <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
+        <input type="range" id="brushSize" min="1" max="30" value="4" />
+      </div>
+
+      <div class="toolbar-pro">
+        <button onclick="uploadImage()">🖼 Upload Background</button>
+        <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
+          <option value="">🎨 Template</option>
+          <option value="dots">Dotted</option>
+          <option value="grid">Grid</option>
+          <option value="lines">Lined</option>
+          <option value="none">None</option>
+        </select>
+        <button onclick="generateFromDoodle()">🤖 AI Generate</button>
+        <button onclick="saveImage()">💾 Save</button>
+        <button onclick="shareDrawing()">📤 Share</button>
+      </div>
+    </div>
+
+    <!-- Canvas Box -->
+    <div class="canvas-box">
+      <canvas id="drawingCanvas" width="900" height="450"></canvas>
+      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
+    </div>
+  </div>
+
+  <!-- AI Generated Output -->
+  <div id="aiOutput" style="margin-top: 20px; display: none;">
+    <h3>🎨 AI Generated Image Preview</h3>
+    <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
+    <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
+  </div>
+</section>
+
+  
 xxxx
   <script>
 const slider = document.querySelector(".slider-track");
