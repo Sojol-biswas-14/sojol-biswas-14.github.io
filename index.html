@@ -379,7 +379,8 @@
       loadDrawing();
       resizeCanvas();
     });
-
+canvas.addEventListener("touchstart", e => e.preventDefault(), { passive: false });
+canvas.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("touchstart", startDraw);
     canvas.addEventListener("mouseup", endDraw);
