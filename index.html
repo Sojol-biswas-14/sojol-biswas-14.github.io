@@ -1,190 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sojol Biswas - AI Art Gallery, Portfolio, Avatar Builder, and Creative Drawing Board.">
-  <meta name="keywords" content="AI Art, Gallery, Portfolio, Drawing Board, Avatar Builder, Sojol Biswas">
-  <meta name="author" content="Sojol Biswas">
-  <title>Sojol Biswas - AI Art Gallery</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sojol Biswas - AI Art Gallery, Avatar Builder, and Drawing Board" />
+  <meta name="author" content="Sojol Biswas" />
+  <title>Sojol Biswas — AI Art Gallery</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="icon" href="images/logo.png" type="image/png" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
-  <!-- FontAwesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Font Awesome (icons) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-  <!-- TailwindCSS CDN -->
+  <!-- Animate.css (your animate__ classes) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <!-- Tailwind via CDN + enable dark mode by class -->
+  <script>
+    window.tailwind = {
+      config: {
+        darkMode: 'class'
+      }
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Custom Styles -->
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-    .dark-mode {
-      background-color: #0f172a;
-      color: #f1f5f9;
-    }
-    .light-mode {
-      background-color: #ffffff;
-      color: #111827;
-    }
-    /* Navbar */
-    .navbar {
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .navbar.scrolled {
-      background: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-    /* Hero animation */
-    .fade-in {
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    /* Popular Image Slider */
-.popular-images {
-  margin: 50px auto;
-  text-align: center;
-  max-width: 1000px;
-  padding: 20px;
-}
-.popular-images .section-title {
-  font-size: 26px;
-  margin-bottom: 20px;
-  color: #00ffcc;
-}
-.image-slider {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-.slider-track {
-  display: flex;
-  gap: 15px;
-  animation: scrollSlider 25s linear infinite;
-}
-.slider-track img {
-  width: 250px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.3s;
-}
-.slider-track img:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-}
-@keyframes scrollSlider {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-    .drawing-section {
-  margin: 60px auto;
-  text-align: center;
-  max-width: 1000px;
-}
+    :root { --brand: #00ffcc; }
 
-.drawing-wrapper {
-  margin-top: 20px;
-}
+    html, body { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; }
 
-.canvas-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+    /* Navbar states */
+    .navbar { transition: background .25s ease, box-shadow .25s ease; }
+    .navbar.scrolled { background: rgba(0,0,0,.6); box-shadow: 0 6px 16px rgba(0,0,0,.25); backdrop-filter: blur(8px); }
 
-.canvas-toolbar button,
-.canvas-toolbar input,
-.canvas-toolbar select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-}
-.canvas-box {
-  background: #111;
-  border: 2px solid #00ffcc;
-  border-radius: 12px;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  width: 100%;
-  max-width: 920px;
-  margin: 0 auto;
-}
-canvas {
-  background: #1a1a1a;
-  border-radius: 10px;
-  width: 100%;
-  height: auto;
+    /* Popular ribbon (horizontal auto-scroll) */
+    .ribbon {
+      overflow: hidden;
+      position: relative;
     }
-    /* 🔥 Fade-in + Slide-up animations */
-.fade-section {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-    /* 🔥 Smooth theme transition */
-body {
-  transition: background 0.5s ease, color 0.5s ease;
-}
+    .ribbon-track {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: ribbonScroll 28s linear infinite;
+    }
+    .ribbon img {
+      width: 240px; height: 160px; object-fit: cover;
+      border-radius: 14px;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .ribbon img:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    @keyframes ribbonScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Drawing board wrapper */
+    .canvas-shell {
+      background: rgba(255,255,255,0.04);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    canvas#drawingCanvas {
+      background:#0f172a; /* slate-900 */
+      border-radius: 12px;
+      touch-action: none; /* stop page scrolling while drawing */
+      width: 100%;
+      height: auto;
+    }
+
+    /* Fade-in on scroll */
+    .fade-section { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-section.visible { opacity: 1; transform: translateY(0); }
+
+    /* Theme-toggle button size fix */
+    #theme-toggle { width: 40px; height: 40px; display: grid; place-items: center; }
+
+    /* Google Translate bubble */
+    #google_translate_container { z-index: 1000; }
   </style>
 </head>
-<body class="light-mode">
-<!-- Navbar -->
-  <header class="fixed w-full z-50 navbar bg-transparent text-white">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <!-- Logo -->
-      <div class="flex items-center space-x-2">
-        <img src="images/logo.png" alt="Logo" class="w-10 h-10 rounded-full">
-        <span class="font-bold text-xl">Sojol Biswas</span>
-      </div>
+<body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
 
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex space-x-8 font-medium">
-        <a href="#home" class="hover:text-blue-400 transition">Home</a>
-        <a href="#gallery" class="hover:text-blue-400 transition">Gallery</a>
-        <a href="#avatar" class="hover:text-blue-400 transition">Avatar</a>
-        <a href="#draw" class="hover:text-blue-400 transition">Drawing</a>
-        <a href="#about" class="hover:text-blue-400 transition">About</a>
-        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-      </nav>
+  <!-- Navbar -->
+  <header class="fixed inset-x-0 top-0 navbar z-50">
+    <div class="mx-auto max-w-7xl px-4">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-3">
+          <img src="images/logo.png" alt="Logo" class="w-10 h-10 rounded-full" />
+          <span class="font-extrabold text-lg tracking-wide">Sojol Biswas</span>
+        </a>
 
-      <!-- Right Controls -->
-      <div class="flex items-center space-x-4">
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-110 transition">
-          <i class="fas fa-moon"></i>
-        </button>
+        <nav class="hidden md:flex items-center gap-8 font-medium">
+          <a href="#home" class="hover:text-slate-400">Home</a>
+          <a href="#gallery" class="hover:text-slate-400">Gallery</a>
+          <a href="#avatar" class="hover:text-slate-400">Avatar</a>
+          <a href="#draw" class="hover:text-slate-400">Drawing</a>
+          <a href="#about" class="hover:text-slate-400">About</a>
+          <a href="#contact" class="hover:text-slate-400">Contact</a>
+        </nav>
 
-        <!-- Mobile Menu Button -->
-        <button id="menu-toggle" class="md:hidden text-2xl">
-          <i class="fas fa-bars"></i>
-        </button>
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" class="rounded-full bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-white">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button id="menu-toggle" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
       </div>
     </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-gray-900 text-white p-4 space-y-3">
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 text-white px-4 pb-4 space-y-2">
       <a href="#home" class="block">Home</a>
       <a href="#gallery" class="block">Gallery</a>
       <a href="#avatar" class="block">Avatar</a>
@@ -193,578 +128,508 @@ body {
       <a href="#contact" class="block">Contact</a>
     </div>
   </header>
-  <!-- Hero Section -->
-  <section id="home" class="relative flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white">
-    <div class="text-center space-y-6 px-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold animate__animated animate__fadeInDown">
-        Welcome to My AI Art World 🎨
-      </h1>
-      <p class="text-lg md:text-2xl max-w-2xl mx-auto animate__animated animate__fadeInUp">
-        Explore stunning AI-generated artworks, customize avatars, and even draw on the board. 
-        A colorful, minimalist space built just for creativity.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 mt-6 animate__animated animate__fadeInUp animate__delay-1s">
-        <a href="#gallery" class="px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition">View Gallery</a>
-        <a href="#avatar" class="px-6 py-3 bg-black text-white rounded-full font-semibold border border-white hover:bg-gray-900 transition">Build Avatar</a>
+
+  <!-- Hero -->
+  <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 pt-24 bg-gradient-to-br from-fuchsia-500 via-sky-500 to-emerald-400 dark:from-indigo-700 dark:via-fuchsia-700 dark:to-teal-700 text-white">
+    <div class="space-y-6 max-w-3xl">
+      <h1 class="text-5xl md:text-7xl font-extrabold animate__animated animate__fadeInDown">Welcome to My AI Art World 🎨</h1>
+      <p class="text-lg md:text-2xl animate__animated animate__fadeInUp">Explore stunning AI-generated artworks, customize avatars, and draw freely. A colorful yet minimalist space for creativity.</p>
+      <div class="flex flex-wrap gap-3 items-center justify-center animate__animated animate__fadeInUp animate__delay-1s">
+        <a href="#gallery" class="px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-slate-200">View Gallery</a>
+        <a href="#avatar" class="px-6 py-3 border border-white rounded-full font-semibold hover:bg-white/10">Build Avatar</a>
       </div>
     </div>
   </section>
-<!-- AI Art Showcase Section -->
-  <section id="gallery" class="py-20 bg-gray-100 dark:bg-gray-900 transition">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12 animate__animated animate__fadeIn">
-        Featured AI-Generated Art
-      </h2>
 
-      <!-- Image Slider -->
-      <div class="relative overflow-hidden">
+  <!-- Featured Gallery (slider) -->
+  <section id="gallery" class="py-16 fade-section">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-10">Featured AI-Generated Art</h2>
+
+      <div class="relative overflow-hidden rounded-2xl">
         <div id="art-slider" class="flex transition-transform duration-700 ease-in-out">
-          <!-- Slides: Add as many as you want -->
-          <div class="min-w-full flex justify-center">
-            <img src="images/human/Gemini_Generated_Image_fvrkwfvrkwfvrkwf.png" alt="Art 1" class="rounded-2xl shadow-lg w-3/4 object-cover">
+          <div class="min-w-full grid place-items-center bg-slate-100 dark:bg-slate-800">
+            <img src="images/human/Gemini_Generated_Image_fvrkwfvrkwfvrkwf.png" class="w-11/12 md:w-3/4 rounded-2xl shadow-xl object-cover" alt="Art 1" />
           </div>
-          <div class="min-w-full flex justify-center">
-            <img src="images/human/Gemini_Generated_Image_86z43b86z43b86z4.png" alt="Art 2" class="rounded-2xl shadow-lg w-3/4 object-cover">
+          <div class="min-w-full grid place-items-center bg-slate-100 dark:bg-slate-800">
+            <img src="images/human/Gemini_Generated_Image_86z43b86z43b86z4.png" class="w-11/12 md:w-3/4 rounded-2xl shadow-xl object-cover" alt="Art 2" />
           </div>
-          <div class="min-w-full flex justify-center">
-            <img src="images/human/watermarked_girl_image.jpg" alt="Art 3" class="rounded-2xl shadow-lg w-3/4 object-cover">
+          <div class="min-w-full grid place-items-center bg-slate-100 dark:bg-slate-800">
+            <img src="images/human/watermarked_girl_image.jpg" class="w-11/12 md:w-3/4 rounded-2xl shadow-xl object-cover" alt="Art 3" />
           </div>
-          <div class="min-w-full flex justify-center">
-            <img src="images/human/final_painting_with_watermark.jpg" alt="Art 4" class="rounded-2xl shadow-lg w-3/4 object-cover">
+          <div class="min-w-full grid place-items-center bg-slate-100 dark:bg-slate-800">
+            <img src="images/human/final_painting_with_watermark.jpg" class="w-11/12 md:w-3/4 rounded-2xl shadow-xl object-cover" alt="Art 4" />
           </div>
-          <!-- Add more images like this -->
+        </div>
+
+        <button type="button" class="absolute top-1/2 left-3 -translate-y-1/2 bg-black/50 text-white rounded-full px-4 py-2" onclick="prevSlide()">❮</button>
+        <button type="button" class="absolute top-1/2 right-3 -translate-y-1/2 bg-black/50 text-white rounded-full px-4 py-2" onclick="nextSlide()">❯</button>
+      </div>
+
+      <div id="slider-dots" class="flex justify-center mt-6 gap-2"></div>
+    </div>
+  </section>
+
+  <!-- Popular ribbon -->
+  <section class="py-12 fade-section">
+    <div class="max-w-7xl mx-auto px-4">
+      <h3 class="text-2xl font-semibold mb-4">Popular AI Art</h3>
+      <div class="ribbon" id="popularRibbon">
+        <div class="ribbon-track">
+          <!-- duplicate sequence to make infinite look -->
+          <img src="images/gallery/img1.jpg" alt="AI Art 1" />
+          <img src="images/gallery/img2.jpg" alt="AI Art 2" />
+          <img src="images/gallery/img3.jpg" alt="AI Art 3" />
+          <img src="images/gallery/img4.jpg" alt="AI Art 4" />
+          <img src="images/gallery/img5.jpg" alt="AI Art 5" />
+          <img src="images/gallery/img6.jpg" alt="AI Art 6" />
+          <img src="images/gallery/img1.jpg" alt="AI Art 1" />
+          <img src="images/gallery/img2.jpg" alt="AI Art 2" />
+          <img src="images/gallery/img3.jpg" alt="AI Art 3" />
+          <img src="images/gallery/img4.jpg" alt="AI Art 4" />
+          <img src="images/gallery/img5.jpg" alt="AI Art 5" />
+          <img src="images/gallery/img6.jpg" alt="AI Art 6" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avatar Builder -->
+  <section id="avatar" class="py-16 bg-slate-100 dark:bg-slate-800 fade-section">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-2">Create Your Avatar</h2>
+      <p class="text-center opacity-80 mb-8">Mix head, hair, eyes and backgrounds. Download or share your creation.</p>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+        <!-- Preview -->
+        <div class="relative w-56 h-56 bg-slate-900 border-4 border-[var(--brand)] rounded-2xl grid place-items-center overflow-hidden">
+          <img id="avatar-bg"   src="images/avatar/backgrounds/bg1.png"   class="absolute w-56 h-56 object-cover" alt="bg" />
+          <img id="avatar-head" src="images/avatar/heads/head1.png"       class="absolute w-40" alt="head" />
+          <img id="avatar-hair" src="images/avatar/hairs/hair1.png"       class="absolute w-40" alt="hair" />
+          <img id="avatar-eyes" src="images/avatar/eyes/eyes1.png"        class="absolute w-40" alt="eyes" />
         </div>
 
         <!-- Controls -->
-        <button onclick="prevSlide()" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full">❮</button>
-        <button onclick="nextSlide()" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full">❯</button>
-      </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+          <label class="block">
+            <span class="block font-semibold mb-1">Head</span>
+            <select id="head-select" class="w-full p-2 rounded bg-slate-200 dark:bg-slate-700">
+              <option value="head1.png">Head 1</option>
+              <option value="head2.png">Head 2</option>
+              <option value="head3.png">Head 3</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="block font-semibold mb-1">Hair</span>
+            <select id="hair-select" class="w-full p-2 rounded bg-slate-2 00 dark:bg-slate-700">
+              <option value="hair1.png">Hair 1</option>
+              <option value="hair2.png">Hair 2</option>
+              <option value="hair3.png">Hair 3</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="block font-semibold mb-1">Eyes</span>
+            <select id="eyes-select" class="w-full p-2 rounded bg-slate-200 dark:bg-slate-700">
+              <option value="eyes1.png">Eyes 1</option>
+              <option value="eyes2.png">Eyes 2</option>
+              <option value="eyes3.png">Eyes 3</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="block font-semibold mb-1">Background</span>
+            <select id="bg-select" class="w-full p-2 rounded bg-slate-200 dark:bg-slate-700">
+              <option value="bg1.png">Background 1</option>
+              <option value="bg2.png">Background 2</option>
+              <option value="bg3.png">Background 3</option>
+            </select>
+          </label>
 
-      <!-- Dots Indicator -->
-      <div id="slider-dots" class="flex justify-center mt-6 space-x-3"></div>
+          <div class="col-span-full flex gap-3 pt-2">
+            <button type="button" id="avatar-download" class="px-4 py-2 rounded bg-emerald-500 hover:bg-emerald-600 text-white">💾 Download</button>
+            <button type="button" id="avatar-share" class="px-4 py-2 rounded bg-sky-500 hover:bg-sky-600 text-white">📤 Share</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- Drawing Board -->
+  <section id="draw" class="py-16 fade-section">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-2">Draw Something!</h2>
+      <p class="text-center opacity-80 mb-6">Undo/redo, templates, upload background, save & share.</p>
+
+      <div class="canvas-shell">
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-3">
+          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="undo()">⤺ Undo</button>
+          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="redo()">⤻ Redo</button>
+          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="clearCanvas()">🧹 Clear</button>
+          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="clearSavedDrawing()">🗑 Clear Memory</button>
+
+          <input id="colorPicker" type="color" value="#00ffcc" class="w-10 h-10 rounded" title="Color" />
+          <input id="brushSize" type="range" min="1" max="30" value="4" class="w-40" />
+
+          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="uploadImage()">🖼 Upload Background</button>
+          <select id="bgTemplate" class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onchange="changeBackgroundTemplate(this.value)">
+            <option value="">🎨 Template</option>
+            <option value="dots">Dotted</option>
+            <option value="grid">Grid</option>
+            <option value="lines">Lined</option>
+            <option value="none">None</option>
+          </select>
+
+          <button class="px-3 py-2 rounded bg-emerald-500 text-white" onclick="saveImage()">💾 Save</button>
+          <button class="px-3 py-2 rounded bg-sky-500 text-white" onclick="shareDrawing()">📤 Share</button>
+        </div>
+
+        <canvas id="drawingCanvas" width="900" height="450"></canvas>
+        <input id="uploadInput" type="file" accept="image/*" class="hidden" />
+      </div>
+
+      <!-- Fake AI preview -->
+      <div id="aiOutput" class="hidden mt-6 text-center">
+        <h3 class="text-xl font-semibold mb-3">AI Generated Image Preview</h3>
+        <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI preview" class="mx-auto rounded-xl border-2 border-[var(--brand)]" />
+        <p class="text-sm opacity-70 mt-2">Placeholder for future AI pipeline.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-16 bg-slate-100 dark:bg-slate-800 fade-section">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">About Me</h2>
+      <p class="opacity-80 max-w-3xl mx-auto">
+        I’m Sojol Biswas from Mymensingh, Bangladesh. This space features my verified links and AI artwork.
+        I share royalty-free digital art to inspire and help creators. Learn more about my journey and tools here.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact + footer -->
+  <footer id="contact" class="pt-16 pb-8 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-semibold text-lg mb-3">Get in touch</h3>
+          <ul class="space-y-2">
+            <li><a href="mailto:sojolbiswas140@gmail.com" class="hover:underline">📧 sojolbiswas140@gmail.com</a></li>
+            <li class="flex gap-4 text-xl">
+              <a href="https://www.facebook.com/sojolboss007" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://www.instagram.com/sojol_biswas14" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://twitter.com/sojol_biswas14" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://www.youtube.com/sojolbiswas14" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-3">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="hover:underline">Home</a></li>
+            <li><a href="#gallery" class="hover:underline">Gallery</a></li>
+            <li><a href="#avatar" class="hover:underline">Avatar</a></li>
+            <li><a href="#draw" class="hover:underline">Drawing</a></li>
+            <li><a href="#about" class="hover:underline">About</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-lg mb-3">Language</h3>
+          <p class="text-sm opacity-80 mb-2">Choose your language:</p>
+          <a href="#" id="open-language" class="inline-block text-sm underline">🌍 Open Google Translate</a>
+        </div>
+      </div>
+
+      <p class="text-center mt-10 text-sm opacity-70">© 2025 Sojol Biswas — All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Google Translate bubble (initially hidden) -->
+  <div id="google_translate_container" class="hidden fixed bottom-4 right-4 bg-white text-slate-900 rounded-xl shadow-2xl p-3 w-[260px]">
+    <div class="flex items-center justify-between mb-2">
+      <strong class="text-sm">Translate</strong>
+      <button id="googleTranslateCloseBtn" class="text-xs px-2 py-1 rounded bg-slate-200 hover:bg-slate-300">✖ Close</button>
+    </div>
+    <div id="google_translate_element"></div>
+  </div>
+
+  <!-- html2canvas for avatar download/share -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Google Translate loader -->
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script>
+    /* =========================
+       Utilities / on-load
+    ========================== */
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => document.querySelectorAll(sel);
+
+    // Navbar scrolled
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.navbar');
+      if (window.scrollY > 8) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Mobile menu
+    $('#menu-toggle').addEventListener('click', () => {
+      $('#mobile-menu').classList.toggle('hidden');
+    });
+
+    // Fade-in on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .15 });
+    $$('.fade-section').forEach(sec => io.observe(sec));
+
+    /* =========================
+       Theme toggle (Tailwind dark class)
+    ========================== */
+    (function initTheme(){
+      const root = document.documentElement; // <html>
+      const stored = localStorage.getItem('theme');
+      if (stored === 'light') root.classList.remove('dark');
+      else root.classList.add('dark'); // default dark
+
+      updateThemeIcon();
+    })();
+
+    function updateThemeIcon() {
+      const isDark = document.documentElement.classList.contains('dark');
+      $('#theme-toggle').innerHTML = `<i class="fa-solid ${isDark ? 'fa-moon' : 'fa-sun'}"></i>`;
+    }
+
+    $('#theme-toggle').addEventListener('click', () => {
+      const root = document.documentElement;
+      const nowDark = !root.classList.contains('dark');
+      if (nowDark) {
+        root.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        root.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+      updateThemeIcon();
+    });
+
+    /* =========================
+       Featured slider
+    ========================== */
     let currentSlide = 0;
     const slider = document.getElementById('art-slider');
     const slides = slider.children;
     const dotsContainer = document.getElementById('slider-dots');
-    let autoSlideInterval;
+    let autoSlide;
 
-    // Create dots dynamically
-    function createDots() {
+    function makeDots() {
       dotsContainer.innerHTML = '';
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement('span');
-        dot.classList.add('h-3', 'w-3', 'rounded-full', 'cursor-pointer', 'transition-all');
-        dot.style.backgroundColor = i === currentSlide ? '#00ffcc' : '#888';
+      [...slides].forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'h-2.5 w-2.5 rounded-full';
+        dot.style.background = i === currentSlide ? 'var(--brand)' : '#888';
         dot.addEventListener('click', () => goToSlide(i));
         dotsContainer.appendChild(dot);
-      }
-    }
-
-    function updateSlide() {
-      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-      createDots();
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      updateSlide();
-      resetAutoSlide();
-    }
-
-    function prevSlide() {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      updateSlide();
-      resetAutoSlide();
-    }
-
-    function goToSlide(index) {
-      currentSlide = index;
-      updateSlide();
-      resetAutoSlide();
-    }
-
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(nextSlide, 5000);
-    }
-
-    function resetAutoSlide() {
-      clearInterval(autoSlideInterval);
-      startAutoSlide();
-    }
-
-    // Swipe support for mobile
-    let startX = 0;
-    let isSwiping = false;
-
-    slider.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isSwiping = true;
-    });
-
-    slider.addEventListener('touchmove', (e) => {
-      if (!isSwiping) return;
-      const diff = e.touches[0].clientX - startX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          prevSlide();
-        } else {
-          nextSlide();
-        }
-        isSwiping = false;
-      }
-    });
-
-    slider.addEventListener('touchend', () => {
-      isSwiping = false;
-    });
-
-    // Init
-    window.addEventListener('load', () => {
-      createDots();
-      startAutoSlide();
-    });
-</script>
-  <!-- 🎨 Popular AI Images Section -->
-<section class="popular-images fade-in">
-  <h2 class="section-title">Popular AI Art</h2>
-  <div class="image-slider" id="imageSlider">
-    <div class="slider-track">
-      <img src="images/gallery/img1.jpg" alt="AI Art 1">
-      <img src="images/gallery/img2.jpg" alt="AI Art 2">
-      <img src="images/gallery/img3.jpg" alt="AI Art 3">
-      <img src="images/gallery/img4.jpg" alt="AI Art 4">
-      <img src="images/gallery/img5.jpg" alt="AI Art 5">
-      <img src="images/gallery/img6.jpg" alt="AI Art 6">
-    </div>
-  </div>
-</section>
-<!-- 🎭 Avatar Builder Section -->
-<section id="avatar" class="py-16 bg-gray-800 text-white text-center">
-  <h2 class="text-3xl font-bold mb-6">🎭 Create Your Own Avatar</h2>
-  <p class="mb-8">Customize your avatar with head, hair, eyes, and background options. Download or share your creation!</p>
-
-  <div class="flex flex-col md:flex-row justify-center items-center gap-8">
-    <!-- Preview -->
-    <div class="avatar-preview relative w-48 h-48 bg-gray-900 border-4 border-teal-400 rounded-xl flex items-center justify-center">
-      <img id="avatar-head" src="images/avatar/heads/head1.png" alt="Head" class="absolute w-32">
-      <img id="avatar-hair" src="images/avatar/hairs/hair1.png" alt="Hair" class="absolute w-32">
-      <img id="avatar-eyes" src="images/avatar/eyes/eyes1.png" alt="Eyes" class="absolute w-32">
-      <img id="avatar-bg" src="images/avatar/backgrounds/bg1.png" alt="Background" class="absolute w-48 h-48 rounded-xl">
-    </div>
-
-    <!-- Controls -->
-    <div class="avatar-controls space-y-4 text-left">
-      <div>
-        <label class="block font-semibold">Head</label>
-        <select id="head-select" class="p-2 rounded bg-gray-700">
-          <option value="head1.png">Head 1</option>
-          <option value="head2.png">Head 2</option>
-          <option value="head3.png">Head 3</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block font-semibold">Hair</label>
-        <select id="hair-select" class="p-2 rounded bg-gray-700">
-          <option value="hair1.png">Hair 1</option>
-          <option value="hair2.png">Hair 2</option>
-          <option value="hair3.png">Hair 3</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block font-semibold">Eyes</label>
-        <select id="eyes-select" class="p-2 rounded bg-gray-700">
-          <option value="eyes1.png">Eyes 1</option>
-          <option value="eyes2.png">Eyes 2</option>
-          <option value="eyes3.png">Eyes 3</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block font-semibold">Background</label>
-        <select id="bg-select" class="p-2 rounded bg-gray-700">
-          <option value="bg1.png">Background 1</option>
-          <option value="bg2.png">Background 2</option>
-          <option value="bg3.png">Background 3</option>
-        </select>
-      </div>
-
-      <!-- Buttons -->
-      <div class="flex gap-4 mt-6">
-        <button onclick="downloadAvatar()" class="px-4 py-2 bg-teal-500 rounded hover:bg-teal-600">💾 Download</button>
-        <button onclick="shareAvatar()" class="px-4 py-2 bg-blue-500 rounded hover:bg-blue-600">📤 Share</button>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-// 🎭 Avatar Builder Logic
-const avatarHead = document.getElementById("avatar-head");
-const avatarHair = document.getElementById("avatar-hair");
-const avatarEyes = document.getElementById("avatar-eyes");
-const avatarBg   = document.getElementById("avatar-bg");
-
-// Dropdown selects
-document.getElementById("head-select").addEventListener("change", e => {
-  avatarHead.src = "images/avatar/heads/" + e.target.value;
-});
-document.getElementById("hair-select").addEventListener("change", e => {
-  avatarHair.src = "images/avatar/hairs/" + e.target.value;
-});
-document.getElementById("eyes-select").addEventListener("change", e => {
-  avatarEyes.src = "images/avatar/eyes/" + e.target.value;
-});
-document.getElementById("bg-select").addEventListener("change", e => {
-  avatarBg.src = "images/avatar/backgrounds/" + e.target.value;
-});
-
-// Download avatar as PNG
-function downloadAvatar() {
-  html2canvas(document.querySelector(".avatar-preview")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "my-avatar.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  });
-}
-
-// Share avatar
-function shareAvatar() {
-  html2canvas(document.querySelector(".avatar-preview")).then(canvas => {
-    canvas.toBlob(blob => {
-      const file = new File([blob], "my-avatar.png", { type: "image/png" });
-      if (navigator.share) {
-        navigator.share({ files: [file], title: "My Avatar", text: "Check out my new avatar!" });
-      } else {
-        alert("Your browser does not support Web Share API.");
-      }
-    });
-  });
-}
-</script>
-
-<!-- html2canvas library for screenshot download/share -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<!-- 🎨 Drawing Board Section -->
-<section class="drawing-section fade-in">
-  <h2>🖍️ Draw Something!</h2>
-  <p>Use your imagination and sketch freely. Basic or Pro – your creativity, your tools.</p>
-
-  <div class="drawing-wrapper">
-    <!-- Canvas toolbar -->
-    <div class="canvas-toolbar">
-      <div class="toolbar-basic">
-        <button onclick="undo()">⤺ Undo</button>
-        <button onclick="redo()">⤻ Redo</button>
-        <button onclick="clearCanvas()">🧹 Clear</button>
-        <button onclick="clearSavedDrawing()">🗑️ Clear Memory</button>
-        <input type="color" id="colorPicker" value="#00ffcc" title="Pick a color" />
-        <input type="range" id="brushSize" min="1" max="30" value="4" />
-      </div>
-
-      <div class="toolbar-pro">
-        <button onclick="uploadImage()">🖼 Upload Background</button>
-        <select id="bgTemplate" onchange="changeBackgroundTemplate(this.value)">
-          <option value="">🎨 Template</option>
-          <option value="dots">Dotted</option>
-          <option value="grid">Grid</option>
-          <option value="lines">Lined</option>
-          <option value="none">None</option>
-        </select>
-        <button onclick="generateFromDoodle()">🤖 AI Generate</button>
-        <button onclick="saveImage()">💾 Save</button>
-        <button onclick="shareDrawing()">📤 Share</button>
-      </div>
-    </div>
-
-    <!-- Canvas Box -->
-    <div class="canvas-box">
-      <canvas id="drawingCanvas" width="900" height="450"></canvas>
-      <input type="file" id="uploadInput" accept="image/*" style="display:none;" />
-    </div>
-  </div>
-
-  <!-- AI Generated Output -->
-  <div id="aiOutput" style="margin-top: 20px; display: none;">
-    <h3>🎨 AI Generated Image Preview</h3>
-    <img id="aiGeneratedImage" src="https://via.placeholder.com/600x400?text=Your+AI+Art+Here" alt="AI Generated Preview" style="max-width:100%; border:2px dashed #00ffcc; border-radius:12px;" />
-    <p style="color:#aaa; font-size:14px;">This is a placeholder. In future, real AI images will be shown here.</p>
-  </div>
-</section>
-  <script>
-const canvas = document.getElementById("drawingCanvas");
-const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-let drawing = false;
-let strokes = [];
-let redoStack = [];
-let currentStroke = [];
-
-// 🎯 Resize canvas responsively
-function resizeCanvas() {
-  canvas.width = Math.min(window.innerWidth - 60, 900);
-  canvas.height = 450;
-  redraw();
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-// 🖍 Start drawing
-function startDraw(e) {
-  drawing = true;
-  currentStroke = [];
-  draw(e);
-}
-
-// ⛔ Stop drawing
-function endDraw() {
-  drawing = false;
-  if (currentStroke.length > 0) {
-    strokes.push([...currentStroke]);
-    redoStack = [];
-    saveToLocal();
-  }
-}
-
-// 🎨 Draw event
-function draw(e) {
-  if (!drawing) return;
-  const rect = canvas.getBoundingClientRect();
-  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-  ctx.strokeStyle = colorPicker.value;
-  ctx.lineWidth = brushSize.value;
-  ctx.lineCap = "round";
-
-  if (currentStroke.length === 0) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  } else {
-    ctx.lineTo(x, y);
-    ctx.stroke();
-  }
-  currentStroke.push({ x, y, color: ctx.strokeStyle, size: ctx.lineWidth });
-}
-
-// 🔄 Redraw all strokes
-function redraw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (const stroke of strokes) {
-    ctx.beginPath();
-    for (let i = 0; i < stroke.length; i++) {
-      const p = stroke[i];
-      ctx.strokeStyle = p.color;
-      ctx.lineWidth = p.size;
-      ctx.lineCap = "round";
-      if (i === 0) ctx.moveTo(p.x, p.y);
-      else ctx.lineTo(p.x, p.y);
-    }
-    ctx.stroke();
-  }
-}
-
-// ⤺ Undo
-function undo() {
-  if (strokes.length > 0) {
-    redoStack.push(strokes.pop());
-    redraw();
-    saveToLocal();
-  }
-}
-
-// ⤻ Redo
-function redo() {
-  if (redoStack.length > 0) {
-    strokes.push(redoStack.pop());
-    redraw();
-    saveToLocal();
-  }
-}
-
-// 🧹 Clear all
-function clearCanvas() {
-  strokes = [];
-  redoStack = [];
-  redraw();
-  saveToLocal();
-}
-
-// 💾 Save image
-function saveImage() {
-  const img = canvas.toDataURL("image/png");
-  const a = document.createElement("a");
-  a.href = img;
-  a.download = "drawing.png";
-  a.click();
-}
-
-// 📤 Share drawing
-function shareDrawing() {
-  const dataUrl = canvas.toDataURL("image/png");
-  fetch(dataUrl)
-    .then(res => res.blob())
-    .then(blob => {
-      const file = new File([blob], "drawing.png", { type: "image/png" });
-      if (navigator.share) {
-        navigator.share({ files: [file], title: "My Drawing", text: "Check out my artwork!" });
-      } else {
-        alert("Sharing not supported in this browser.");
-      }
-    });
-}
-
-// 🗑 Clear saved drawing
-function clearSavedDrawing() {
-  localStorage.removeItem("drawingData");
-  alert("Saved drawing cleared!");
-}
-
-// 💾 Save strokes to localStorage
-function saveToLocal() {
-  localStorage.setItem("drawingData", JSON.stringify(strokes));
-}
-
-// 🔄 Load saved drawing
-window.addEventListener("load", () => {
-  const saved = localStorage.getItem("drawingData");
-  if (saved) {
-    try {
-      strokes = JSON.parse(saved);
-      redraw();
-    } catch (e) {
-      console.warn("Corrupted drawing data");
-    }
-  }
-});
-
-// 📂 Upload background
-function uploadImage() {
-  document.getElementById("uploadInput").click();
-}
-document.getElementById("uploadInput").addEventListener("change", function () {
-  const file = this.files[0];
-  const img = new Image();
-  const reader = new FileReader();
-
-  reader.onload = function (e) {
-    img.onload = function () {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-});
-
-// 🎨 Background templates
-function changeBackgroundTemplate(type) {
-  redraw();
-  ctx.save();
-  switch (type) {
-    case "dots":
-      ctx.fillStyle = "#00ffcc55";
-      for (let y = 0; y < canvas.height; y += 20) {
-        for (let x = 0; x < canvas.width; x += 20) {
-          ctx.beginPath();
-          ctx.arc(x, y, 1.5, 0, 2 * Math.PI);
-          ctx.fill();
-        }
-      }
-      break;
-    case "grid":
-      ctx.strokeStyle = "#00ffcc33";
-      for (let y = 0; y < canvas.height; y += 30) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-      for (let x = 0; x < canvas.width; x += 30) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-      break;
-    case "lines":
-      ctx.strokeStyle = "#00ffcc22";
-      for (let y = 0; y < canvas.height; y += 30) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-      break;
-    default:
-      break;
-  }
-  ctx.restore();
-}
-
-// 🤖 Fake AI preview
-function generateFromDoodle() {
-  document.getElementById("aiOutput").style.display = "block";
-}
-
-// 🎮 Event Listeners
-canvas.addEventListener("mousedown", startDraw);
-canvas.addEventListener("mouseup", endDraw);
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("touchstart", startDraw);
-canvas.addEventListener("touchend", endDraw);
-canvas.addEventListener("touchmove", draw);
-</script>
-  <script>
-const slider = document.querySelector(".slider-track");
-slider.addEventListener("mouseover", () => {
-  slider.style.animationPlayState = "paused";
-});
-slider.addEventListener("mouseout", () => {
-  slider.style.animationPlayState = "running";
-});
-</script>
-<script>
-  // Google Translate close button logic
-  <div id="google_translate_container" class="fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-2">
-  <div id="google_translate_element"></div>
-  <button id="googleTranslateCloseBtn" class="mt-2 text-xs text-red-500 hover:underline">✖ Close</button>
-</div>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      { pageLanguage: 'en' },
-      'google_translate_element'
-    );
-  }
-</script>
-  <script>
-  // 🔥 Fade-in on scroll
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll(".fade-section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
       });
-    }, { threshold: 0.1 });
+    }
+    function goToSlide(i) { currentSlide = (i + slides.length) % slides.length; slider.style.transform = `translateX(-${currentSlide*100}%)`; makeDots(); resetAuto(); }
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+    function startAuto() { autoSlide = setInterval(nextSlide, 5000); }
+    function resetAuto() { clearInterval(autoSlide); startAuto(); }
+    window.prevSlide = prevSlide; window.nextSlide = nextSlide;
 
-    sections.forEach(section => observer.observe(section));
-  });
+    // Swipe
+    let sx=0, swiping=false;
+    slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; swiping = true; }, {passive:true});
+    slider.addEventListener('touchmove', e => {
+      if (!swiping) return;
+      const dx = e.touches[0].clientX - sx;
+      if (Math.abs(dx) > 50) { dx>0 ? prevSlide() : nextSlide(); swiping=false; }
+    }, {passive:true});
+    slider.addEventListener('touchend', ()=> swiping=false);
+
+    // Init slider
+    window.addEventListener('load', () => { makeDots(); startAuto(); });
+
+    // Pause ribbon on hover
+    const ribbon = document.getElementById('popularRibbon')?.querySelector('.ribbon-track');
+    if (ribbon) {
+      ribbon.addEventListener('mouseenter', ()=> ribbon.style.animationPlayState='paused');
+      ribbon.addEventListener('mouseleave', ()=> ribbon.style.animationPlayState='running');
+    }
+
+    /* =========================
+       Avatar Builder
+    ========================== */
+    const avatarParts = {
+      head: $('#avatar-head'),
+      hair: $('#avatar-hair'),
+      eyes: $('#avatar-eyes'),
+      bg:   $('#avatar-bg')
+    };
+    $('#head-select').addEventListener('change', e => avatarParts.head.src = `images/avatar/heads/${e.target.value}`);
+    $('#hair-select').addEventListener('change', e => avatarParts.hair.src = `images/avatar/hairs/${e.target.value}`);
+    $('#eyes-select').addEventListener('change', e => avatarParts.eyes.src = `images/avatar/eyes/${e.target.value}`);
+    $('#bg-select').addEventListener('change',   e => avatarParts.bg.src   = `images/avatar/backgrounds/${e.target.value}`);
+
+    function captureAvatar(cb) {
+      html2canvas(document.querySelector('#avatar .relative')).then(canvas => cb(canvas));
+    }
+    $('#avatar-download').addEventListener('click', () => {
+      captureAvatar(canvas => {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'my-avatar.png';
+        a.click();
+      });
+    });
+    $('#avatar-share').addEventListener('click', () => {
+      captureAvatar(canvas => {
+        canvas.toBlob(blob => {
+          const file = new File([blob], 'my-avatar.png', {type:'image/png'});
+          if (navigator.share) navigator.share({ files:[file], title:'My Avatar' });
+          else alert('Web Share API not supported on this device.');
+        });
+      });
+    });
+
+    /* =========================
+       Drawing Board
+    ========================== */
+    const canvasEl = document.getElementById('drawingCanvas');
+    const ctx = canvasEl.getContext('2d', { willReadFrequently:true });
+    let drawing=false, strokes=[], redoStack=[], currentStroke=[];
+
+    function sizeCanvas() {
+      // Keep 2:1 ratio up to 900x450
+      const maxW = Math.min(window.innerWidth - 48, 900);
+      canvasEl.width = maxW;
+      canvasEl.height = Math.round(maxW/2);
+      redraw();
+    }
+    window.addEventListener('resize', sizeCanvas);
+    sizeCanvas();
+
+    function startDraw(e) {
+      drawing = true;
+      currentStroke = [];
+      draw(e);
+    }
+    function endDraw() {
+      drawing = false;
+      if (currentStroke.length) {
+        strokes.push([...currentStroke]);
+        redoStack.length = 0;
+        saveToLocal();
+      }
+    }
+    function draw(e) {
+      // Prevent page scroll on touch
+      if (e.cancelable) e.preventDefault();
+
+      if (!drawing) return;
+      const rect = canvasEl.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      ctx.strokeStyle = document.getElementById('colorPicker').value;
+      ctx.lineWidth = document.getElementById('brushSize').value;
+      ctx.lineCap = 'round';
+
+      if (!currentStroke.length) { ctx.beginPath(); ctx.moveTo(x,y); }
+      else { ctx.lineTo(x,y); ctx.stroke(); }
+
+      currentStroke.push({x,y,color:ctx.strokeStyle,size:ctx.lineWidth});
+    }
+    function redraw() {
+      ctx.clearRect(0,0,canvasEl.width,canvasEl.height);
+      for (const stroke of strokes) {
+        ctx.beginPath();
+        for (let i=0;i<stroke.length;i++) {
+          const p = stroke[i];
+          ctx.strokeStyle = p.color; ctx.lineWidth = p.size; ctx.lineCap = 'round';
+          if (i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y);
+        }
+        ctx.stroke();
+      }
+    }
+    window.undo = function(){ if (strokes.length){ redoStack.push(strokes.pop()); redraw(); saveToLocal(); } }
+    window.redo = function(){ if (redoStack.length){ strokes.push(redoStack.pop()); redraw(); saveToLocal(); } }
+    window.clearCanvas = function(){ strokes=[]; redoStack=[]; redraw(); saveToLocal(); }
+    window.saveImage = function(){
+      const img = canvasEl.toDataURL('image/png');
+      const a = document.createElement('a'); a.href = img; a.download = 'drawing.png'; a.click();
+    }
+    window.shareDrawing = function(){
+      const dataUrl = canvasEl.toDataURL('image/png');
+      fetch(dataUrl).then(r=>r.blob()).then(blob=>{
+        const file = new File([blob], 'drawing.png', {type:'image/png'});
+        if (navigator.share) navigator.share({ files:[file], title:'My Drawing' });
+        else alert('Sharing not supported in this browser.');
+      });
+    }
+    window.clearSavedDrawing = function(){ localStorage.removeItem('drawingData'); alert('Saved drawing cleared!'); }
+    function saveToLocal(){ localStorage.setItem('drawingData', JSON.stringify(strokes)); }
+    // load
+    window.addEventListener('load', ()=>{
+      const saved = localStorage.getItem('drawingData');
+      if (saved) { try { strokes = JSON.parse(saved); redraw(); } catch{} }
+    });
+
+    // Background template + upload
+    window.changeBackgroundTemplate = function(type){
+      redraw();
+      ctx.save();
+      switch(type){
+        case 'dots':
+          ctx.fillStyle = '#00ffcc88';
+          for (let y=0;y<canvasEl.height;y+=20){
+            for (let x=0;x<canvasEl.width;x+=20){
+              ctx.beginPath(); ctx.arc(x,y,1.3,0,Math.PI*2); ctx.fill();
+            }
+          } break;
+        case 'grid':
+          ctx.strokeStyle = '#00ffcc55';
+          for (let y=0;y<canvasEl.height;y+=30){
+            ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvasEl.width,y); ctx.stroke();
+          }
+          for (let x=0;x<canvasEl.width;x+=30){
+            ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvasEl.height); ctx.stroke();
+          } break;
+        case 'lines':
+          ctx.strokeStyle = '#00ffcc44';
+          for (let y=0;y<canvasEl.height;y+=30){
+            ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvasEl.width,y); ctx.stroke();
+          } break;
+        default: break;
+      }
+      ctx.restore();
+    }
+    window.uploadImage = function(){ document.getElementById('uploadInput').click(); }
+    document.getElementById('uploadInput').addEventListener('change', function(){
+      const file = this.files[0]; if (!file) return;
+      const img = new Image(); const reader = new FileReader();
+      reader.onload = e => { img.onload = ()=> ctx.drawImage(img,0,0,canvasEl.width,canvasEl.height); img.src = e.target.result; };
+      reader.readAsDataURL(file);
+    });
+
+    /* =========================
+       Google Translate
+    ========================== */
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    };
+    document.getElementById('open-language').addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.getElementById('google_translate_container').classList.remove('hidden');
+    });
+    document.getElementById('googleTranslateCloseBtn').addEventListener('click', ()=>{
+      document.getElementById('google_translate_container').classList.add('hidden');
+    });
   </script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-</script>
-<footer class="py-6 bg-gray-900 text-white text-center mt-12">
-  <p class="mb-3">© 2025 Sojol Biswas</p>
-  <div class="flex justify-center gap-6 mb-3">
-    <a href="https://www.facebook.com/sojolboss007" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.instagram.com/sojol_biswas14" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com/sojol_biswas14" target="_blank"><i class="fab fa-twitter"></i></a>
-  </div>
-  <a href="#" onclick="document.getElementById('google_translate_container').style.display='block';" class="text-sm underline">🌍 Language</a>
-</footer>
+</body>
+</html>
