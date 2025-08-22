@@ -88,64 +88,68 @@
 
     /* Google Translate bubble */
     #google_translate_container { z-index: 1000; }
-/* Profile Section */
-.profile-section {
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  color: white;
+}
+
+.hero-content {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.profile-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.profile-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  gap: 25px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .profile-pic {
-  width: 200px;
-  height: 200px;
-  border-radius: 15px;
-  border: 3px solid var(--accent-color);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-.profile-pic:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+.bio-text {
+  max-width: 600px;
+  text-align: left;
 }
 
-.profile-right {
-  flex: 2;
+.bio-text h2 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
 }
 
-.profile-right h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
-  color: var(--text-color);
-}
-
-.profile-right p {
-  font-size: 18px;
+.bio-text p {
+  margin: 0;
+  font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-muted);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .profile-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  .profile-right {
-    margin-top: 20px;
-  }
-    }
+.welcome-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.welcome-text p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
@@ -186,28 +190,28 @@
       <a href="#contact" class="block">Contact</a>
     </div>
   </header>
-<!-- Profile Section -->
-<section class="profile-section fade-in">
-  <div class="profile-left">
-    <img src="images/profile.jpg" alt="Sojol Biswas" class="profile-pic">
-  </div>
-  <div class="profile-right">
-    <h2>Sojol Biswas</h2>
-    <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
-  </div>
-</section>
-  <!-- Hero -->
-  <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 pt-24 bg-gradient-to-br from-fuchsia-500 via-sky-500 to-emerald-400 dark:from-indigo-700 dark:via-fuchsia-700 dark:to-teal-700 text-white">
-    <div class="space-y-6 max-w-3xl">
-      <h1 class="text-5xl md:text-7xl font-extrabold animate__animated animate__fadeInDown">Welcome to My AI Art World 🎨</h1>
-      <p class="text-lg md:text-2xl animate__animated animate__fadeInUp">Explore stunning AI-generated artworks, customize avatars, and draw freely. A colorful yet minimalist space for creativity.</p>
-      <div class="flex flex-wrap gap-3 items-center justify-center animate__animated animate__fadeInUp animate__delay-1s">
-        <a href="#gallery" class="px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-slate-200">View Gallery</a>
-        <a href="#avatar" class="px-6 py-3 border border-white rounded-full font-semibold hover:bg-white/10">Build Avatar</a>
+<!-- Profile Section + hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="profile-box">
+      <img src="images/profile.jpg" alt="Sojol Biswas" class="profile-pic">
+      <div class="bio-text">
+        <h2>Sojol Biswas</h2>
+        <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
+        <a href="about.html" class="btn">Read More</a>
       </div>
     </div>
-  </section>
 
+    <div class="welcome-text">
+      <h1>Welcome to My AI Art World</h1>
+      <p>Explore stunning AI-generated artworks, customize avatars, and draw freely. A colorful yet minimalist space for creativity.</p>
+      <div class="cta-buttons">
+        <a href="gallery.html" class="btn">View Gallery</a>
+        <a href="avatar.html" class="btn">Build Avatar</a>
+      </div>
+    </div>
+  </div>
+</section>
   <!-- Featured Gallery (slider) -->
   <section id="gallery" class="py-16 fade-section">
     <div class="max-w-7xl mx-auto px-4">
