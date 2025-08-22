@@ -33,7 +33,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    :root { --brand: #00ffcc; }
+    :root {
+  --accent-color: #00ffcc;   /* neon teal for highlights */
+  --bg-dark: #1a1a1a;
+  --bg-light: #ffffff;
+  --text-dark: #222;
+  --text-light: #f9f9f9;
+}
 
     html, body { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; }
@@ -89,22 +95,19 @@
     /* Google Translate bubble */
     #google_translate_container { z-index: 1000; }
 .hero {
+.hero {
   padding: 80px 20px;
   text-align: center;
-  background: linear-gradient(135deg, #1a1a1a, #222);
-  color: white;
+  background: linear-gradient(135deg, var(--bg-dark), #2b2b2b);
+  color: var(--text-light);
+  animation: fadeInUp 1s ease-out;
 }
 
-.hero-content {
-  max-width: 1100px;
-  margin: auto;
-}
-
-.profile-box {
+.profile-bio {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 30px;
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
@@ -115,41 +118,76 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--accent-color);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.4);
+  animation: fadeInLeft 1s ease-out;
 }
 
 .bio-text {
-  max-width: 600px;
+  max-width: 500px;
   text-align: left;
+  animation: fadeInRight 1s ease-out;
 }
 
 .bio-text h2 {
   margin: 0 0 10px;
   font-size: 1.8rem;
+  color: var(--accent-color);
 }
 
 .bio-text p {
   margin: 0;
   font-size: 1rem;
   line-height: 1.6;
+  color: var(--text-light);
+}
+
+.welcome-text {
+  margin-top: 20px;
+  animation: fadeInUp 1.2s ease-out;
 }
 
 .welcome-text h1 {
   font-size: 2.5rem;
   margin-bottom: 15px;
+  color: var(--accent-color);
 }
 
 .welcome-text p {
   font-size: 1.2rem;
   margin-bottom: 25px;
+  color: var(--text-light);
 }
 
-.cta-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--accent-color);
+  color: #000;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
 }
+
+.btn:hover {
+  background: #00ccaa;
+  transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+      }
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
