@@ -133,6 +133,16 @@ canvas {
   width: 100%;
   height: auto;
     }
+    /* 🔥 Fade-in + Slide-up animations */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
   </style>
 </head>
 <body class="light-mode">
@@ -728,6 +738,21 @@ slider.addEventListener("mouseout", () => {
     );
   }
 </script>
+  <script>
+  // 🔥 Fade-in on scroll
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll(".fade-section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+  });
+  </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
 </script>
 <footer class="py-6 bg-gray-900 text-white text-center mt-12">
