@@ -202,6 +202,52 @@
     transform: translateY(0);
   }
       }
+    /* ===== Gallery Categories Section ===== */
+.gallery-categories {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.gallery-categories .section-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.gallery-categories .section-subtitle {
+  font-size: 1rem;
+  margin-bottom: 40px;
+  color: var(--secondary-color);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gallery-card {
+  display: block;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gallery-card h3 {
+  padding: 15px;
+  font-size: 1.2rem;
+}
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
@@ -264,7 +310,7 @@
         A colorful yet minimalist space for creativity.
       </p>
       <div class="hero-buttons">
-        <a href="#gallery" class="btn">View Gallery</a>
+        <a href="#gallery-categories" class="btn">View Gallery</a>
         <a href="#avatar" class="btn secondary">Build Avatar</a>
       </div>
     </div>
