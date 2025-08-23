@@ -94,100 +94,90 @@
 
     /* Google Translate bubble */
     #google_translate_container { z-index: 1000; }
-.hero {
-.hero {
-  padding: 80px 20px;
+/* Hero Section */
+#hero {
+  padding: 100px 20px;
   text-align: center;
-  background: linear-gradient(135deg, var(--bg-dark), #2b2b2b);
-  color: var(--text-light);
-  animation: fadeInUp 1s ease-out;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #3b82f6);
+  color: #fff;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.profile-bio {
+.hero-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Profile + Bio side by side */
+.profile-hero {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 30px;
   margin-bottom: 40px;
-  flex-wrap: wrap;
 }
 
-.profile-pic {
+.profile-photo {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--accent-color);
-  box-shadow: 0 4px 12px rgba(0, 255, 204, 0.4);
-  animation: fadeInLeft 1s ease-out;
+  border: 3px solid #00f5d4;
+  box-shadow: 0px 0px 20px rgba(0, 245, 212, 0.5);
+  animation: float 4s ease-in-out infinite;
 }
 
-.bio-text {
+.profile-bio {
   max-width: 500px;
   text-align: left;
-  animation: fadeInRight 1s ease-out;
 }
 
-.bio-text h2 {
-  margin: 0 0 10px;
-  font-size: 1.8rem;
-  color: var(--accent-color);
+.profile-bio h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 
-.bio-text p {
-  margin: 0;
-  font-size: 1rem;
+.profile-bio p {
+  font-size: 16px;
   line-height: 1.6;
-  color: var(--text-light);
 }
 
-.welcome-text {
-  margin-top: 20px;
-  animation: fadeInUp 1.2s ease-out;
-}
-
-.welcome-text h1 {
-  font-size: 2.5rem;
+/* Keep your old welcome text same */
+.hero-text h1 {
+  font-size: 36px;
   margin-bottom: 15px;
-  color: var(--accent-color);
+  background: linear-gradient(45deg, #00f5d4, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.welcome-text p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: var(--text-light);
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-.btn {
+.hero-buttons .btn {
   display: inline-block;
-  padding: 10px 20px;
-  background: var(--accent-color);
-  color: #000;
+  margin: 10px;
+  padding: 12px 25px;
   border-radius: 8px;
+  background: #00f5d4;
+  color: #000;
   font-weight: bold;
   transition: 0.3s;
 }
 
-.btn:hover {
-  background: #00ccaa;
-  transform: translateY(-3px);
+.hero-buttons .btn:hover {
+  background: #3b82f6;
+  color: #fff;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-      }
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+    }
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
@@ -228,24 +218,25 @@
       <a href="#contact" class="block">Contact</a>
     </div>
   </header>
-<!-- Profile Section + hero -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="profile-box">
-      <img src="images/profile.jpg" alt="Sojol Biswas" class="profile-pic">
-      <div class="bio-text">
+<!-- Hero Section -->
+<section id="hero">
+  <div class="hero-container">
+    <!-- Profile area -->
+    <div class="profile-hero">
+      <img src="images/profile.jpg" alt="Sojol Biswas" class="profile-photo">
+      <div class="profile-bio">
         <h2>Sojol Biswas</h2>
         <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
-        <a href="about.html" class="btn">Read More</a>
       </div>
     </div>
 
-    <div class="welcome-text">
-      <h1>Welcome to My AI Art World</h1>
+    <!-- Welcome text continues -->
+    <div class="hero-text">
+      <h1>Welcome to My AI Art World 🎨</h1>
       <p>Explore stunning AI-generated artworks, customize avatars, and draw freely. A colorful yet minimalist space for creativity.</p>
-      <div class="cta-buttons">
-        <a href="gallery.html" class="btn">View Gallery</a>
-        <a href="avatar.html" class="btn">Build Avatar</a>
+      <div class="hero-buttons">
+        <a href="#gallery" class="btn">View Gallery</a>
+        <a href="#avatar" class="btn">Build Avatar</a>
       </div>
     </div>
   </div>
