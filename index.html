@@ -40,7 +40,9 @@
   --text-dark: #222;
   --text-light: #f9f9f9;
 }
-
+html {
+  scroll-behavior: smooth;
+}
     html, body { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; }
 
@@ -254,6 +256,13 @@
   padding: 15px;
   font-size: 1.2rem;
     }
+    /* Smooth fade effect for gallery slideshow */
+.gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease-in-out;
+}
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
@@ -350,95 +359,85 @@
       <div id="slider-dots" class="flex justify-center mt-6 gap-2"></div>
     </div>
   </section> <!-- end of Featured AI Art -->
-<!-- ===== Gallery Categories Section ===== -->
-<section id="gallery-categories" class="gallery-categories fade-in">
-  <div class="container">
-    <h2 class="section-title">🌟 Explore My AI Galleries</h2>
-    <p class="section-subtitle">Browse unique AI-generated artworks across different themes</p>
+<!-- 🎨 AI Art Gallery Section with Auto-Preview -->
+<section id="gallery" class="gallery-section fade-in">
+  <h2 class="section-title">🌟 Explore the Gallery</h2>
+  <p class="gallery-subtitle">Browse categories of Sojol’s AI-generated artworks</p>
 
-    <div class="gallery-grid">
-      <!-- Category Card -->
-      <a href="human.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/human/sample1.jpg" alt="Human Art 1">
-          <img src="images/human/sample2.jpg" alt="Human Art 2">
-          <img src="images/human/sample3.jpg" alt="Human Art 3">
-        </div>
-        <h3>👤 Human</h3>
-      </a>
+  <div class="gallery-grid">
 
-      <a href="animal.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/animal/sample1.jpg" alt="Animal Art 1">
-          <img src="images/animal/sample2.jpg" alt="Animal Art 2">
-          <img src="images/animal/sample3.jpg" alt="Animal Art 3">
-        </div>
-        <h3>🐶 Animal</h3>
-      </a>
+    <!-- Human -->
+    <a href="human.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/human/Gemini_Generated_Image_fvrkwfvrkwfvrkwf.png,images/human/Gemini_Generated_Image_86z43b86z43b86z4.png,images/human/final_painting_with_watermark.jpg">
+        <img src="images/human/Gemini_Generated_Image_fvrkwfvrkwfvrkwf.png" alt="Human AI Art">
+      </div>
+      <h3>Human</h3>
+    </a>
 
-      <a href="robot.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/robots/sample1.jpg" alt="Robot Art 1">
-          <img src="images/robots/sample2.jpg" alt="Robot Art 2">
-          <img src="images/robots/sample3.jpg" alt="Robot Art 3">
-        </div>
-        <h3>🤖 Robots</h3>
-      </a>
+    <!-- Wallpaper -->
+    <a href="wallpaper.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/wallpaper/1751359959278.jpg,images/wallpaper/1751359895046.jpg,images/wallpaper/1751360174913.jpg">
+        <img src="images/wallpaper/1751359959278.jpg" alt="Wallpaper AI Art">
+      </div>
+      <h3>Wallpaper</h3>
+    </a>
 
-      <a href="flower.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/flower/sample1.jpg" alt="Flower Art 1">
-          <img src="images/flower/sample2.jpg" alt="Flower Art 2">
-          <img src="images/flower/sample3.jpg" alt="Flower Art 3">
-        </div>
-        <h3>🌸 Flower</h3>
-      </a>
+    <!-- House -->
+    <a href="house.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/house/Gemini_Generated_Image_rw6tmwrw6tmwrw6t.png,images/house/Gemini_Generated_Image_rw6tmqrw6tmqrw6t.png,images/house/Gemini_Generated_Image_rw6tmtrw6tmtrw6t.png">
+        <img src="images/house/Gemini_Generated_Image_rw6tmwrw6tmwrw6t.png" alt="House AI Art">
+      </div>
+      <h3>House</h3>
+    </a>
 
-      <a href="house.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/house/sample1.jpg" alt="House Art 1">
-          <img src="images/house/sample2.jpg" alt="House Art 2">
-          <img src="images/house/sample3.jpg" alt="House Art 3">
-        </div>
-        <h3>🏠 House</h3>
-      </a>
+    <!-- Animal -->
+    <a href="animal.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/animal/sample1.jpg,images/animal/sample2.jpg,images/animal/sample3.jpg">
+        <img src="images/animal/sample1.jpg" alt="Animal AI Art">
+      </div>
+      <h3>Animal</h3>
+    </a>
 
-      <a href="wallpaper.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/wallpaper/sample1.jpg" alt="Wallpaper 1">
-          <img src="images/wallpaper/sample2.jpg" alt="Wallpaper 2">
-          <img src="images/wallpaper/sample3.jpg" alt="Wallpaper 3">
-        </div>
-        <h3>🖼 Wallpaper</h3>
-      </a>
+    <!-- Flower -->
+    <a href="flower.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/flower/sample1.jpg,images/flower/sample2.jpg,images/flower/sample3.jpg">
+        <img src="images/flower/sample1.jpg" alt="Flower AI Art">
+      </div>
+      <h3>Flower</h3>
+    </a>
 
-      <a href="anime.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/anime/sample1.jpg" alt="Anime Art 1">
-          <img src="images/anime/sample2.jpg" alt="Anime Art 2">
-          <img src="images/anime/sample3.jpg" alt="Anime Art 3">
-        </div>
-        <h3>🎬 Anime</h3>
-      </a>
+    <!-- Robot -->
+    <a href="robot.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/robots/sample1.jpg,images/robots/sample2.jpg,images/robots/sample3.jpg">
+        <img src="images/robots/sample1.jpg" alt="Robot AI Art">
+      </div>
+      <h3>Robot</h3>
+    </a>
 
-      <a href="nature.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/nature/sample1.jpg" alt="Nature Art 1">
-          <img src="images/nature/sample2.jpg" alt="Nature Art 2">
-          <img src="images/nature/sample3.jpg" alt="Nature Art 3">
-        </div>
-        <h3>🌿 Nature</h3>
-      </a>
+    <!-- Anime -->
+    <a href="anime.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/anime/sample1.jpg,images/anime/sample2.jpg,images/anime/sample3.jpg">
+        <img src="images/anime/sample1.jpg" alt="Anime AI Art">
+      </div>
+      <h3>Anime</h3>
+    </a>
 
-      <a href="fantasy.html" class="gallery-card fade-in">
-        <div class="gallery-preview">
-          <img src="images/fantasy/sample1.jpg" alt="Fantasy Art 1">
-          <img src="images/fantasy/sample2.jpg" alt="Fantasy Art 2">
-          <img src="images/fantasy/sample3.jpg" alt="Fantasy Art 3">
-        </div>
-        <h3>🧙 Fantasy</h3>
-      </a>
-    </div>
+    <!-- Nature -->
+    <a href="nature.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/nature/sample1.jpg,images/nature/sample2.jpg,images/nature/sample3.jpg">
+        <img src="images/nature/sample1.jpg" alt="Nature AI Art">
+      </div>
+      <h3>Nature</h3>
+    </a>
+
+    <!-- Fantasy -->
+    <a href="fantasy.html" class="gallery-card">
+      <div class="gallery-image slideshow" data-images="images/fantasy/sample1.jpg,images/fantasy/sample2.jpg,images/fantasy/sample3.jpg">
+        <img src="images/fantasy/sample1.jpg" alt="Fantasy AI Art">
+      </div>
+      <h3>Fantasy</h3>
+    </a>
+
   </div>
 </section>
   <!-- Popular ribbon -->
@@ -902,5 +901,22 @@
       document.getElementById('google_translate_container').classList.add('hidden');
     });
   </script>
+  <script>
+  // Auto slideshow for each gallery card
+  document.querySelectorAll('.slideshow').forEach(slideshow => {
+    const img = slideshow.querySelector('img');
+    const images = slideshow.dataset.images.split(',');
+    let index = 0;
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = images[index];
+        img.style.opacity = 1;
+      }, 500);
+    }, 3000); // 3 seconds per image
+  });
+</script>
 </body>
 </html>
