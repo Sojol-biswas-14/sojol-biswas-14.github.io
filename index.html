@@ -202,7 +202,7 @@
     transform: translateY(0);
   }
       }
-    /* ===== Gallery Categories Section ===== */
+    /* Gallery Categories */
 .gallery-categories {
   padding: 80px 20px;
   text-align: center;
@@ -221,33 +221,39 @@
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
 }
 
 .gallery-card {
-  display: block;
   background: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .gallery-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.gallery-card img {
-  width: 100%;
-  height: 180px;
+.gallery-preview {
+  display: flex;
+  gap: 2px;
+}
+
+.gallery-preview img {
+  width: 33.33%;
+  height: 120px;
   object-fit: cover;
 }
 
 .gallery-card h3 {
   padding: 15px;
   font-size: 1.2rem;
-}
+    }
   </style>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-50">
@@ -345,46 +351,92 @@
     </div>
   </section> <!-- end of Featured AI Art -->
 <!-- ===== Gallery Categories Section ===== -->
-<section id="gallery-categories" class="gallery-categories">
+<section id="gallery-categories" class="gallery-categories fade-in">
   <div class="container">
-    <h2 class="section-title">Explore My AI Galleries</h2>
-    <p class="section-subtitle">Browse artworks across different categories</p>
+    <h2 class="section-title">🌟 Explore My AI Galleries</h2>
+    <p class="section-subtitle">Browse unique AI-generated artworks across different themes</p>
+
     <div class="gallery-grid">
-      <a href="human.html" class="gallery-card">
-        <img src="images/human/sample.jpg" alt="Human Art">
-        <h3>Human</h3>
+      <!-- Category Card -->
+      <a href="human.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/human/sample1.jpg" alt="Human Art 1">
+          <img src="images/human/sample2.jpg" alt="Human Art 2">
+          <img src="images/human/sample3.jpg" alt="Human Art 3">
+        </div>
+        <h3>👤 Human</h3>
       </a>
-      <a href="animal.html" class="gallery-card">
-        <img src="images/animal/sample.jpg" alt="Animal Art">
-        <h3>Animal</h3>
+
+      <a href="animal.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/animal/sample1.jpg" alt="Animal Art 1">
+          <img src="images/animal/sample2.jpg" alt="Animal Art 2">
+          <img src="images/animal/sample3.jpg" alt="Animal Art 3">
+        </div>
+        <h3>🐶 Animal</h3>
       </a>
-      <a href="robot.html" class="gallery-card">
-        <img src="images/robots/sample.jpg" alt="Robot Art">
-        <h3>Robot</h3>
+
+      <a href="robot.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/robots/sample1.jpg" alt="Robot Art 1">
+          <img src="images/robots/sample2.jpg" alt="Robot Art 2">
+          <img src="images/robots/sample3.jpg" alt="Robot Art 3">
+        </div>
+        <h3>🤖 Robots</h3>
       </a>
-      <a href="flower.html" class="gallery-card">
-        <img src="images/flower/sample.jpg" alt="Flower Art">
-        <h3>Flower</h3>
+
+      <a href="flower.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/flower/sample1.jpg" alt="Flower Art 1">
+          <img src="images/flower/sample2.jpg" alt="Flower Art 2">
+          <img src="images/flower/sample3.jpg" alt="Flower Art 3">
+        </div>
+        <h3>🌸 Flower</h3>
       </a>
-      <a href="house.html" class="gallery-card">
-        <img src="images/house/sample.jpg" alt="House Art">
-        <h3>House</h3>
+
+      <a href="house.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/house/sample1.jpg" alt="House Art 1">
+          <img src="images/house/sample2.jpg" alt="House Art 2">
+          <img src="images/house/sample3.jpg" alt="House Art 3">
+        </div>
+        <h3>🏠 House</h3>
       </a>
-      <a href="wallpaper.html" class="gallery-card">
-        <img src="images/wallpaper/sample.jpg" alt="Wallpaper Art">
-        <h3>Wallpaper</h3>
+
+      <a href="wallpaper.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/wallpaper/sample1.jpg" alt="Wallpaper 1">
+          <img src="images/wallpaper/sample2.jpg" alt="Wallpaper 2">
+          <img src="images/wallpaper/sample3.jpg" alt="Wallpaper 3">
+        </div>
+        <h3>🖼 Wallpaper</h3>
       </a>
-      <a href="anime.html" class="gallery-card">
-        <img src="images/anime/sample.jpg" alt="Anime Art">
-        <h3>Anime</h3>
+
+      <a href="anime.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/anime/sample1.jpg" alt="Anime Art 1">
+          <img src="images/anime/sample2.jpg" alt="Anime Art 2">
+          <img src="images/anime/sample3.jpg" alt="Anime Art 3">
+        </div>
+        <h3>🎬 Anime</h3>
       </a>
-      <a href="nature.html" class="gallery-card">
-        <img src="images/nature/sample.jpg" alt="Nature Art">
-        <h3>Nature</h3>
+
+      <a href="nature.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/nature/sample1.jpg" alt="Nature Art 1">
+          <img src="images/nature/sample2.jpg" alt="Nature Art 2">
+          <img src="images/nature/sample3.jpg" alt="Nature Art 3">
+        </div>
+        <h3>🌿 Nature</h3>
       </a>
-      <a href="fantasy.html" class="gallery-card">
-        <img src="images/fantasy/sample.jpg" alt="Fantasy Art">
-        <h3>Fantasy</h3>
+
+      <a href="fantasy.html" class="gallery-card fade-in">
+        <div class="gallery-preview">
+          <img src="images/fantasy/sample1.jpg" alt="Fantasy Art 1">
+          <img src="images/fantasy/sample2.jpg" alt="Fantasy Art 2">
+          <img src="images/fantasy/sample3.jpg" alt="Fantasy Art 3">
+        </div>
+        <h3>🧙 Fantasy</h3>
       </a>
     </div>
   </div>
