@@ -109,29 +109,39 @@ html {
   margin: 0 auto;
 }
 
-.profile-row {
+.profile-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+  background: var(--card-bg, #1e1e1e);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin: 30px auto;
+  max-width: 900px;
 }
 
-.profile-box {
+.profile-image-box img {
   width: 180px;
-  height: 180px;
-  border-radius: 12px; /* box instead of circle */
-  overflow: hidden;
-  margin-right: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.profile-box img {
-  width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
+  border-radius: 12px; /* square box with slightly rounded corners */
+  border: 3px solid var(--accent-color, #00ffcc);
 }
 
+.profile-bio {
+  flex: 1;
+}
+
+.profile-bio h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.profile-bio p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
 .bio-box {
   flex: 1;
   max-width: 500px;
@@ -373,17 +383,18 @@ html {
 <section id="hero" class="hero">
   <div class="hero-content">
     <!-- Profile & Bio Row -->
-    <div class="profile-row">
-      <div class="profile-box">
-        <img src="images/PFD-140758.jpg" alt="Sojol Biswas"/>
-      </div>
-      <div class="bio-box">
-        <h2>Sojol Biswas</h2>
-        <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
-      </div>
+  <section class="profile-section fade-in">
+  <div class="profile-container">
+    <div class="profile-image-box">
+      <img src="images/PFD-140758.jpg" alt="Sojol Biswas Profile">
     </div>
-
-    <!-- Welcome Text with Gradient + Animation -->
+    <div class="profile-bio">
+      <h2>Sojol Biswas</h2>
+      <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
+    </div>
+  </div>
+    </section>
+ <!-- Welcome Text with Gradient + Animation -->
     <div class="hero-text">
       <h1 class="animate-text">Welcome to My AI Art World 🎨</h1>
       <p class="animate-text-delay">
