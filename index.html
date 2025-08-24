@@ -984,5 +984,95 @@ html {
     }, 3000); // 3 seconds per image
   });
 </script>
+  <script>
+/**
+ * Central place to list 3+ preview images per category.
+ * Using your real filenames where available.
+ */
+const GALLERY_MANIFEST = {
+  human: [
+    "images/human/Gemini_Generated_Image_fvrkwfvrkwfvrkwf.png",
+    "images/human/Gemini_Generated_Image_86z43b86z43b86z4.png",
+    "images/human/final_painting_with_watermark.jpg"
+  ],
+  wallpaper: [
+    "images/wallpaper/1751359959278.jpg",
+    "images/wallpaper/1751359895046.jpg",
+    "images/wallpaper/1751360174913.jpg"
+  ],
+  house: [
+    "images/house/Gemini_Generated_Image_rw6tmwrw6tmwrw6t.png",
+    "images/house/Gemini_Generated_Image_rw6tmqrw6tmqrw6t.png",
+    "images/house/Gemini_Generated_Image_rw6tmtrw6tmtrw6t.png"
+  ],
+  animal: [
+    "images/animal/Gemini_Generated_Animal_01.png",
+    "images/animal/Gemini_Generated_Animal_02.png",
+    "images/animal/Gemini_Generated_Animal_03.png"
+  ],
+  flower: [
+    "images/flower/Gemini_Generated_Flower_01.png",
+    "images/flower/Gemini_Generated_Flower_02.png",
+    "images/flower/Gemini_Generated_Flower_03.png"
+  ],
+  robots: [
+    "images/robots/Gemini_Generated_Robot_01.png",
+    "images/robots/Gemini_Generated_Robot_02.png",
+    "images/robots/Gemini_Generated_Robot_03.png"
+  ],
+  anime: [
+    "images/anime/Gemini_Generated_Anime_01.png",
+    "images/anime/Gemini_Generated_Anime_02.png",
+    "images/anime/Gemini_Generated_Anime_03.png"
+  ],
+  nature: [
+    "images/nature/Gemini_Generated_Nature_01.png",
+    "images/nature/Gemini_Generated_Nature_02.png",
+    "images/nature/Gemini_Generated_Nature_03.png"
+  ],
+  fantasy: [
+    "images/fantasy/Gemini_Generated_Fantasy_01.png",
+    "images/fantasy/Gemini_Generated_Fantasy_02.png",
+    "images/fantasy/Gemini_Generated_Fantasy_03.png"
+  ]
+};
+
+// Fallback if something 404s
+const PLACEHOLDER = "https://via.placeholder.com/800x600?text=Preview";
+
+/* init slideshows */
+(function initGallerySlideshows() {
+  const cards = document.querySelectorAll('.gallery-card[data-key]');
+  cards.forEach(card => {
+    const key = card.getAttribute('data-key');
+    const container = card.querySelector('.gallery-image');
+    const img = container.querySelector('img');
+
+    const list = (GALLERY_MANIFEST[key] || []).filter(Boolean);
+    const images = list.length ? list : [PLACEHOLDER, PLACEHOLDER, PLACEHOLDER];
+
+    // set first image
+    let index = 0;
+    img.src = images[0];
+    img.onerror = () => { img.src = PLACEHOLDER; };
+
+    // auto-rotate
+    let timer = setInterval(next, 3000);
+
+    function next() {
+      index = (index + 1) % images.length;
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = images[index];
+        img.style.opacity = 1;
+      }, 400);
+    }
+
+    // pause on hover
+    card.addEventListener('mouseenter', () => clearInterval(timer));
+    card.addEventListener('mouseleave', () => { timer = setInterval(next, 3000); });
+  });
+})();
+</script>
 </body>
 </html>
