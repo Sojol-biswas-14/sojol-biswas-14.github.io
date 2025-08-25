@@ -33,13 +33,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    :root {
-  --accent-color: #00ffcc;   /* neon teal for highlights */
+ :root {
+  --brand: #00ffcc;        /* used in Tailwind arbitrary color e.g., border-[var(--brand)] */
+  --accent: #00ffcc;       /* used by .btn-glow */
   --bg-dark: #1a1a1a;
   --bg-light: #ffffff;
   --text-dark: #222;
   --text-light: #f9f9f9;
+  --card-bg: #0f172a;      /* card background for dark theme */
+  --shadow: 0 10px 25px rgba(0,0,0,.35);
+  --secondary-color: #9ca3af;
 }
+
+/* Make anchor jumps not hide under the fixed header */
+section { scroll-margin-top: 84px; }
 html {
   scroll-behavior: smooth;
 }
@@ -380,10 +387,10 @@ html {
     </div>
   </header>
 <!-- Hero Section -->
-<section id="hero" class="hero">
+<section id="home" class="hero">
   <div class="hero-content">
     <!-- Profile & Bio Row -->
-  <section class="profile-section fade-in">
+<section class="profile-section fade-section">
   <div class="profile-container">
     <div class="profile-image-box">
       <img src="images/PFD-140758.jpg" alt="Sojol Biswas Profile">
@@ -408,7 +415,7 @@ html {
   </div>
 </section>
   <!-- Featured Gallery (slider) -->
-  <section id="gallery" class="py-16 fade-section">
+<section id="featured" class="py-16 fade-section">
     <div class="max-w-7xl mx-auto px-4">
       <h2 class="text-4xl font-bold text-center mb-10">Featured AI-Generated Art</h2>
 
@@ -567,7 +574,7 @@ html {
           </label>
           <label class="block">
             <span class="block font-semibold mb-1">Hair</span>
-            <select id="hair-select" class="w-full p-2 rounded bg-slate-2 00 dark:bg-slate-700">
+            <select id="hair-select" class="w-full p-2 rounded bg-slate-200 dark:bg-slate-700">
               <option value="hair1.png">Hair 1</option>
               <option value="hair2.png">Hair 2</option>
               <option value="hair3.png">Hair 3</option>
