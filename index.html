@@ -103,19 +103,6 @@ html {
 
     /* Google Translate bubble */
     #google_translate_container { z-index: 1000; }
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #ff4ecd, #6a5af9); /* old gradient colors */
-  padding: 80px 20px;
-  text-align: center;
-  color: white;
-}
-
-.hero-content {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
 /* Profile Section */
 .profile-section {
   padding: 40px 20px;
@@ -161,61 +148,81 @@ html {
   color: #ddd;
   line-height: 1.6;
 }
-/* Hero Text Animations */
-.hero-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  animation: fadeInUp 1s ease;
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 40px 20px;
+  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
 }
 
-.hero-text p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  animation: fadeInUp 1.4s ease;
+.hero-content {
+  max-width: 800px;
+  animation: fadeIn 2s ease-in-out;
 }
 
-.hero-buttons {
-  animation: fadeInUp 1.8s ease;
-}
-
-.btn {
-  background: #fff;
-  color: #6a5af9;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border-radius: 8px;
+/* Glow Animation */
+.glow-text {
+  font-size: 38px;
   font-weight: bold;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+  animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px #00ffcc; }
+  to { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; }
+}
+
+/* Typing Animation */
+.typing-text {
+  font-size: 18px;
+  margin: 20px 0;
+  color: #ccc;
+  border-right: 2px solid #00ffcc;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 6s steps(80, end) forwards, blink 0.8s infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent }
+  50% { border-color: #00ffcc }
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  margin-top: 20px;
+}
+
+.hero-buttons .btn {
+  display: inline-block;
+  margin: 8px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: #00ffcc;
+  color: #111;
   text-decoration: none;
-  transition: all 0.3s;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #00ffcc80;
 }
 
-.btn:hover {
-  background: #ff4ecd;
-  color: white;
-}
+.hero-buttons .btn:hover {
+  background: #00e6b8;
+  box-shadow: 0 0 20px #00ffcc;
+  transform: translateY(-2px)btn-g
 
-.btn.secondary {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-}
-
-.btn.secondary:hover {
-  background: white;
-  color: #6a5af9;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-      }
     /* Gallery Categories */
 .gallery-categories {
   padding: 80px 20px;
@@ -378,10 +385,6 @@ html {
       <a href="#contact" class="block">Contact</a>
     </div>
   </header>
-<!-- Hero Section -->
-<section id="home" class="hero">
-  <div class="hero-content">
-    <!-- Profile & Bio Row -->
 <!-- Profile Section -->
 <section class="profile-section fade-in">
   <div class="profile-container">
@@ -392,17 +395,14 @@ html {
     </div>
   </div>
 </section>
- <!-- Welcome Text with Gradient + Animation -->
-    <div class="hero-text">
-      <h1 class="animate-text">Welcome to My AI Art World 🎨</h1>
-      <p class="animate-text-delay">
-        Explore stunning AI-generated artworks, customize avatars, and draw freely. 
-        A colorful yet minimalist space for creativity.
-      </p>
-      <div class="hero-buttons">
-        <a href="#gallery" class="btn-glow">View Gallery</a>
-        <a href="#avatar" class="btn secondary">Build Avatar</a>
-      </div>
+ <!-- Hero / Welcome Banner -->
+<section class="hero fade-in">
+  <div class="hero-content">
+    <h1 class="glow-text">Welcome to My AI Art World</h1>
+    <p class="typing-text">Explore stunning AI-generated artworks, customize avatars, and draw freely in a colorful, minimalist space for creativity.</p>
+    <div class="hero-buttons">
+      <a href="#gallery" class="btn-glow">🎨 View Gallery</a>
+      <a href="avatar.html" class="btn-glow">🧑‍🎨 Build Avatar</a>
     </div>
   </div>
 </section>
