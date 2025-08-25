@@ -116,56 +116,51 @@ html {
   margin: 0 auto;
 }
 
+/* Profile Section */
+.profile-section {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .profile-container {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 30px;
-  background: var(--card-bg, #1e1e1e);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  margin: 30px auto;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
   max-width: 900px;
+  width: 100%;
 }
 
-.profile-image-box img {
-  width: 180px;
-  height: 200px;
+.profile-photo {
+  width: 160px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 12px; /* square box with slightly rounded corners */
-  border: 3px solid var(--accent-color, #00ffcc);
+  border-radius: 12px; /* Square box, not circle */
+  border: 3px solid #00ffcc;
+  box-shadow: 0 0 15px #00ffcc;
 }
 
-.profile-bio {
+.profile-text {
   flex: 1;
+  color: #fff;
 }
 
-.profile-bio h2 {
-  font-size: 1.8rem;
+.profile-text h2 {
   margin-bottom: 10px;
+  font-size: 26px;
+  color: #00ffcc;
 }
 
-.profile-bio p {
-  font-size: 1rem;
+.profile-text p {
+  font-size: 16px;
+  color: #ddd;
   line-height: 1.6;
 }
-.bio-box {
-  flex: 1;
-  max-width: 500px;
-  text-align: left;
-}
-
-.bio-box h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.bio-box p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
 /* Hero Text Animations */
 .hero-text h1 {
   font-size: 2.5rem;
@@ -387,16 +382,16 @@ html {
 <section id="home" class="hero">
   <div class="hero-content">
     <!-- Profile & Bio Row -->
-<section class="profile-section fade-section">
+<!-- Profile Section -->
+<section class="profile-section fade-in">
   <div class="profile-container">
-    <div class="profile-image-box">
-      <img src="images/PFD-140758.jpg" alt="Sojol Biswas Profile">
-    </div>
-    <div class="profile-bio">
+    <img src="PFD-140758.jpg" alt="Sojol Biswas" class="profile-photo" />
+    <div class="profile-text">
       <h2>Sojol Biswas</h2>
       <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
     </div>
   </div>
+</section>
  <!-- Welcome Text with Gradient + Animation -->
     <div class="hero-text">
       <h1 class="animate-text">Welcome to My AI Art World 🎨</h1>
