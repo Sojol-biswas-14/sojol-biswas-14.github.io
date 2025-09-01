@@ -383,24 +383,27 @@ html {
 <section id="hero" class="hero">
   <div class="hero-content">
     <!-- Profile & Bio Row -->
-  <section class="profile-section fade-in">
-  <div class="profile-container">
-    <div class="profile-image-box">
-      <img src="images/PFD-140758.jpg" alt="Sojol Biswas Profile">
-    </div>
-    <div class="profile-bio">
-      <h2>Sojol Biswas</h2>
-      <p>AI Artist & Developer from Mymensingh, Bangladesh. Passionate about creating unique digital art and interactive web experiences.</p>
-    </div>
-  </div>
-    </section>
- <!-- Welcome Text with Gradient + Animation -->
-    <div class="hero-text">
-      <h1 class="animate-text">Welcome to My AI Art World 🎨</h1>
-      <p class="animate-text-delay">
-        Explore stunning AI-generated artworks, customize avatars, and draw freely. 
-        A colorful yet minimalist space for creativity.
-      </p>
+  <!-- Profile Section -->
+<section class="profile-section text-center py-12">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      
+      <!-- Profile Photo -->
+      <div class="w-48 h-48 bg-white rounded-xl shadow-xl flex items-center justify-center overflow-hidden">
+        <img 
+          src="PFD-140758.jpg" 
+          alt="Sojol Biswas Profile" 
+          class="object-cover w-full h-full"
+        />
+      </div>
+
+      <!-- Bio Text -->
+      <div class="text-left text-white md:w-2/3">
+        <h2 class="text-3xl font-bold mb-2">Sojol Biswas</h2>
+        <p class="text-lg leading-relaxed">
+          AI Artist & Developer from Mymensingh, Bangladesh. Passionate about 
+          creating unique digital art and interactive web experiences.
+        </p>
       <div class="hero-buttons">
         <a href="#gallery" class="btn-glow">View Gallery</a>
         <a href="#avatar" class="btn-glow">Build Avatar</a>
