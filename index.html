@@ -72,20 +72,62 @@ html {
     }
     @keyframes ribbonScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* Drawing board wrapper */
-    .canvas-shell {
-      background: rgba(255,255,255,0.04);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    canvas#drawingCanvas {
-      background:#0f172a; /* slate-900 */
-      border-radius: 12px;
-      touch-action: none; /* stop page scrolling while drawing */
-      width: 100%;
-      height: auto;
-    }
+ /* ---- Drawing Board Styling ---- */
+.btn-draw {
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(0,255,204,0.35);
+  color: white;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+  transition: 0.25s ease;
+}
+.btn-draw:hover {
+  background: rgba(0,255,204,0.12);
+  box-shadow: 0 0 14px rgba(0,255,204,0.3);
+}
+
+.btn-save {
+  background: #10b981;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.btn-share {
+  background: #0ea5e9;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.neon-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+.neon-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+/* Canvas Frame */
+.canvas-shell {
+  border: 2px solid rgba(0,255,204,0.25);
+  border-radius: 20px;
+  padding: 15px;
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 0 18px rgba(0,255,204,0.15);
+}
+
+#drawingCanvas {
+  width: 100%;
+  height: auto;
+  background: #0f172a;
+  border-radius: 12px;
+  display: block;
+  touch-action: none;
+                            }
 
     /* Fade-in on scroll */
     .fade-section { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
@@ -603,38 +645,42 @@ html {
     </div>
   </section>
 
-  <!-- Drawing Board -->
-  <section id="draw" class="py-16 fade-section">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-2">Draw Something!</h2>
-      <p class="text-center opacity-80 mb-6">Undo/redo, templates, upload background, save & share.</p>
+<!-- DRAWING BOARD — FINAL UPGRADED VERSION -->
+<section id="draw" class="py-20 fade-section">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-4xl font-extrabold text-center mb-3 text-[var(--accent)]">Drawing Board</h2>
+    <p class="text-center opacity-80 mb-10 text-lg">Smooth drawing • Undo/Redo • Templates • Upload • Save • Share</p>
 
-      <div class="canvas-shell">
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-3">
-          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="undo()">⤺ Undo</button>
-          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="redo()">⤻ Redo</button>
-          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="clearCanvas()">🧹 Clear</button>
-          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="clearSavedDrawing()">🗑 Clear Memory</button>
+    <!-- Controls Bar -->
+    <div class="flex overflow-x-auto gap-3 pb-3 mb-4 neon-scrollbar">
+      <button class="btn-draw" onclick="undo()">⤺ Undo</button>
+      <button class="btn-draw" onclick="redo()">⤻ Redo</button>
+      <button class="btn-draw" onclick="clearCanvas()">🧹 Clear</button>
 
-          <input id="colorPicker" type="color" value="#00ffcc" class="w-10 h-10 rounded" title="Color" />
-          <input id="brushSize" type="range" min="1" max="30" value="4" class="w-40" />
+      <input id="colorPicker" type="color" value="#00ffcc" class="w-12 h-12 rounded border-2 border-[var(--accent)]" />
+      <input id="brushSize" type="range" min="1" max="30" value="4" class="w-32">
 
-          <button class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onclick="uploadImage()">🖼 Upload Background</button>
-          <select id="bgTemplate" class="px-3 py-2 rounded bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-white" onchange="changeBackgroundTemplate(this.value)">
-            <option value="">🎨 Template</option>
-            <option value="dots">Dotted</option>
-            <option value="grid">Grid</option>
-            <option value="lines">Lined</option>
-            <option value="none">None</option>
-          </select>
+      <button class="btn-draw" onclick="uploadImage()">🖼 Upload BG</button>
 
-          <button class="px-3 py-2 rounded bg-emerald-500 text-white" onclick="saveImage()">💾 Save</button>
-          <button class="px-3 py-2 rounded bg-sky-500 text-white" onclick="shareDrawing()">📤 Share</button>
-        </div>
+      <select id="bgTemplate" class="btn-draw" onchange="setTemplate(this.value)">
+        <option value="">🎨 Template</option>
+        <option value="dots">Dotted</option>
+        <option value="grid">Grid</option>
+        <option value="lines">Lined</option>
+        <option value="none">None</option>
+      </select>
 
-        <canvas id="drawingCanvas" width="900" height="450"></canvas>
-        <input id="uploadInput" type="file" accept="image/*" class="hidden" />
-      </div>
+      <button class="btn-save" onclick="saveImage()">💾 Save</button>
+      <button class="btn-share" onclick="shareDrawing()">📤 Share</button>
+    </div>
+
+    <!-- Canvas Container -->
+    <div class="canvas-shell">
+      <canvas id="drawingCanvas"></canvas>
+      <input id="uploadInput" type="file" accept="image/*" class="hidden" />
+    </div>
+  </div>
+</section>
 
       <!-- Fake AI preview -->
       <div id="aiOutput" class="hidden mt-6 text-center">
