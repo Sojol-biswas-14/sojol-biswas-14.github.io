@@ -1084,6 +1084,41 @@ function drawGrid() {
   }
   ctx.restore();
 }
+function uploadBG() {
+  document.getElementById("bgInput").click();
+}
+
+document.getElementById("bgInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const img = new Image();
+  img.onload = () => {
+    backgroundImage = img;
+    redraw(); // use your existing redraw()
+  };
+  img.src = URL.createObjectURL(file);
+});
+    function saveImage() {
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "drawing.png";
+  link.click();
+    }
+    function shareImage() {
+  canvas.toBlob((blob) => {
+    const file = new File([blob], "drawing.png", { type: "image/png" });
+
+    if (navigator.share) {
+      navigator.share({
+        title: "My Drawing",
+        files: [file]
+      }).catch(() => {});
+    } else {
+      alert("Sharing not supported on this device.");
+    }
+  });
+    }
 
 /* Save as PNG */
 function saveImage() {
