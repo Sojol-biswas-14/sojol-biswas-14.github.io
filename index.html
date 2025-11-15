@@ -72,62 +72,56 @@ html {
     }
     @keyframes ribbonScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
- /* ---- Drawing Board Styling ---- */
-.btn-draw {
-  padding: 10px 14px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(0,255,204,0.35);
-  color: white;
-  border-radius: 8px;
-  white-space: nowrap;
-  font-size: 14px;
-  transition: 0.25s ease;
-}
-.btn-draw:hover {
-  background: rgba(0,255,204,0.12);
-  box-shadow: 0 0 14px rgba(0,255,204,0.3);
+/* Canvas */
+#drawingCanvas {
+  width: 100%;
+  height: 480px;
+  background: #0f172a;
+  border-radius: 12px;
+  touch-action: none;
+  display: block;
 }
 
-.btn-save {
-  background: #10b981;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-.btn-share {
-  background: #0ea5e9;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.neon-scrollbar::-webkit-scrollbar {
-  height: 8px;
-}
-.neon-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 6px;
-}
-
-/* Canvas Frame */
+/* Wrapper */
 .canvas-shell {
-  border: 2px solid rgba(0,255,204,0.25);
-  border-radius: 20px;
-  padding: 15px;
-  background: rgba(255,255,255,0.03);
+  border: 2px solid rgba(0,255,204,0.20);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,0.02);
   box-shadow: 0 0 18px rgba(0,255,204,0.15);
 }
 
-#drawingCanvas {
-  width: 100%;
-  height: auto;
-  background: #0f172a;
-  border-radius: 12px;
-  display: block;
-  touch-action: none;
-                            }
+/* Buttons */
+.btn-draw {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,255,204,0.22);
+  color: white;
+  border-radius: 8px;
+  transition: 0.25s;
+}
+
+.btn-draw:hover {
+  background: rgba(0,255,204,0.12);
+  box-shadow: 0 0 12px rgba(0,255,204,0.25);
+}
+
+.btn-save {
+  padding: 8px 14px;
+  background: #10b981;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Color presets */
+.color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+}
 
     /* Fade-in on scroll */
     .fade-section { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
@@ -645,43 +639,57 @@ html {
     </div>
   </section>
 
-<!-- DRAWING BOARD — FINAL UPGRADED VERSION -->
+<!-- ========================= -->
+<!-- UPGRADED DRAWING BOARD -->
+<!-- ========================= -->
 <section id="draw" class="py-20 fade-section">
-  <div class="max-w-7xl mx-auto px-4">
-    <h2 class="text-4xl font-extrabold text-center mb-3 text-[var(--accent)]">Drawing Board</h2>
-    <p class="text-center opacity-80 mb-10 text-lg">Smooth drawing • Undo/Redo • Templates • Upload • Save • Share</p>
+  <div class="max-w-5xl mx-auto px-4">
 
-    <!-- Controls Bar -->
-    <div class="flex overflow-x-auto gap-3 pb-3 mb-4 neon-scrollbar">
+    <h2 class="text-3xl font-extrabold text-center text-[var(--accent)] mb-4">
+      Drawing Board
+    </h2>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap justify-center gap-3 mb-5">
+
+      <button class="btn-draw" onclick="setTool('pen')">✏ Pen</button>
+      <button class="btn-draw" onclick="setTool('glow')">✨ Glow</button>
+      <button class="btn-draw" onclick="setTool('eraser')">🧽 Eraser</button>
+
+      <!-- Brush Size -->
+      <div class="flex items-center gap-2">
+        <label class="text-sm opacity-70">Size</label>
+        <input id="brushSize" type="range" min="1" max="60" value="6" class="w-40" />
+      </div>
+
+      <!-- Color Picker -->
+      <input id="colorPicker" type="color" value="#00ffc8" class="w-10 h-10 rounded" />
+
+      <!-- Preset Colors -->
+      <div class="flex gap-1">
+        <div class="color-dot" style="background:#00ffc8" onclick="setColorPreset('#00ffc8')"></div>
+        <div class="color-dot" style="background:#f43f5e" onclick="setColorPreset('#f43f5e')"></div>
+        <div class="color-dot" style="background:#3b82f6" onclick="setColorPreset('#3b82f6')"></div>
+        <div class="color-dot" style="background:#fde047" onclick="setColorPreset('#fde047')"></div>
+        <div class="color-dot" style="background:#a855f7" onclick="setColorPreset('#a855f7')"></div>
+      </div>
+
       <button class="btn-draw" onclick="undo()">⤺ Undo</button>
       <button class="btn-draw" onclick="redo()">⤻ Redo</button>
+
+      <button class="btn-draw" onclick="toggleGrid()"># Grid</button>
+
       <button class="btn-draw" onclick="clearCanvas()">🧹 Clear</button>
-
-      <input id="colorPicker" type="color" value="#00ffcc" class="w-12 h-12 rounded border-2 border-[var(--accent)]" />
-      <input id="brushSize" type="range" min="1" max="30" value="4" class="w-32">
-
-      <button class="btn-draw" onclick="uploadImage()">🖼 Upload BG</button>
-
-      <select id="bgTemplate" class="btn-draw" onchange="setTemplate(this.value)">
-        <option value="">🎨 Template</option>
-        <option value="dots">Dotted</option>
-        <option value="grid">Grid</option>
-        <option value="lines">Lined</option>
-        <option value="none">None</option>
-      </select>
-
       <button class="btn-save" onclick="saveImage()">💾 Save</button>
-      <button class="btn-share" onclick="shareDrawing()">📤 Share</button>
     </div>
 
-    <!-- Canvas Container -->
+    <!-- Canvas -->
     <div class="canvas-shell">
       <canvas id="drawingCanvas"></canvas>
-      <input id="uploadInput" type="file" accept="image/*" class="hidden" />
     </div>
+
   </div>
 </section>
-
       <!-- Fake AI preview -->
       <div id="aiOutput" class="hidden mt-6 text-center">
         <h3 class="text-xl font-semibold mb-3">AI Generated Image Preview</h3>
